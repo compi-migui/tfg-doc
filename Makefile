@@ -1,32 +1,28 @@
 BASEDIR ?= ${CURDIR}
 OUTDIR ?= ${BASEDIR}/out
 SRCDIR ?= ${BASEDIR}/src
+BUILDDIR ?= ${BASEDIR}/build
 TEMPLATEDIR ?= ${BASEDIR}/templates
 
-# SECTIONS_FILE ?= "${SRCDIR}/structure/sections"
-# Section order here determines order in the generated doc.
-SECTIONS = meta abstract intro state-of-the-art methodology results conclusions sustainability economics appendices bibliography
+mdfiles := $(shell find "${SRCDIR}" -type f -name "*.md" | sort --version-sort)
 
-vpath %.md "${SRCDIR}/md"
+# Disables implicit rules, makes for easier debugging
+.SUFFIXES:
+
+.PHONY: echo
+
+echo: ${mdfiles}
+	echo $^
 
 pdf: tfg.pdf
 
-tfg.pdf: mdfiles
+tfg.pdf: ${mdfiles}
 	pandoc \
 		--output "${OUTDIR}/tfg.pdf" \
 		--template "${TEMPLATEDIR}/template.tex" \
 		--pdf-engine xelatex \
 		--number-sections \
 	#	--variable key:value
-		$(cat mdfiles)
-
-mdfiles: $(SECTIONS)
-	cat $< > $@
-
-# sections: $(SECTIONS)
-# 	cat $< > $@
-
-$(SECTIONS): $(shell find $@ -type f -name "*.md")
-	echo $< > $@
+		${mdfiles}
 
 
