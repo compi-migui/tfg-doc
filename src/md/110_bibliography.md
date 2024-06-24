@@ -1,1 +1,2 @@
-This is a bibliography stub.
+# Bibliography
+References we uh, referenced in this work.
