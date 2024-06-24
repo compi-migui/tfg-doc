@@ -2,7 +2,7 @@ BASEDIR ?= ${CURDIR}
 OUTDIR ?= ${BASEDIR}/out
 SRCDIR ?= ${BASEDIR}/src
 BUILDDIR ?= ${BASEDIR}/build
-TEMPLATEDIR ?= ${BASEDIR}/templates
+TEMPLATEDIR ?= ${SRCDIR}/templates
 BINDIR ?= ${BASEDIR}/bin
 
 export PATH := ${BINDIR}:${PATH}
@@ -19,13 +19,12 @@ echo: ${mdfiles}
 
 pdf: tfg.pdf
 
-tfg.pdf: ${mdfiles}
+tfg.pdf: ${mdfiles} pandoc pandoc-crossref
+	mkdir -p ${OUTDIR}
 	pandoc \
 		--output "${OUTDIR}/tfg.pdf" \
-		--template "${TEMPLATEDIR}/template.tex" \
-		--pdf-engine xelatex \
+		--template "${TEMPLATEDIR}/eisvogel.latex" \
 		--number-sections \
-	#	--variable key:value
 		${mdfiles}
 
 install: pandoc pandoc-crossref
