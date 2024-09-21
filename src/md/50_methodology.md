@@ -3,8 +3,10 @@
 What we do and how. Detailed description of all tooling and data used.
 
 ## Reproduction
+We reproduced a paper. Explain that.
 
 ### Original paper's methodology
+How did the paper do it?
 
 ### Implementation using open source software
 Python libraries rather than MatLab stuff.
