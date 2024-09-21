@@ -1,3 +1,4 @@
+\newpage
 # Introduction and goals
 ## Introduction
 Wind makes turbine spin, making power. Good.
