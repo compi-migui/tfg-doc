@@ -13,11 +13,11 @@ mdfiles := $(shell find "${SRCDIR}" -type f -name "*.md" | sort --version-sort)
 .SUFFIXES:
 
 .PHONY: echo
+pdf: tfg.pdf
 
 echo: ${mdfiles}
 	echo $^
 
-pdf: tfg.pdf
 
 tfg.pdf: ${mdfiles} pandoc pandoc-crossref
 	mkdir -p ${OUTDIR}
