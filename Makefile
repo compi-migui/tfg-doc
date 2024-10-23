@@ -3,6 +3,7 @@ OUTDIR ?= ${BASEDIR}/out
 SRCDIR ?= ${BASEDIR}/src
 BUILDDIR ?= ${BASEDIR}/build
 TEMPLATEDIR ?= ${SRCDIR}/templates
+FIGURESDIR ?= ${SRCDIR}/figures
 BINDIR ?= ${BASEDIR}/bin
 
 export PATH := ${BINDIR}:${PATH}
@@ -22,8 +23,10 @@ echo: ${mdfiles}
 tfg.pdf: ${mdfiles} pandoc pandoc-crossref
 	mkdir -p ${OUTDIR}
 	pandoc \
+		--filter pandoc-crossref \
 		--output "${OUTDIR}/tfg.pdf" \
 		--template "${TEMPLATEDIR}/eisvogel.latex" \
+		--resource-path "${FIGURESDIR}" \
 		--number-sections \
 		${mdfiles}
 
