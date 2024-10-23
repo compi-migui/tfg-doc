@@ -1,3 +1,3 @@
 \newpage
 # Sustainability analysis
-May or may not be necessary. Talk of renewables might be nice.
+This is in the official template but it may not be necessary. If we must include it, talk of renewables might be nice.
