@@ -1101,12 +1101,6 @@ $endif$
 }
 $endif$
 $endif$
-$if(lof)$
-\listoffigures
-$endif$
-$if(lot)$
-\listoftables
-$endif$
 $if(linestretch)$
 \setstretch{$linestretch$}
 $endif$
