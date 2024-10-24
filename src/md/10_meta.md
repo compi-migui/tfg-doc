@@ -1,12 +1,15 @@
 ---
 title: "Applying machine learning algorithms to structural health monitoring of jacket-supported offshore wind turbines"
 author: [Miguel Garcia]
-date: "DRAFT 1"
+date: "DRAFT 2"
 subject: "Applying machine learning algorithms to structural health monitoring of jacket-supported offshore wind turbines"
 keywords: [Machine learning, PCA, Wind power, Offshore wind turbines]
 lang: "en"
 titlepage: true
 toc: true
 toc-own-page: true
+lot: false
+lof: false
 linkReferences: true
 ...
+\AtBeginEnvironment{longtable}{\footnotesize}
