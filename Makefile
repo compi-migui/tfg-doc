@@ -1,14 +1,17 @@
 BASEDIR ?= ${CURDIR}
 OUTDIR ?= ${BASEDIR}/out
 SRCDIR ?= ${BASEDIR}/src
+MDDIR ?= ${SRCDIR}/md
 BUILDDIR ?= ${BASEDIR}/build
 TEMPLATEDIR ?= ${SRCDIR}/templates
 FIGURESDIR ?= ${SRCDIR}/figures
+CITATIONSFILE ?= ${SRCDIR}/citations/zotero.bib
+
 BINDIR ?= ${BASEDIR}/bin
 
 export PATH := ${BINDIR}:${PATH}
 
-mdfiles := $(shell find "${SRCDIR}" -type f -name "*.md" | sort --version-sort)
+mdfiles := $(shell find "${MDDIR}" -type f -name "*.md" | sort --version-sort)
 
 # Disables implicit rules, makes for easier debugging
 .SUFFIXES:
@@ -24,6 +27,12 @@ tfg.pdf: ${mdfiles} pandoc pandoc-crossref
 	mkdir -p ${OUTDIR}
 	pandoc \
 		--filter pandoc-crossref \
+		--bibliography ${CITATIONSFILE} \
+		--citeproc \
+		--list-of-figures=false \
+		--list-of-tables=false \
+		--standalone \
+		--pdf-engine xelatex \
 		--output "${OUTDIR}/tfg.pdf" \
 		--template "${TEMPLATEDIR}/eisvogel.latex" \
 		--resource-path "${FIGURESDIR}" \
@@ -34,10 +43,10 @@ install: pandoc pandoc-crossref
 
 pandoc:
 ifeq (, $(shell which pandoc))
-$(shell curl -L https://github.com/jgm/pandoc/releases/download/3.2/pandoc-3.2-linux-amd64.tar.gz | tar -zx pandoc-3.2/bin && mkdir -p bin && mv pandoc-3.2/bin/pandoc bin/ && rm -rf pandoc-3.2)
+$(shell curl -L https://github.com/jgm/pandoc/releases/download/3.5/pandoc-3.5-linux-amd64.tar.gz | tar -zx pandoc-3.5/bin && mkdir -p bin && mv pandoc-3.5/bin/pandoc bin/ && rm -rf pandoc-3.5)
 endif
 
 pandoc-crossref:
 ifeq (, $(shell which pandoc-crossref))
-$(shell curl -L https://github.com/lierdakil/pandoc-crossref/releases/download/v0.3.16.0a/pandoc-crossref-Linux.tar.xz | tar --xz -x pandoc-crossref && mkdir -p bin && mv pandoc-crossref bin/pandoc-crossref)
+$(shell curl -L https://github.com/lierdakil/pandoc-crossref/releases/download/v0.3.18.0b/pandoc-crossref-Linux-X64.tar.xz | tar --xz -x pandoc-crossref && mkdir -p bin && mv pandoc-crossref bin/pandoc-crossref)
 endif
