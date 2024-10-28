@@ -16,7 +16,7 @@ Much like @vidal_structural_2020 we choose choose three numbers of Principal Com
 
 The results for all these permutations are displayed in [@tbl:reproduce-results-table-knn] **TODO: talk about them and compare to the results from @vidal_structural_2020**
 
-**TODO: make tables more compact and don't repeat variance/pc_num values in all rows**
+**TODO: don't repeat variance/pc_num values in all rows**
 
 +------------+----------+-----+--------+--------+--------+--------+--------+
 |   variance |   pc_num |   k |    acc |    ppv |    tpr |     f1 |    tnr |
