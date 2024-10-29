@@ -3,6 +3,36 @@
 <!--  Descripció i anàlisis dels resultats obtinguts amb la metodologia proposada -->
 Describe results and analyze them. Make sure to include pretty graphs whenever possible. Everybody loves pretty pictures.
 
+## Experimental data used
+While we're reproducing the _methodology_ of @vidal_structural_2020, we don't aim to simply put the same experimental data through the same process. We'll instead use the data that was generated for @leon_medina_online_2023, which used the same laboratory setup to run additional trials.
+
+@leon_medina_online_2023 deals with stream data classifiers and the data it collected is shaped accordingly: the duration of each of its trials is over 12 times longer than those of @vidal_structural_2020 in order to give its classifiers a chance to train online and start giving accurate results. **TODO: maybe worth going a bit more in depth about online vs. offline classifiers, like a paragraph or two. applications, memory usage, etc.**
+
+Because the methodology we're reproducing uses offline classifiers, which tend to work on the entire data set at once, using this data as-is imposes prohibitive resource requirements: 12 times as much data requires at 12 times as much working memory. While this is technically achievable using professional server hardware, it greatly increases running costs for very marginal or nonexistent benefit. That's why we won't use the data as-is. We'll instead truncate the data sets, keeping all the complexity and varability (number of sensors, damage conditions, wind amplitude conditions and trials) while reducing memory requirements six-fold. **TODO: talk about time complexity and memory complexity and how it relates to the algorithms we're using? big O notation etc. Math is fun!**
+
+|                                                         | @vidal_structural_2020 | @leon_medina_online_2023 | Truncated @leon_medina_online_2023 |
+|---------------------------------------------------------|------------------------|--------------------------|------------------------------------|
+| Structural states ($J$)                                 | 5                      | 5                        | 5                                  |
+| Wind amplitudes ($A$)                                   | 4                      | 4                        | 4                                  |
+| Total trials, by structural state ($n_i$)               |                        |                          |                                    |
+| $n_1$                                                   | 4980                   | 2460                     | 2460                               |
+| $n_2$                                                   | 1660                   | 820                      | 820                                |
+| $n_3$                                                   | 1660                   | 820                      | 820                                |
+| $n_4$                                                   | 1660                   | 820                      | 820                                |
+| $n_5$                                                   | 1660                   | 820                      | 820                                |
+| $n_{total}$                                             | 11620                  | 5740                     | 5740                               |
+| Sensors ($k$)                                           | 24                     | 24                       | 24                                 |
+| Timestamps per trial ($L$)                              | 199                    | 2417                     | 403                                |
+| Sampling frequency, in Hz                               | 275                    | 275                      | 275                                |
+| Readings per trial ($k \cdot L$)                        | 4776                   | 58008                    | 9672                               |
+|                                                         |                        |                          |                                    |
+| Data set size ($n_{total} \cdot k \cdot L$)             | 5.55E+07               | 3.33E+08                 | 5.55E+07                           |
+| Size ratio                                              | 1.0                    | 6.0                      | 1.0                                |
+
+: Comparison between the shapes of the data used by @vidal_structural_2020, @leon_medina_online_2023 and the truncated version of the latter used in this work. {#tbl:input-data-comparison}
+
+**TODO: better heading for this table? the full citations are cumbersome**
+
 ## Reproduction
 
 ### Results of kNN
