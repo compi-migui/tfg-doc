@@ -28,6 +28,8 @@ Everybody's favorite friend: PCA! What is it? Both in mathematical terms and in 
 #### Classification
 Explain what each of these even is.
 
+**TODO: mention OvO and OvA (One vs One/All)**
+
 ##### kNN
 It kays the Ns.
 
@@ -45,6 +47,8 @@ Super Vicious Manatee!
 
 Scatter plots of a few principal component pairs. Blue dots are trials from the "healthy" set, while other colors are trials of different damage configurations.
 </div>
+
+**TODO: in the Results section, add similar PCA plots but coloring by predicted class instead of true class**
 
 #### Cross-validation
 This isn't your grandma's boring training/test split!

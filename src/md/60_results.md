@@ -4,6 +4,7 @@
 Describe results and analyze them. Make sure to include pretty graphs whenever possible. Everybody loves pretty pictures.
 
 ## Experimental data used
+
 While we're reproducing the _methodology_ of @vidal_structural_2020, we don't aim to simply put the same experimental data through the same process. We'll instead use the data that was generated for @leon_medina_online_2023, which used the same laboratory setup to run additional trials.
 
 @leon_medina_online_2023 deals with stream data classifiers and the data it collected is shaped accordingly: the duration of each of its trials is over 12 times longer than those of @vidal_structural_2020 in order to give its classifiers a chance to train online and start giving accurate results. **TODO: maybe worth going a bit more in depth about online vs. offline classifiers, like a paragraph or two. applications, memory usage, etc.**
@@ -32,6 +33,37 @@ Because the methodology we're reproducing uses offline classifiers, which tend t
 : Comparison between the shapes of the data used by @vidal_structural_2020, @leon_medina_online_2023 and the truncated version of the latter used in this work. {#tbl:input-data-comparison}
 
 **TODO: better heading for this table? the full citations are cumbersome**
+
+## Performance measures
+
+As we aim to reproduce an existing methodology, in order to make it possible to actually compare our results to @vidal_structural_2020's side by side we'll evaluate the models using the same metrics they did. We'll also look at a few metric not evaluated in the original paper, namely the Matthews correlation coefficient (MCC) as described by @chicco_advantages_2020 and the General Performance Score as described by @de_diego_general_2022.
+
+### Binary measures
+
+There can be no doubt that we are tackling a multiclass classification problem. Our data set was gathered from experiments that ran on five structural configurations: one healthy and four of different damaged states. We want our classifiers to be able to discern not simply whether a given trial belongs to a healthy or damaged structure, but to which specific configuration out of the five.
+
+However, when it comes to evaluating the results, it is very useful to start with very simple metrics that we use as stepping stones to reach more generalized or global metrics. These are binary classifier performance measures: designed to evaluate the performance of binary classifiers, but applicable to multiclass classifiers with some creative reshaping of the raw results.
+
+For each of the _classes_—in our case, structural states—we look only at whether a given sample belongs to it or not (a true/false binary) and whether the classifier asserted it belongs to it or not (another true/false binary). The four possible conditions can be represented as a confusion matrix, a construct reminiscent of but distinct from truth tables. See **TODO: add example truth table**
+
+This gives us our first quantifiable results: out of actually positive samples, ones that were correctly predicted as such are True Positive results (TP) and ones that were incorrectly predicted as negative matches are False Negatives (FN). Conversely, out of actually negative samples, ones that were correctly predicted as such are True Negatives (TN) whereas ones that were incorrectly predicted as positive matches are False Positives (FP).
+
+From there we can compute the rest of the binary measures right away. As defined by @sammut_encyclopedia_2017, they are:
+
+-   Accuracy (ACC):
+-   Precision:
+-   True positive rate (TPR): also known as recall or sensitivity.
+-   F~1~ score:
+-   True negative rate (TNR): also known as specificity.
+
+**TODO: definitions and formulae for binary measures. take them, citing properly, from @sammut_encyclopedia_2017**
+
+
+**TODO: talk about precision/recall tradeoff**
+
+**TODO: a graphic like the one in oreilly's fig 3-2 illustrating confusion matrices would be neat**
+
+### Multiclass measures
 
 ## Reproduction
 
