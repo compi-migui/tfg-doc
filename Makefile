@@ -5,6 +5,7 @@ MDDIR ?= ${SRCDIR}/md
 BUILDDIR ?= ${BASEDIR}/build
 TEMPLATEDIR ?= ${SRCDIR}/templates
 FIGURESDIR ?= ${SRCDIR}/figures
+CITATIONSTYLEFILE ?= ${TEMPLATEDIR}/apa-6th-edition.csl
 CITATIONSFILE ?= ${SRCDIR}/citations/zotero.bib
 
 BINDIR ?= ${BASEDIR}/bin
@@ -28,6 +29,7 @@ tfg.pdf: ${mdfiles} pandoc pandoc-crossref
 	pandoc \
 		--filter pandoc-crossref \
 		--bibliography ${CITATIONSFILE} \
+		--csl ${CITATIONSTYLEFILE} \
 		--citeproc \
 		--list-of-figures=false \
 		--list-of-tables=false \
