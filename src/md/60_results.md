@@ -5,13 +5,13 @@ Describe results and analyze them. Make sure to include pretty graphs whenever p
 
 ## Experimental data used
 
-While we're reproducing the _methodology_ of @vidal_structural_2020, we don't aim to simply put the same experimental data through the same process. We'll instead use the data that was generated for @leon_medina_online_2023, which used the same laboratory setup to run additional trials.
+While we're reproducing the _methodology_ of [@vidal_structural_2020], we don't aim to simply put the same experimental data through the same process. We'll instead use the data that was generated for [@leon_medina_online_2023], which used the same laboratory setup to run additional trials.
 
-@leon_medina_online_2023 deals with stream data classifiers and the data it collected is shaped accordingly: the duration of each of its trials is over 12 times longer than those of @vidal_structural_2020 in order to give its classifiers a chance to train online and start giving accurate results. **TODO: maybe worth going a bit more in depth about online vs. offline classifiers, like a paragraph or two. applications, memory usage, etc.**
+@leon_medina_online_2023 deals with stream data classifiers and the data it collected is shaped accordingly: the duration of each of its trials is over 12 times longer than those of [@vidal_structural_2020] in order to give its classifiers a chance to train online and start giving accurate results. **TODO: maybe worth going a bit more in depth about online vs. offline classifiers, like a paragraph or two. applications, memory usage, etc.**
 
 Because the methodology we're reproducing uses offline classifiers, which tend to work on the entire data set at once, using this data as-is imposes prohibitive resource requirements: 12 times as much data requires at 12 times as much working memory. While this is technically achievable using professional server hardware, it greatly increases running costs for very marginal or nonexistent benefit. That's why we won't use the data as-is. We'll instead truncate the data sets, keeping all the complexity and varability (number of sensors, damage conditions, wind amplitude conditions and trials) while reducing memory requirements six-fold. **TODO: talk about time complexity and memory complexity and how it relates to the algorithms we're using? big O notation etc. Math is fun!**
 
-|                                                         | @vidal_structural_2020 | @leon_medina_online_2023 | Truncated @leon_medina_online_2023 |
+|                                                         | [@vidal_structural_2020] | [@leon_medina_online_2023] | Truncated [@leon_medina_online_2023] |
 |---------------------------------------------------------|------------------------|--------------------------|------------------------------------|
 | Structural states ($J$)                                 | 5                      | 5                        | 5                                  |
 | Wind amplitudes ($A$)                                   | 4                      | 4                        | 4                                  |
@@ -30,13 +30,13 @@ Because the methodology we're reproducing uses offline classifiers, which tend t
 | Data set size ($n_{total} \cdot k \cdot L$)             | 5.55E+07               | 3.33E+08                 | 5.55E+07                           |
 | Size ratio                                              | 1.0                    | 6.0                      | 1.0                                |
 
-: Comparison between the shapes of the data used by @vidal_structural_2020, @leon_medina_online_2023 and the truncated version of the latter used in this work. {#tbl:input-data-comparison}
+: Comparison between the shapes of the data used by [@vidal_structural_2020], [@leon_medina_online_2023] and the truncated version of the latter used in this work. {#tbl:input-data-comparison}
 
 **TODO: better heading for this table? the full citations are cumbersome**
 
 ## Performance measures
 
-As we aim to reproduce an existing methodology, in order to make it possible to actually compare our results to @vidal_structural_2020's side by side we'll evaluate the models using the same metrics they did. We'll also look at a few metric not evaluated in the original paper, namely the Matthews correlation coefficient (MCC) as described by @chicco_advantages_2020 and the General Performance Score as described by @de_diego_general_2022.
+As we aim to reproduce an existing methodology, in order to make it possible to actually compare our results to [@vidal_structural_2020]'s side by side we'll evaluate the models using the same metrics they did. We'll also look at a few metric not evaluated in the original paper, namely the Matthews correlation coefficient (MCC) as described by [@chicco_advantages_2020] and the General Performance Score as described by [@de_diego_general_2022].
 
 ### Binary measures
 
@@ -48,18 +48,23 @@ For each of the _classes_—in our case, structural states—we look only at whe
 
 This gives us our first quantifiable results: out of actually positive samples, ones that were correctly predicted as such are True Positive results (TP) and ones that were incorrectly predicted as negative matches are False Negatives (FN). Conversely, out of actually negative samples, ones that were correctly predicted as such are True Negatives (TN) whereas ones that were incorrectly predicted as positive matches are False Positives (FP).
 
-From there we can compute the rest of the binary measures right away. As defined by @sammut_encyclopedia_2017, they are:
+From there we can compute the rest of the binary measures right away. They are:
 
--   Accuracy (ACC):
--   Precision:
--   True positive rate (TPR): also known as recall or sensitivity.
--   F~1~ score:
--   True negative rate (TNR): also known as specificity.
+-   Accuracy: "the degree to which the predictions of a model matches the reality being modeled. In \[the context of classificaton models\], $accuracy = P(\lambda (X) = Y)$ where $XY$ is a joint distribution and the classification model $\lambda$ is a function $X \rightarrow Y$" [@sammut_encyclopedia_2017, p. 8]
+$$ acc = \frac{TP + TN}{TP + TN + FP + FN} $$ {#eq:definition-acc}
+-   Precision: also known as positive predictive value, it is "the ratio of true positives (TP) and the total number of positives predicted by a model" [@sammut_encyclopedia_2017, p. 990].
+$$ ppv = \frac{TP}{TP + FP} $$ {#eq:definition-ppv}
+-   Sensitivity: also known as recall or true positive rate. It is "the fraction of positive examples predicted correctly by a model" [@sammut_encyclopedia_2017, p. 1152].
+$$ tpr = \frac{TP}{TP + FN} $$ {#eq:definition-tpr}
+-   F~1~-measure: also known as F~1~ score. It is "the harmonic mean of precision ... and recall" [@sammut_encyclopedia_2017, p. 497]. The harmonic mean _H_ of _n_ quantities is defined by [@abramowitz_handbook_1964, p. 10] as:
+$$\frac{1}{H} = \frac{(\sum_{k=1}^{n} \frac{1}{a_n})}{n}$$ {#eq:definition-harmonic-mean}
+Thus the F~1~-measure is:
+$$ F_1 = \frac{2}{(\frac{1}{ppv} + \frac{1}{tpr})} = \frac{2\cdot ppv\cdot tpr}{ppv+tpr} $$ {#eq:definition-f1}
+Note that, even though it's not readily apparent in the final simplified form of [@eq:definition-f1], the reprocicals of both accuracy and precision are used in the definition of the F~1~-measure. Because of that, if either of them is zero (e.g. because there are no true positive results) there can be no F~1~-measure.
+-   Specificity: also known as the true negative rate. It is "the fraction of negative examples predicted correctly by a model" [@sammut_encyclopedia_2017, p. 1167]
+$$ tnr = \frac{TN}{TN + FP} $$ {#eq:definition-tnr}
 
-**TODO: definitions and formulae for binary measures. take them, citing properly, from @sammut_encyclopedia_2017**
-
-
-**TODO: talk about precision/recall tradeoff**
+**TODO: talk about precision/recall tradeoff?**
 
 **TODO: a graphic like the one in oreilly's fig 3-2 illustrating confusion matrices would be neat**
 
@@ -72,11 +77,11 @@ From there we can compute the rest of the binary measures right away. As defined
 
 There are two different values we can set to tweak the behavior of the k-NN classifier: one is *k*, the number of neighbors that the algorithm will take into account for each point. The other doesn't actually belong to the classifier itself, but rather is about the shape of the data we provide it: the number of Principal Components of the data we feed it.
 
-Much like @vidal_structural_2020 we choose choose three numbers of Principal Components: ones that explain 85, 90 and 95% of variance; then we run the classifier using a range of numbers of neighbors between 1 and 500. This sort of sweep lets us judge its performance for several combinations of parameters such that we can hone in on a sensible.
+Much like [@vidal_structural_2020] we choose choose three numbers of Principal Components: ones that explain 85, 90 and 95% of variance; then we run the classifier using a range of numbers of neighbors between 1 and 500. This sort of sweep lets us judge its performance for several combinations of parameters such that we can hone in on a sensible.
 
 **TODO: Talk about how this brute-force approach is generally best when approaching a new problem using ML, as the "ideal" parameter values can vary wildly depending on characteristics of the data that we can't really determine beforehand. Make sure to cite relevant works.**
 
-The results for all these permutations are displayed in [@tbl:reproduce-results-table-knn] **TODO: talk about them and compare to the results from @vidal_structural_2020**
+The results for all these permutations are displayed in [@tbl:reproduce-results-table-knn] **TODO: talk about them and compare to the results from [@vidal_structural_2020]**
 
 **TODO: don't repeat variance/pc_num values in all rows**
 
