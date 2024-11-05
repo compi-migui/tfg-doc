@@ -23,5 +23,19 @@ toc-own-page: true
 lot: false
 lof: false
 linkReferences: true
+figPrefix:
+  - "figure"
+  - "figures"
+eqnPrefix:
+  - "equation"
+  - "equations"
+tblPrefix:
+  - "table"
+  - "tables"
+secPrefix:
+  - "section"
+  - "sections"
+eqnIndexTemplate: "Equation $$i$$"
+
 ...
 \AtBeginEnvironment{longtable}{\footnotesize}
