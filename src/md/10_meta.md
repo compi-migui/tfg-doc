@@ -23,6 +23,9 @@ toc-own-page: true
 lot: false
 lof: false
 linkReferences: true
+nameInLink: true
+hyperrefoptions:
+  - colorlinks=true
 figPrefix:
   - "figure"
   - "figures"
