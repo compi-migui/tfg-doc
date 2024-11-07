@@ -23,6 +23,7 @@ toc-own-page: true
 lot: false
 lof: false
 linkReferences: true
+link-citations: true
 cref: true
 nameInLink: true
 colorlinks: true
