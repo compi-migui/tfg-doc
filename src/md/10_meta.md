@@ -23,9 +23,13 @@ toc-own-page: true
 lot: false
 lof: false
 linkReferences: true
+cref: true
 nameInLink: true
-hyperrefoptions:
-  - colorlinks=true
+colorlinks: true
+linkcolor: "blue"
+filecolor: "blue"
+citecolor: "blue"
+urlcolor: "blue"
 figPrefix:
   - "figure"
   - "figures"
@@ -39,6 +43,5 @@ secPrefix:
   - "section"
   - "sections"
 eqnIndexTemplate: "Equation $$i$$"
-
 ...
 \AtBeginEnvironment{longtable}{\footnotesize}
