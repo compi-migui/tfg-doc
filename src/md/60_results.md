@@ -5,11 +5,11 @@ Describe results and analyze them. Make sure to include pretty graphs whenever p
 
 ## Experimental data used
 
-While we're reproducing the _methodology_ of @vidal_structural_2020, we don't aim to simply put the same experimental data through the same process. We'll instead use the data that was generated for @leon_medina_online_2023, which used the same laboratory setup to run additional trials.
+While we are reproducing the _methodology_ of @vidal_structural_2020, we do not aim to simply put the same experimental data through the same process. We will instead use the data that was generated for @leon_medina_online_2023, which used the same laboratory setup to run additional trials.
 
 @leon_medina_online_2023 deals with stream data classifiers and the data it collected is shaped accordingly: the duration of each of its trials is over 12 times longer than those of @vidal_structural_2020 in order to give its classifiers a chance to train online and start giving accurate results. **TODO: maybe worth going a bit more in depth about online vs. offline classifiers, like a paragraph or two. applications, memory usage, etc.**
 
-Because the methodology we're reproducing uses offline classifiers, which tend to work on the entire data set at once, using this data as-is imposes prohibitive resource requirements: 12 times as much data requires at 12 times as much working memory. While this is technically achievable using professional server hardware, it greatly increases running costs for very marginal or nonexistent benefit. That's why we won't use the data as-is. We'll instead truncate the data sets, keeping all the complexity and varability (number of sensors, damage conditions, wind amplitude conditions and trials) while reducing memory requirements six-fold. **TODO: talk about time complexity and memory complexity and how it relates to the algorithms we're using? big O notation etc. Math is fun!**
+Because the methodology we are reproducing uses offline classifiers, which tend to work on the entire data set at once, using this data as-is imposes prohibitive resource requirements: 12 times as much data requires at 12 times as much working memory. While this is technically achievable using professional server hardware, it greatly increases running costs for very marginal or nonexistent benefit. That is why we will not use the data as-is. We will instead truncate the data sets, keeping all the complexity and varability (number of sensors, damage conditions, wind amplitude conditions and trials) while reducing memory requirements six-fold. **TODO: talk about time complexity and memory complexity and how it relates to the algorithms we are using? big O notation etc. Math is fun!**
 
 |                                                         | @vidal_structural_2020 | @leon_medina_online_2023 | Truncated @leon_medina_online_2023 |
 |---------------------------------------------------------|------------------------|--------------------------|------------------------------------|
@@ -36,7 +36,7 @@ Because the methodology we're reproducing uses offline classifiers, which tend t
 
 ## Performance measures
 
-As we aim to reproduce an existing methodology, in order to make it possible to actually compare our results to @vidal_structural_2020's side by side we'll evaluate the models using the same metrics they did. We'll also look at a few metric not evaluated in the original paper, namely the Matthews correlation coefficient (MCC) as described by @chicco_advantages_2020 and the General Performance Score as described by @de_diego_general_2022.
+As we aim to reproduce an existing methodology, in order to make it possible to actually compare our results to @vidal_structural_2020's side by side we will evaluate the models using the same metrics they did. We will also look at a few metrics not evaluated in the original paper, namely the Matthews correlation coefficient (MCC) as described by @chicco_advantages_2020 and the General Performance Score as described by @de_diego_general_2022.
 
 ### Binary measures
 
@@ -60,7 +60,7 @@ $$ \text{tpr} = \cfrac{\text{TP}}{\text{TP} + \text{FN}} $$ {#eq:definition-tpr}
 $$\cfrac{1}{H} = \cfrac{\left(\sum_{k=1}^{n} \cfrac{1}{a_n}\right)}{n}$$ {#eq:definition-harmonic-mean}
 Thus the F~1~-measure is:
 $$ \text{F}_1 = \cfrac{2}{\left(\cfrac{1}{\text{ppv}} + \cfrac{1}{\text{tpr}}\right)} = \cfrac{2\cdot \text{ppv}\cdot \text{tpr}}{\text{ppv}+\text{tpr}} $$ {#eq:definition-f1}
-Note that, even though it's not readily apparent in the final simplified form of [@eq:definition-f1], the reprocicals of both accuracy and precision are used in the definition of the F~1~-measure. Because of that, if either of them is zero (e.g. because there are no true positive results) there can be no F~1~-measure.
+Note that, even though it is not readily apparent in the final simplified form of [@eq:definition-f1], the reprocicals of both accuracy and precision are used in the definition of the F~1~-measure. Because of that, if either of them is zero (e.g. because there are no true positive results) there can be no F~1~-measure.
 -   Specificity: also known as the true negative rate. It is "the fraction of negative examples predicted correctly by a model" [@sammut_encyclopedia_2017, p. 1167]
 $$ \text{tnr} = \cfrac{\text{TN}}{\text{TN} + \text{FP}} $$ {#eq:definition-tnr}
 
@@ -70,20 +70,22 @@ $$ \text{tnr} = \cfrac{\text{TN}}{\text{TN} + \text{FP}} $$ {#eq:definition-tnr}
 
 ### Multiclass measures
 
+Now t
+
 ## Reproduction
 
 ### Results of kNN
 <!--  TODO: make figure/table references actual links to the referencee -->
 
-There are two different values we can set to tweak the behavior of the k-NN classifier: one is *k*, the number of neighbors that the algorithm will take into account for each point. The other doesn't actually belong to the classifier itself, but rather is about the shape of the data we provide it: the number of Principal Components of the data we feed it.
+There are two different values we can set to tweak the behavior of the k-NN classifier: one is *k*, the number of neighbors that the algorithm will take into account for each point. The other does not actually belong to the classifier itself, but rather is about the shape of the data we provide it: the number of Principal Components of the data we feed it.
 
 Much like @vidal_structural_2020 we choose choose three numbers of Principal Components: ones that explain 85, 90 and 95% of variance; then we run the classifier using a range of numbers of neighbors between 1 and 500. This sort of sweep lets us judge its performance for several combinations of parameters such that we can hone in on a sensible.
 
-**TODO: Talk about how this brute-force approach is generally best when approaching a new problem using ML, as the "ideal" parameter values can vary wildly depending on characteristics of the data that we can't really determine beforehand. Make sure to cite relevant works.**
+**TODO: Talk about how this brute-force approach is generally best when approaching a new problem using ML, as the "ideal" parameter values can vary wildly depending on characteristics of the data that we cannot really determine beforehand. Make sure to cite relevant works.**
 
 The results for all these permutations are displayed in [@tbl:reproduce-results-table-knn] **TODO: talk about them and compare to the results from @vidal_structural_2020**
 
-**TODO: don't repeat variance/pc_num values in all rows**
+**TODO: do not repeat variance/pc_num values in all rows**
 **TODO: put hats over variables in headers if they are averages**
 
 
