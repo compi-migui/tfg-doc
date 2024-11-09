@@ -56,11 +56,11 @@ $$ \text{acc} = \cfrac{\text{TP} + \text{TN}}{\text{TP} + \text{TN} + \text{FP} 
 $$ \text{ppv} = \cfrac{\text{TP}}{\text{TP} + \text{FP}} $$ {#eq:definition-ppv}
 -   Sensitivity: also known as recall or true positive rate. It is "the fraction of positive examples predicted correctly by a model" [@sammut_encyclopedia_2017, p. 1152].
 $$ \text{tpr} = \cfrac{\text{TP}}{\text{TP} + \text{FN}} $$ {#eq:definition-tpr}
--   F~1~-measure: also known as F~1~ score. It is "the harmonic mean of precision ... and recall" [@sammut_encyclopedia_2017, p. 497]. The harmonic mean $H$ of $n$ quantities is defined by @abramowitz_handbook_1964 [p. 10] as:
-$$\cfrac{1}{H} = \cfrac{\left(\sum_{k=1}^{n} \cfrac{1}{a_n}\right)}{n}$$ {#eq:definition-harmonic-mean}
+-   F~1~-measure: also known as F~1~ score. It is "the harmonic mean of precision ... and recall" [@sammut_encyclopedia_2017, p. 497]. The harmonic mean $H$ of $N$ quantities is defined by @abramowitz_handbook_1964 [p. 10] as:
+$$\cfrac{1}{H} = \cfrac{\left(\sum_{k=1}^{N} \cfrac{1}{a_n}\right)}{N}$$ {#eq:definition-harmonic-mean}
 Thus the F~1~-measure is:
 $$ \text{F}_1 = \cfrac{2}{\left(\cfrac{1}{\text{ppv}} + \cfrac{1}{\text{tpr}}\right)} = \cfrac{2\cdot \text{ppv}\cdot \text{tpr}}{\text{ppv}+\text{tpr}} $$ {#eq:definition-f1}
-Note that, even though it is not readily apparent in the final simplified form of [@eq:definition-f1], the reprocicals of both accuracy and precision are used in the definition of the F~1~-measure. Because of that, if either of them is zero (e.g. because there are no true positive results) there can be no F~1~-measure.
+Note that, even though it is not readily apparent in the final simplified form of [@eq:definition-f1], the reprocicals of both accuracy and precision are used in the definition of the F~1~-measure. Because of that, if either of them is zero (e.g. because there are no true positive results) there can be no F~1~-measure. **TODO: actually we can just decide to define it as 0 for that particular case, since it represents an astoundingly bad result. and something similar for others that can end up dividing by 0**
 -   Specificity: also known as the true negative rate. It is "the fraction of negative examples predicted correctly by a model" [@sammut_encyclopedia_2017, p. 1167]
 $$ \text{tnr} = \cfrac{\text{TN}}{\text{TN} + \text{FP}} $$ {#eq:definition-tnr}
 
@@ -70,7 +70,47 @@ $$ \text{tnr} = \cfrac{\text{TN}}{\text{TN} + \text{FP}} $$ {#eq:definition-tnr}
 
 ### Multiclass measures
 
-Now t
+Now that we have laid out a foundation of simple binary measures, it is time to build up to the ones that are actually equipped to describe the performance of multiclass classifiers such as the ones we are dealing with.
+
+Let us first consider the metrics used by @vidal_structural_2020. They are obtained by simply taking, for each of the binary measures described earlier, the average value across all classes (in our case, those are the different structural states) and using that to evaluate the performance of the classifier as a whole.
+
+They are thus:
+
+-   Average accuracy:
+$$ \overline{\text{acc}} = \cfrac{\sum_{j=1}^{J} \text{acc}_j}{J} $$ {#eq:definition-avg-acc}
+-   Average precision:
+$$ \overline{\text{ppv}} = \cfrac{\sum_{j=1}^{J} \text{ppv}_j}{J} $$ {#eq:definition-avg-ppv}
+-   Average sensitivity:
+$$ \overline{\text{tpr}} = \cfrac{\sum_{j=1}^{J} \text{tpr}_j}{J} $$ {#eq:definition-avg-tpr}
+-   Average F~1~-measure: **TODO: is this actually equivalent to the average of the individual F~1~s? actually check and explain explicitly. average of harmonic means vs harmonic mean of averages**
+$$ \overline{\text{F}_1} = \cfrac{2\cdot \overline{\text{ppv}}\cdot \overline{\text{tpr}}}{\overline{\text{ppv}}+\overline{\text{tpr}}} $$ {#eq:definition-avg-f1}
+-   Average specificity:
+$$ \overline{\text{tnr}} = \cfrac{\sum_{j=1}^{J} \text{tnr}_j}{J} $$ {#eq:definition-avg-tnr}
+
+In order to go beyond mere reproduction of what @vidal_structural_2020 did, we will also compute and examine two other multiclass performance measures not present in that work.
+
+One of them is the Matthews correlation coefficient (MCC). Before getting into what it is, we first ought to discuss _why_ one would want to use it — in other words, what problem it aims to solve.
+
+A difficult challenge when evaluating classification models is that it is very easy for the metrics discussed so far to tell us more about the shape of the data set being used, rather than about the classifier we are trying to evaluate. This challenge is doubly difficult because it is very easy to not notice it at all unless one specifically look for it.
+
+Imagine a hypothetical classification model performing the same task we are trying to: turn sets of accelerator data from offshore wind turbines and use those to classify them into five groups, one for healthy ones and four for different damaged states. Now suppose we were using it on a data set consisting of 9,600 healthy samples and 100 each of the four damaged states, for a total of 10,000 samples. If our model was faulty and classified _all_ samples into the healthy bucket except for getting 10 each of the damaged ones right, what would the numbers we have seen so far tell us?
+**TODO: read [@chicco_advantages_2020, p. 7] carefully before continuing here I may be misrepresenting things**
+**TODO: also think about whether the model being imbalanced is actually a bad thing. guess it depends on imbalance of dataset vs imbalance of real world phenomena it's going to be used on? does that mean some of these measures are actually nonsensical?**
+-   Average accuracy (from [@eq:definition-acc;@eq:definition-avg-acc]):
+$$ \text{acc} =  $$
+$$ \overline{\text{acc}} = \cfrac{9600 + \text{40}}{\text{9600} + \text{40} + \text{0} + \text{0}} + \cfrac{\text{TP} + \text{TN}}{\text{TP} + \text{TN} + \text{FP} + \text{FN}} +  $$ {#eq:hypothetical-always-healthy-avg-acc}
+-   Average precision (from [@eq:definition-ppv;@eq:definition-avg-ppv]):
+$$ \overline{\text{ppv}} = \cfrac{\sum_{j=1}^{J} \text{ppv}_j}{J} $$ {#eq:hypothetical-always-healthy-avg-ppv}
+-   Average sensitivity (from [@eq:definition-tpr;@eq:definition-avg-tpr]):
+$$ \overline{\text{tpr}} = \cfrac{\sum_{j=1}^{J} \text{tpr}_j}{J} $$ {#eq:hypothetical-always-healthy-avg-tpr}
+-   Average F~1~-measure (from [@eq:definition-f1;@eq:definition-avg-f1]):
+$$ \overline{\text{F}_1} = \cfrac{2\cdot \overline{\text{ppv}}\cdot \overline{\text{tpr}}}{\overline{\text{ppv}}+\overline{\text{tpr}}} $$ {#eq:hypothetical-always-healthy-avg-f1}
+-   Average specificity (from [@eq:definition-tnr;@eq:definition-avg-tnr]):
+$$ \overline{\text{tnr}} = \cfrac{\sum_{j=1}^{J} \text{tnr}_j}{J} $$ {#eq:hypothetical-always-healthy-avg-tnr}
+
+@akosa_predictive_2017
+
+"In fact, when a prediction displays many true positives but few true negatives (or many true neg atives but few true positives) we will show that F1 and accuracy can provide misleading information, while MCC always generates results that reflect the overall prediction issues." [@chicco_advantages_2020, p. 6-7]
 
 ## Reproduction
 
