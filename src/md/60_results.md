@@ -27,7 +27,7 @@ Because the methodology we're reproducing uses offline classifiers, which tend t
 | Sampling frequency, in Hz                               | 275                    | 275                      | 275                                |
 | Readings per trial ($k \cdot L$)                        | 4776                   | 58008                    | 9672                               |
 |                                                         |                        |                          |                                    |
-| Data set size ($n_{total} \cdot k \cdot L$)             | 5.55E+07               | 3.33E+08                 | 5.55E+07                           |
+| Data set size ($n_{\text{total}} \cdot k \cdot L$)             | 5.55E+07               | 3.33E+08                 | 5.55E+07                           |
 | Size ratio                                              | 1.0                    | 6.0                      | 1.0                                |
 
 : Comparison between the shapes of the data used by @vidal_structural_2020, @leon_medina_online_2023 and the truncated version of the latter used in this work. {#tbl:input-data-comparison}
@@ -44,25 +44,25 @@ There can be no doubt that we are tackling a multiclass classification problem. 
 
 However, when it comes to evaluating the results, it is very useful to start with very simple metrics that we use as stepping stones to reach more generalized or global metrics. These are binary classifier performance measures: designed to evaluate the performance of binary classifiers, but applicable to multiclass classifiers with some creative reshaping of the raw results.
 
-For each of the _classes_—in our case, structural states—we look only at whether a given sample belongs to it or not (a true/false binary) and whether the classifier asserted it belongs to it or not (another true/false binary). The four possible conditions can be represented as a confusion matrix, a construct reminiscent of but distinct from truth tables. See **TODO: add example truth table**
+For each of the _classes_ — in our case, structural states — we look only at whether a given sample belongs to it or not (a true/false binary) and whether the classifier asserted it belongs to it or not (another true/false binary). The four possible conditions can be represented as a confusion matrix, a construct reminiscent of but distinct from truth tables. See **TODO: add example truth table**
 
 This gives us our first quantifiable results: out of actually positive samples, ones that were correctly predicted as such are True Positive results (TP) and ones that were incorrectly predicted as negative matches are False Negatives (FN). Conversely, out of actually negative samples, ones that were correctly predicted as such are True Negatives (TN) whereas ones that were incorrectly predicted as positive matches are False Positives (FP).
 
 From there we can compute the rest of the binary measures right away. They are:
 
 -   Accuracy: "the degree to which the predictions of a model matches the reality being modeled. In \[the context of classificaton models\], $accuracy = P(\lambda (X) = Y)$ where $XY$ is a joint distribution and the classification model $\lambda$ is a function $X \rightarrow Y$" [@sammut_encyclopedia_2017, p. 8].
-$$ acc = \frac{TP + TN}{TP + TN + FP + FN} $$ {#eq:definition-acc}
+$$ \text{acc} = \cfrac{\text{TP} + \text{TN}}{\text{TP} + \text{TN} + \text{FP} + \text{FN}} $$ {#eq:definition-acc}
 -   Precision: also known as positive predictive value, it is "the ratio of true positives (TP) and the total number of positives predicted by a model" [@sammut_encyclopedia_2017, p. 990].
-$$ ppv = \frac{TP}{TP + FP} $$ {#eq:definition-ppv}
+$$ \text{ppv} = \cfrac{\text{TP}}{\text{TP} + \text{FP}} $$ {#eq:definition-ppv}
 -   Sensitivity: also known as recall or true positive rate. It is "the fraction of positive examples predicted correctly by a model" [@sammut_encyclopedia_2017, p. 1152].
-$$ tpr = \frac{TP}{TP + FN} $$ {#eq:definition-tpr}
--   F~1~-measure: also known as F~1~ score. It is "the harmonic mean of precision ... and recall" [@sammut_encyclopedia_2017, p. 497]. The harmonic mean _H_ of _n_ quantities is defined by @abramowitz_handbook_1964 [p. 10] as:
-$$\frac{1}{H} = \frac{(\sum_{k=1}^{n} \frac{1}{a_n})}{n}$$ {#eq:definition-harmonic-mean}
+$$ \text{tpr} = \cfrac{\text{TP}}{\text{TP} + \text{FN}} $$ {#eq:definition-tpr}
+-   F~1~-measure: also known as F~1~ score. It is "the harmonic mean of precision ... and recall" [@sammut_encyclopedia_2017, p. 497]. The harmonic mean $H$ of $n$ quantities is defined by @abramowitz_handbook_1964 [p. 10] as:
+$$\cfrac{1}{H} = \cfrac{\left(\sum_{k=1}^{n} \cfrac{1}{a_n}\right)}{n}$$ {#eq:definition-harmonic-mean}
 Thus the F~1~-measure is:
-$$ F_1 = \frac{2}{(\frac{1}{ppv} + \frac{1}{tpr})} = \frac{2\cdot ppv\cdot tpr}{ppv+tpr} $$ {#eq:definition-f1}
+$$ \text{F}_1 = \cfrac{2}{\left(\cfrac{1}{\text{ppv}} + \cfrac{1}{\text{tpr}}\right)} = \cfrac{2\cdot \text{ppv}\cdot \text{tpr}}{\text{ppv}+\text{tpr}} $$ {#eq:definition-f1}
 Note that, even though it's not readily apparent in the final simplified form of [@eq:definition-f1], the reprocicals of both accuracy and precision are used in the definition of the F~1~-measure. Because of that, if either of them is zero (e.g. because there are no true positive results) there can be no F~1~-measure.
 -   Specificity: also known as the true negative rate. It is "the fraction of negative examples predicted correctly by a model" [@sammut_encyclopedia_2017, p. 1167]
-$$ tnr = \frac{TN}{TN + FP} $$ {#eq:definition-tnr}
+$$ \text{tnr} = \cfrac{\text{TN}}{\text{TN} + \text{FP}} $$ {#eq:definition-tnr}
 
 **TODO: talk about precision/recall tradeoff?**
 
@@ -84,6 +84,8 @@ Much like @vidal_structural_2020 we choose choose three numbers of Principal Com
 The results for all these permutations are displayed in [@tbl:reproduce-results-table-knn] **TODO: talk about them and compare to the results from @vidal_structural_2020**
 
 **TODO: don't repeat variance/pc_num values in all rows**
+**TODO: put hats over variables in headers if they are averages**
+
 
 +------------+----------+-----+--------+--------+--------+--------+--------+
 |   variance |   pc_num |   k |    acc |    ppv |    tpr |     f1 |    tnr |
