@@ -15,6 +15,7 @@ header-includes: |
     afterskip=1sp plus -1sp minus 1sp,
     font=\normalfont\bfseries,
     indent=0pt]{subparagraph}
+  \usepackage{appendix}
 secnumdepth: 3
 lang: "en"
 titlepage: true
