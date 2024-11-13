@@ -1,3 +1,4 @@
+TIMESTAMP ?= $(shell date '+%Y-%m-%d-%H%M%S')
 BASEDIR ?= ${CURDIR}
 OUTDIR ?= ${BASEDIR}/out
 SRCDIR ?= ${BASEDIR}/src
@@ -40,6 +41,11 @@ tfg.pdf: ${mdfiles} pandoc pandoc-crossref
 		--resource-path "${FIGURESDIR}" \
 		--number-sections \
 		${mdfiles}
+
+draft: pdf
+	cp "${OUTDIR}/tfg.pdf" "${OUTDIR}/tfg-draft-${TIMESTAMP}.pdf"
+	tar -czf "${OUTDIR}/tfg-draft-archive-${TIMESTAMP}.tar.gz" Makefile "${OUTDIR}/tfg-draft-${TIMESTAMP}.pdf" "${SRCDIR}"
+
 
 install: pandoc pandoc-crossref
 
