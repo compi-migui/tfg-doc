@@ -48,7 +48,7 @@ For each of the _classes_ — in our case, structural states — we look only at
 
 This gives us our first quantifiable results: out of actually positive samples, ones that were correctly predicted as such are True Positive results (TP) and ones that were incorrectly predicted as negative matches are False Negatives (FN). Conversely, out of actually negative samples, ones that were correctly predicted as such are True Negatives (TN) whereas ones that were incorrectly predicted as positive matches are False Positives (FP).
 
-From there we can compute the rest of the binary measures right away. They are:
+From there we can compute the rest of the simple binary measures right away. They are:
 
 -   Accuracy: "the degree to which the predictions of a model matches the reality being modeled. In \[the context of classificaton models\], $accuracy = P(\lambda (X) = Y)$ where $XY$ is a joint distribution and the classification model $\lambda$ is a function $X \rightarrow Y$" [@sammut_encyclopedia_2017, p. 8].
 $$ \text{acc} = \cfrac{\text{TP} + \text{TN}}{\text{TP} + \text{TN} + \text{FP} + \text{FN}} $$ {#eq:definition-acc}
@@ -63,6 +63,14 @@ $$ \text{F}_1 = \cfrac{2}{\left(\cfrac{1}{\text{ppv}} + \cfrac{1}{\text{tpr}}\ri
 Note that, even though it is not readily apparent in the final simplified form of [@eq:definition-f1], the reprocicals of both accuracy and precision are used in the definition of the F~1~-measure. Because of that, if either of them is zero (e.g. because there are no true positive results) there can be no F~1~-measure. **TODO: actually we can just decide to define it as 0 for that particular case, since it represents an astoundingly bad result. and something similar for others that can end up dividing by 0**
 -   Specificity: also known as the true negative rate. It is "the fraction of negative examples predicted correctly by a model" [@sammut_encyclopedia_2017, p. 1167]
 $$ \text{tnr} = \cfrac{\text{TN}}{\text{TN} + \text{FP}} $$ {#eq:definition-tnr}
+
+The metrics we have looked at so far are the ones used by @vidal_structural_2020. There is one more we must define before moving on to multiclass measures, as we will use it to compute the General Performance Score mentioned earlier in this section. It is the ambitiously-named unified performance measure (UPM), proposed by @redondo_unified_2020.
+
+In their proposal, @redondo_unified_2020 explain that the unified performance measure "in the imbalanced classification problems, improves the stability of MCC and veracity of Accuracy, F~1~^+ and F~1~^-" and that "the evidence from \[that\] study suggests the use of UPM for both imbalanced and balanced data". As we are dealing with a multiclass problem, the UPM is not directly useful to us, but the General Performance Score that builds on it will be.
+
+The UPM is defined as:
+$$ \text{UPM} = \cfrac{1}{1 + \cfrac{(\text{TP} + \text{TN}) \cdot (\text{FP} + \text{FN})}{4 \cdot \text{TP} \cdot \text{TN}}} $$ {#eq:definition-upm}
+
 
 **TODO: talk about precision/recall tradeoff?**
 
@@ -91,26 +99,42 @@ In order to go beyond mere reproduction of what @vidal_structural_2020 did, we w
 
 One of them is the Matthews correlation coefficient (MCC). Before getting into what it is, we first ought to discuss _why_ one would want to use it — in other words, what problem it aims to solve.
 
-A difficult challenge when evaluating classification models is that it is very easy for the metrics discussed so far to tell us more about the shape of the data set being used, rather than about the classifier we are trying to evaluate. This challenge is doubly difficult because it is very easy to not notice it at all unless one specifically look for it.
+A difficult challenge when evaluating classification models is that it is very easy for some of the metrics discussed so far to tell us more about the shape of the data set being used, rather than about the classifier we are trying to evaluate [@akosa_predictive_2017]. This challenge is doubly difficult because it is very easy to not notice it at all unless one specifically look for it.
 
-Imagine a hypothetical classification model performing the same task we are trying to: turn sets of accelerator data from offshore wind turbines and use those to classify them into five groups, one for healthy ones and four for different damaged states. Now suppose we were using it on a data set consisting of 9,600 healthy samples and 100 each of the four damaged states, for a total of 10,000 samples. If our model was faulty and classified _all_ samples into the healthy bucket except for getting 10 each of the damaged ones right, what would the numbers we have seen so far tell us?
-**TODO: read [@chicco_advantages_2020, p. 7] carefully before continuing here I may be misrepresenting things**
-**TODO: also think about whether the model being imbalanced is actually a bad thing. guess it depends on imbalance of dataset vs imbalance of real world phenomena it's going to be used on? does that mean some of these measures are actually nonsensical?**
--   Average accuracy (from [@eq:definition-acc;@eq:definition-avg-acc]):
-$$ \text{acc} =  $$
-$$ \overline{\text{acc}} = \cfrac{9600 + \text{40}}{\text{9600} + \text{40} + \text{0} + \text{0}} + \cfrac{\text{TP} + \text{TN}}{\text{TP} + \text{TN} + \text{FP} + \text{FN}} +  $$ {#eq:hypothetical-always-healthy-avg-acc}
--   Average precision (from [@eq:definition-ppv;@eq:definition-avg-ppv]):
-$$ \overline{\text{ppv}} = \cfrac{\sum_{j=1}^{J} \text{ppv}_j}{J} $$ {#eq:hypothetical-always-healthy-avg-ppv}
--   Average sensitivity (from [@eq:definition-tpr;@eq:definition-avg-tpr]):
-$$ \overline{\text{tpr}} = \cfrac{\sum_{j=1}^{J} \text{tpr}_j}{J} $$ {#eq:hypothetical-always-healthy-avg-tpr}
--   Average F~1~-measure (from [@eq:definition-f1;@eq:definition-avg-f1]):
-$$ \overline{\text{F}_1} = \cfrac{2\cdot \overline{\text{ppv}}\cdot \overline{\text{tpr}}}{\overline{\text{ppv}}+\overline{\text{tpr}}} $$ {#eq:hypothetical-always-healthy-avg-f1}
--   Average specificity (from [@eq:definition-tnr;@eq:definition-avg-tnr]):
-$$ \overline{\text{tnr}} = \cfrac{\sum_{j=1}^{J} \text{tnr}_j}{J} $$ {#eq:hypothetical-always-healthy-avg-tnr}
+For a few very illustrative examples of this problem involving both imbalanced and balanced data sets, see @chicco_advantages_2020 [p. 7-9]. For our purposes, it is enough to take their conclusion as a strong sign that it is a good idea to at least try using the MCC to better examine our models:
 
-@akosa_predictive_2017
+>   These results show that, while accuracy and F~1~ score often generate high scores that do not inform the user about ongoing prediction issues, the MCC is a robust, useful, reliable, truthful statistical measure able to correctly reflect the deficiency of any prediction in any dataset.
+>   \ — @chicco_advantages_2020 [p. 9]
 
-"In fact, when a prediction displays many true positives but few true negatives (or many true neg atives but few true positives) we will show that F1 and accuracy can provide misleading information, while MCC always generates results that reflect the overall prediction issues." [@chicco_advantages_2020, p. 6-7]
+**TODO: considered going into some of those examples here, but it would be a lot of text to reach that exact same conclusion. probably not worth it unless I end up with too much spare time and too little content**
+
+The Matthews correlation coefficient is defined by @chicco_advantages_2020 as:
+$$ \text{MCC}_2 = \cfrac{\text{TP} \cdot \text{TN} - \text{FP} \cdot \text{FN}}{\sqrt{(\text{TP} + \text{FP}) \cdot (\text{TP} + \text{FN}) \cdot (\text{TN} + \text{FP}) \cdot (\text{TN} + \text{FN})}} $$ {#eq:definition-mcc-single}
+
+Some particularly imbalanced data sets and classifiers can lead to the denominator being zero, so we also define some special cases for a complete definition:
+
+$$ \text{MCC}_2 =
+\begin{cases}
+    1 & \text{if TP \neq 0 and FN = FP = TN = 0}\\
+    1 & \text{if TN \neq 0 and FN = FP = TP = 0}\\
+    -1 & \text{if FP \neq 0 and FN = TP = TN = 0}\\
+    -1 & \text{if FN \neq 0 and TP = FP = TN = 0}\\
+    0 & \text{if exactly two of (TP, FN, FP, TN) are 0}\\
+    \cfrac{\text{TP} \cdot \text{TN} - \text{FP} \cdot \text{FN}}{\sqrt{(\text{TP} + \text{FP}) \cdot (\text{TP} + \text{FN}) \cdot (\text{TN} + \text{FP}) \cdot (\text{TN} + \text{FN})}} & \text{otherwise}
+\end{cases} $$ {#eq:definition-mcc-single-special-cases}
+
+**TODO: spacing between does-not-equal sign and 0s is wrong**
+
+Its value can be between -1 and +1. An MCC value of +1 indicates all samples are classified correctly, a value of -1 means they are _all_ classified incorrectly (quite a feat in itself) and a value of 0 denotes exactly half the samples (adjusted for class imbalance) are classified correctly.
+
+An observing reader may protest that the MCC is, in fact, a binary measure. Luckily @gorodkin_comparing_2004 extended it to the multiclass case, defining what he called the R~K~ correlation coefficient but which is referred to by later literature as just the Matthews correlation coefficient applied to multiclass classifiers [@jurman_comparison_2012; @grandini_metrics_2020]. For the sake of simplicity, this work will use just "MCC" to refer to the multiclass version and MCC~2~ for the original binary version.
+
+It is defined as:
+$$ \text{MCC} = \cfrac{\sum_{k,l,m=1}^{K} \left( C_{k,k}C_{l,m} - C_{k,l}C_{m,k} \right)}{\sqrt{\sum_{k=1}^{K} \left( \sum_{l=1}^{K} C_{k,l} \right) \left( \sum_{\substack{l\prime =1\\k\prime\neq k}}^{K} C_{k\prime,l\prime} \right)}\sqrt{\sum_{k=1}^{K} \left( \sum_{l=1}^{K} C_{l,k} \right) \left( \sum_{\substack{l\prime =1\\k\prime\neq k}}^{K} C_{l\prime,k\prime} \right)}} $$ {#eq:definition-mcc}
+
+Where $C_{a,b}$ is the number of samples classified into class _a_ that actually belong to class _b_.
+
+The last metric we will examine is the General Performance Score, proposed by [@de_diego_general_2022] and generally defined as the harmonic mean of a set of arbitrary performance measures.
 
 ## Reproduction
 
