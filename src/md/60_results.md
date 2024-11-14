@@ -136,28 +136,38 @@ $$ {#eq:definition-mcc}
 
 Where $C_{a,b}$ is the number of samples classified into class _a_ that actually belong to class _b_.
 
-The last metric we will examine is the General Performance Score, proposed by [@de_diego_general_2022] and generally defined as the harmonic mean of a set of arbitrary performance measures. We will use one specific instance of it, GPS~UPM~, wherein we parametrize it with the individual Unified Performance Measures derived for each class in our multiclass problem:
+The last metric we will examine is the General Performance Score, proposed by @de_diego_general_2022 and generally defined as the harmonic mean of a set of arbitrary performance measures. We will use one specific instance of it, GPS~UPM~, wherein we parametrize it with the individual Unified Performance Measures derived for each class in our multiclass problem:
 
 $$
 \text{GPS}_\text{UPM} = \cfrac{K \cdot \prod\limits_{k=1}^{K} \text{UPM}_k}{\sum\limits_{k\prime=1}^{K} \cdot \prod\limits_{\substack{k=1\\k\neq k\prime}}^{K} \text{UPM}_k}
 $$ {#eq:definition-gps}
 
+With all our measures finally defined, we can move on to examine the results reached by our classifiers.
+
 ## Reproduction
 
+For starters we are going to look at the results generated using the exact methodology reported by @vidal_structural_2020. The same scaling and dimensionality reduction techniques, the same classifiers with the same parameters. That is the point of reproduction: verifying whether a given methodology faced with new data yields similar results.
+
+As mentioned earlier, we are additionally going to compute two new performance measures: the Matthews correlation coefficient and the General Performance Score (the latter parametrized with class-specific Unified Performance Measures). These new metrics may shed some new light on the results or they may merely reinforce what was already apparent from the original results. We shall see.
+
 ### Results of kNN
-<!--  TODO: make figure/table references actual links to the referencee -->
 
-There are two different values we can set to tweak the behavior of the k-NN classifier: one is *k*, the number of neighbors that the algorithm will take into account for each point. The other does not actually belong to the classifier itself, but rather is about the shape of the data we provide it: the number of Principal Components of the data we feed it.
+There are two different values we can set to tweak the behavior of the k-NN classifier: one is *k*, the number of neighbors that the algorithm will take into account for each point. The other does not actually belong to the classifier itself, but rather is about the shape of the data we provide it: the number of principal components of the data we feed it.
 
-Much like @vidal_structural_2020 we choose choose three numbers of Principal Components: ones that explain 85, 90 and 95% of variance; then we run the classifier using a range of numbers of neighbors between 1 and 500. This sort of sweep lets us judge its performance for several combinations of parameters such that we can hone in on a sensible.
+Much like @vidal_structural_2020 we choose three numbers of principal components: ones that explain 85, 90 and 95% of variance; then we run the classifier using a range of numbers of neighbors between 1 and 500. This sort of sweep lets us judge its performance for several combinations of parameters such that we can hone in on the most sensible approach.
 
 **TODO: Talk about how this brute-force approach is generally best when approaching a new problem using ML, as the "ideal" parameter values can vary wildly depending on characteristics of the data that we cannot really determine beforehand. Make sure to cite relevant works.**
 
-The results for all these permutations are displayed in [@tbl:reproduce-results-table-knn] **TODO: talk about them and compare to the results from @vidal_structural_2020**
+The results for all these permutations are displayed in [@tbl:reproduce-results-table-knn].
+
+Before getting into the performance of the classifier itself, it is worth noting that our data requires more principal components to reach the same explained variance target: for 85% explained variance we need 580 components where @vidal_structural_2020 only needed 443; for 90%, 1034 and 887; for 95%, 1985 and 1770. This is a reasonable difference when we take into account the different sizes of the samples in the respective data sets: we use trials 9672 readings long while they use trials 4776 readings long (see [@#tbl:input-data-comparison]).
+
+More complex data has more variability that needs more dimensions to be described with the same precision. The growth is not directly proportional, which means that much of the new information provided by the longer trial can be covered by the same components -- but not all. It remains to be seen if this additional information is useful signal that helps the classifiers or noise that confuses them and throws them off balance.
+
+Looking now at the actual performance metrics in [@tbl:reproduce-results-table-knn] and comparing them to the ones in [@vidal_structural_2020, p.16] we can see a striking similarity. They are quite close, although there is a slight improvement across the board. Where their peak values for accuracy and recall at 90% explained variance were 95.0% and 93.1% ours are 98.08% and 93.33%. This is no doubt the effect of the longer trials: enough extra data was captured to make the classifiers slightly more accurate.
 
 **TODO: do not repeat variance/pc_num values in all rows**
 **TODO: put hats over variables in headers if they are averages**
-
 
 +------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
 |   variance |   pc_num |   k |    acc |    ppv |    tpr |     f1 |    tnr |   gps_upm |    mcc |
@@ -231,9 +241,25 @@ The results for all these permutations are displayed in [@tbl:reproduce-results-
 
 : Performance indicators for the k-NN classifier using principal components that explain 85, 90 and 95% of variance. {#tbl:reproduce-results-table-knn}
 
-The performance indicators for the k-NN classifier using principal components that explain 90% of variance are displayed in [@fig:reproduce-indicators-plot-knn-var0.9]. We can see that the best results are obtained with k=100. This differs from the values reached because the shape of our data set is slightly different: whereas **(TODO: explain this comparing both datasets. number and length of trials)**
+Another notable difference is the number of nearest neighbors (k) at which the classifier's performance peaks: it was 200 for @vidal_structural_2020 but 100 for our reproduction. This is trivially explained by the different number of samples in the respective data sets: we have used a data set with half as many samples, so of course it is optimal to examine half as many neighbors at a time come classification time.
+
+So far this is exactly what one would expect to see when applying the same model to a different data set. We can say the reproduction has been successful.
+
+For the sake of an ideal 1:1 comparison, [@fig:reproduce-indicators-plot-knn-var0.9] contains a plot of performance indicators for the k-NN classifier using principal components that explain 90% of variance, much like the one that can be found in [@vidal_structural_2020, p.15].
 
 ![Indicators evaluating the performance of the k-NN method using 90% of variance. Higher values are better.](reproduce-indicators-plot-knn-var0.9.png){#fig:reproduce-indicators-plot-knn-var0.9 width=80%}
+
+Let us turn our attention to the newly computed metrics, the MCC and the GPS~UPM~, and see if they provide any new insights. They are both, as expected, high when the more classical metrics (acc, ppv, tpr, tnr) are high. The interesting thing about them is that they both worsen — and quite fast — as if any one of those are low. For example, in the last row (95% explained variance, 500 nearest neighbors) one could naively see an accuracy of 87.11% and decide the classifier is performing rather well. It would take checking other metrics, particularly the true positive rate, to realize something went awry. But both the MCC and the GPS~UPM~ absolutely _tank_ accordingly, making the problem very hard to miss.
+
+Our failure mode here involved a misleadingly high accuracy and an alarmingly low true positive rate. In other situations the roles could be reversed, or some other metric might be the one telling the full story. This leads to having to forcibly check all these different metrics to get an accurate picture of how a classifier is performing.
+
+However, because the MCC and the GPS~UPM~ account for those cases and actually condense results into a single number, they can be trusted to answer the question "How well is my classifier doing?" all by themselves. If that is the goal, then either of them seem to be a perfectly adequate choice.
+
+This does not mean that they make the other, simpler, metrics obsolete — far from it. A researcher who wishes to take a deeper look at what their model is doing and _how_ (not just _if_) it is coming short must still rely on them. In other words: decide what your goals are and pick your tools accordingly.
+
+In terms of choosing between the MCC and the GPS~UPM~ as a singular metric, these results do not show a clear winner. They both seem to rise and fall together, with the MCC figure consistently lower. It is possible that in other scenarios they would illustrate different things but in the matter at hand they seem to be redundant with each other.
+
+**TODO: (maybe) see if literature seems to agree with these conclusions wrt MCC/GPS**
 
 ### Results of SVM
 
@@ -322,7 +348,7 @@ The performance indicators for the k-NN classifier using principal components th
 : Performance indicators for the SVM classifier using principal components that explain 85, 90 and 95% of variance. **(TODO: figure out where the NaNs are coming from. probably terrible results for that ρ leading to division by zero when computing those indicators)** {#tbl:reproduce-results-table-svm}
 
 
-![Indicators evaluating the performance of the SVM method using 85% of variance. Higher values are better.](reproduce-indicators-plot-svm-var0.85.png){#fig:reproduce-indicators-plot-svm-var0.85 width=80%}
+![Indicators evaluating the performance of the SVM method using 85% of variance. Higher values are better. **TODO: NaNs break this figure bad. maybe just exclude ρ=200 and 300 from it**](reproduce-indicators-plot-svm-var0.85.png){#fig:reproduce-indicators-plot-svm-var0.85 width=80%}
 
 ## Proposed improvements
 
