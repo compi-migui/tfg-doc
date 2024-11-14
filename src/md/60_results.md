@@ -160,7 +160,7 @@ Much like @vidal_structural_2020 we choose three numbers of principal components
 
 The results for all these permutations are displayed in [@tbl:reproduce-results-table-knn].
 
-Before getting into the performance of the classifier itself, it is worth noting that our data requires more principal components to reach the same explained variance target: for 85% explained variance we need 580 components where @vidal_structural_2020 only needed 443; for 90%, 1034 and 887; for 95%, 1985 and 1770. This is a reasonable difference when we take into account the different sizes of the samples in the respective data sets: we use trials 9672 readings long while they use trials 4776 readings long (see [@#tbl:input-data-comparison]).
+Before getting into the performance of the classifier itself, it is worth noting that our data requires more principal components to reach the same explained variance target: for 85% explained variance we need 580 components where @vidal_structural_2020 only needed 443; for 90%, 1034 and 887; for 95%, 1985 and 1770. This is a reasonable difference when we take into account the different sizes of the samples in the respective data sets: we use trials 9672 readings long while they use trials 4776 readings long (see [@tbl:input-data-comparison]).
 
 More complex data has more variability that needs more dimensions to be described with the same precision. The growth is not directly proportional, which means that much of the new information provided by the longer trial can be covered by the same components -- but not all. It remains to be seen if this additional information is useful signal that helps the classifiers or noise that confuses them and throws them off balance.
 
