@@ -57,7 +57,7 @@ $$ \text{ppv} = \cfrac{\text{TP}}{\text{TP} + \text{FP}} $$ {#eq:definition-ppv}
 -   Sensitivity: also known as recall or true positive rate. It is "the fraction of positive examples predicted correctly by a model" [@sammut_encyclopedia_2017, p. 1152].
 $$ \text{tpr} = \cfrac{\text{TP}}{\text{TP} + \text{FN}} $$ {#eq:definition-tpr}
 -   F~1~-measure: also known as F~1~ score. It is "the harmonic mean of precision ... and recall" [@sammut_encyclopedia_2017, p. 497]. The harmonic mean $H$ of $N$ quantities is defined by @abramowitz_handbook_1964 [p. 10] as:
-$$\cfrac{1}{H} = \cfrac{\left(\sum_{k=1}^{N} \cfrac{1}{a_n}\right)}{N}$$ {#eq:definition-harmonic-mean}
+$$\cfrac{1}{H} = \cfrac{\left(\sum\limits_{k=1}^{N} \cfrac{1}{a_n}\right)}{N}$$ {#eq:definition-harmonic-mean}
 Thus the F~1~-measure is:
 $$ \text{F}_1 = \cfrac{2}{\left(\cfrac{1}{\text{ppv}} + \cfrac{1}{\text{tpr}}\right)} = \cfrac{2\cdot \text{ppv}\cdot \text{tpr}}{\text{ppv}+\text{tpr}} $$ {#eq:definition-f1}
 Note that, even though it is not readily apparent in the final simplified form of [@eq:definition-f1], the reprocicals of both accuracy and precision are used in the definition of the F~1~-measure. Because of that, if either of them is zero (e.g. because there are no true positive results) there can be no F~1~-measure. **TODO: actually we can just decide to define it as 0 for that particular case, since it represents an astoundingly bad result. and something similar for others that can end up dividing by 0**
@@ -85,15 +85,15 @@ Let us first consider the metrics used by @vidal_structural_2020. They are obtai
 They are thus:
 
 -   Average accuracy:
-$$ \overline{\text{acc}} = \cfrac{\sum_{j=1}^{J} \text{acc}_j}{J} $$ {#eq:definition-avg-acc}
+$$ \overline{\text{acc}} = \cfrac{\sum\limits_{j=1}^{J} \text{acc}_j}{J} $$ {#eq:definition-avg-acc}
 -   Average precision:
-$$ \overline{\text{ppv}} = \cfrac{\sum_{j=1}^{J} \text{ppv}_j}{J} $$ {#eq:definition-avg-ppv}
+$$ \overline{\text{ppv}} = \cfrac{\sum\limits_{j=1}^{J} \text{ppv}_j}{J} $$ {#eq:definition-avg-ppv}
 -   Average sensitivity:
-$$ \overline{\text{tpr}} = \cfrac{\sum_{j=1}^{J} \text{tpr}_j}{J} $$ {#eq:definition-avg-tpr}
+$$ \overline{\text{tpr}} = \cfrac{\sum\limits_{j=1}^{J} \text{tpr}_j}{J} $$ {#eq:definition-avg-tpr}
 -   Average F~1~-measure: **TODO: is this actually equivalent to the average of the individual F~1~s? actually check and explain explicitly. average of harmonic means vs harmonic mean of averages**
 $$ \overline{\text{F}_1} = \cfrac{2\cdot \overline{\text{ppv}}\cdot \overline{\text{tpr}}}{\overline{\text{ppv}}+\overline{\text{tpr}}} $$ {#eq:definition-avg-f1}
 -   Average specificity:
-$$ \overline{\text{tnr}} = \cfrac{\sum_{j=1}^{J} \text{tnr}_j}{J} $$ {#eq:definition-avg-tnr}
+$$ \overline{\text{tnr}} = \cfrac{\sum\limits_{j=1}^{J} \text{tnr}_j}{J} $$ {#eq:definition-avg-tnr}
 
 In order to go beyond mere reproduction of what @vidal_structural_2020 did, we will also compute and examine two other multiclass performance measures not present in that work.
 
@@ -130,11 +130,17 @@ Its value can be between -1 and +1. An MCC value of +1 indicates all samples are
 An observing reader may protest that the MCC is, in fact, a binary measure. Luckily @gorodkin_comparing_2004 extended it to the multiclass case, defining what he called the R~K~ correlation coefficient but which is referred to by later literature as just the Matthews correlation coefficient applied to multiclass classifiers [@jurman_comparison_2012; @grandini_metrics_2020]. For the sake of simplicity, this work will use just "MCC" to refer to the multiclass version and MCC~2~ for the original binary version.
 
 It is defined as:
-$$ \text{MCC} = \cfrac{\sum_{k,l,m=1}^{K} \left( C_{k,k}C_{l,m} - C_{k,l}C_{m,k} \right)}{\sqrt{\sum_{k=1}^{K} \left( \sum_{l=1}^{K} C_{k,l} \right) \left( \sum_{\substack{l\prime =1\\k\prime\neq k}}^{K} C_{k\prime,l\prime} \right)}\sqrt{\sum_{k=1}^{K} \left( \sum_{l=1}^{K} C_{l,k} \right) \left( \sum_{\substack{l\prime =1\\k\prime\neq k}}^{K} C_{l\prime,k\prime} \right)}} $$ {#eq:definition-mcc}
+$$
+\text{MCC} = \cfrac{\sum\limits_{k,l,m=1}^{K} \left( C_{k,k}C_{l,m} - C_{k,l}C_{m,k} \right)}{\sqrt{\sum\limits_{k=1}^{K} \left( \sum\limits_{l=1}^{K} C_{k,l} \right) \left( \sum\limits_{\substack{l\prime =1\\k\prime\neq k}}^{K} C_{k\prime,l\prime} \right)}\sqrt{\sum\limits_{k=1}^{K} \left( \sum\limits_{l=1}^{K} C_{l,k} \right) \left( \sum\limits_{\substack{l\prime =1\\k\prime\neq k}}^{K} C_{l\prime,k\prime} \right)}}
+$$ {#eq:definition-mcc}
 
 Where $C_{a,b}$ is the number of samples classified into class _a_ that actually belong to class _b_.
 
-The last metric we will examine is the General Performance Score, proposed by [@de_diego_general_2022] and generally defined as the harmonic mean of a set of arbitrary performance measures.
+The last metric we will examine is the General Performance Score, proposed by [@de_diego_general_2022] and generally defined as the harmonic mean of a set of arbitrary performance measures. We will use one specific instance of it, GPS~UPM~, wherein we parametrize it with the individual Unified Performance Measures derived for each class in our multiclass problem:
+
+$$
+\text{GPS}_\text{UPM} = \cfrac{K \cdot \prod\limits_{k=1}^{K} \text{UPM}_k}{\sum\limits_{k\prime=1}^{K} \cdot \prod\limits_{\substack{k=1\\k\neq k\prime}}^{K} \text{UPM}_k}
+$$ {#eq:definition-gps}
 
 ## Reproduction
 
