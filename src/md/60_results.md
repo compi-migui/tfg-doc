@@ -50,7 +50,7 @@ This gives us our first quantifiable results: out of actually positive samples, 
 
 From there we can compute the rest of the simple binary measures right away. They are:
 
--   Accuracy: "the degree to which the predictions of a model matches the reality being modeled. In \[the context of classificaton models\], $accuracy = P(\lambda (X) = Y)$ where $XY$ is a joint distribution and the classification model $\lambda$ is a function $X \rightarrow Y$" [@sammut_encyclopedia_2017, p. 8].
+-   Accuracy: "the degree to which the predictions of a model matches the reality being modeled. In \[the context of classificaton models\], accuracy $= P(\lambda (X) = Y)$ where $XY$ is a joint distribution and the classification model $\lambda$ is a function $X \rightarrow Y$" [@sammut_encyclopedia_2017, p. 8].
 $$ \text{acc} = \cfrac{\text{TP} + \text{TN}}{\text{TP} + \text{TN} + \text{FP} + \text{FN}} $$ {#eq:definition-acc}
 -   Precision: also known as positive predictive value, it is "the ratio of true positives (TP) and the total number of positives predicted by a model" [@sammut_encyclopedia_2017, p. 990].
 $$ \text{ppv} = \cfrac{\text{TP}}{\text{TP} + \text{FP}} $$ {#eq:definition-ppv}
@@ -115,15 +115,15 @@ Some particularly imbalanced data sets and classifiers can lead to the denominat
 
 $$ \text{MCC}_2 =
 \begin{cases}
-    1 & \text{if TP \neq 0 and FN = FP = TN = 0}\\
-    1 & \text{if TN \neq 0 and FN = FP = TP = 0}\\
-    -1 & \text{if FP \neq 0 and FN = TP = TN = 0}\\
-    -1 & \text{if FN \neq 0 and TP = FP = TN = 0}\\
+    1 & \text{if TP $\neq 0$ and FN = FP = TN = 0}\\
+    1 & \text{if TN $\neq 0$ and FN = FP = TP = 0}\\
+    -1 & \text{if FP $\neq 0$ and FN = TP = TN = 0}\\
+    -1 & \text{if FN $\neq 0$ and TP = FP = TN = 0}\\
     0 & \text{if exactly two of (TP, FN, FP, TN) are 0}\\
     \cfrac{\text{TP} \cdot \text{TN} - \text{FP} \cdot \text{FN}}{\sqrt{(\text{TP} + \text{FP}) \cdot (\text{TP} + \text{FN}) \cdot (\text{TN} + \text{FP}) \cdot (\text{TN} + \text{FN})}} & \text{otherwise}
 \end{cases} $$ {#eq:definition-mcc-single-special-cases}
 
-**TODO: spacing between does-not-equal sign and 0s is wrong**
+**TODO: spacing between does-not-equal sign and 0s is wrong. maybe omit text other than for TP/FN/etc**
 
 Its value can be between -1 and +1. An MCC value of +1 indicates all samples are classified correctly, a value of -1 means they are _all_ classified incorrectly (quite a feat in itself) and a value of 0 denotes exactly half the samples (adjusted for class imbalance) are classified correctly.
 
@@ -139,7 +139,7 @@ Where $C_{a,b}$ is the number of samples classified into class _a_ that actually
 The last metric we will examine is the General Performance Score, proposed by @de_diego_general_2022 and generally defined as the harmonic mean of a set of arbitrary performance measures. We will use one specific instance of it, GPS~UPM~, wherein we parametrize it with the individual Unified Performance Measures derived for each class in our multiclass problem:
 
 $$
-\text{GPS}_\text{UPM} = \cfrac{K \cdot \prod\limits_{k=1}^{K} \text{UPM}_k}{\sum\limits_{k\prime=1}^{K} \cdot \prod\limits_{\substack{k=1\\k\neq k\prime}}^{K} \text{UPM}_k}
+\text{GPS}_\text{UPM} = \cfrac{K \cdot \prod\limits_{k=1}^{K} \text{UPM}_k}{\sum\limits_{k\prime=1}^{K} \prod\limits_{\substack{k=1\\k\neq k\prime}}^{K} \text{UPM}_k}
 $$ {#eq:definition-gps}
 
 With all our measures finally defined, we can move on to examine the results reached by our classifiers.
@@ -249,7 +249,7 @@ For the sake of an ideal 1:1 comparison, [@fig:reproduce-indicators-plot-knn-var
 
 ![Indicators evaluating the performance of the k-NN method using 90% of variance. Higher values are better.](reproduce-indicators-plot-knn-var0.9.png){#fig:reproduce-indicators-plot-knn-var0.9 width=80%}
 
-Let us turn our attention to the newly computed metrics, the MCC and the GPS~UPM~, and see if they provide any new insights. They are both, as expected, high when the more classical metrics (acc, ppv, tpr, tnr) are high. The interesting thing about them is that they both worsen — and quite fast — as if any one of those are low. For example, in the last row (95% explained variance, 500 nearest neighbors) one could naively see an accuracy of 87.11% and decide the classifier is performing rather well. It would take checking other metrics, particularly the true positive rate, to realize something went awry. But both the MCC and the GPS~UPM~ absolutely _tank_ accordingly, making the problem very hard to miss.
+Let us turn our attention to the newly computed metrics, the MCC and the GPS~UPM~, and see if they provide any new insights. They are both, as expected, high when the more classical metrics (acc, ppv, tpr, tnr) are high. The interesting thing about them is that they both worsen — and quite fast — if any one of those are low. For example, in the last row (95% explained variance, 500 nearest neighbors) one could naively see an accuracy of 87.11% and decide the classifier is performing rather well. It would take checking other metrics, particularly the true positive rate, to realize something went awry. But both the MCC and the GPS~UPM~ absolutely _tank_ accordingly, making the problem very hard to miss.
 
 Our failure mode here involved a misleadingly high accuracy and an alarmingly low true positive rate. In other situations the roles could be reversed, or some other metric might be the one telling the full story. This leads to having to forcibly check all these different metrics to get an accurate picture of how a classifier is performing.
 
