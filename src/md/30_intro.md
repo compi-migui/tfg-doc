@@ -4,6 +4,8 @@
 ## Introduction
 Due to their remote location, inspection and maintenance activities on offshore wind turbines are very costly both in terms of risk to workers' health and safety and in economic cost. As worlwide investment on renewable energy sources — including offshore wind turbines — grows, we can expect that toll to increase accordingly unless remedied.
 
+Improved processing of remotely-sensed data can help minimize the number of interventions needed, and thus also the human and economic costs involved: if we can more accurately tell how a structure is doing we don't need people to put themselves at risk by checking in on it in person as often.
+
 **TODO: Maybe some words about how no engineering project, new technique or scientific advancement can be considered in isolation without examining the wider context of the world and the industry it is part of. Pure math/science advancement for the sake of knowledge vs. application of those from an engineering POV. That is why we talk so much about stuff that's unrelated to a strictly mathy data processing problem**
 
 In this section we will first very briefly examine the role of wind power generation and its future trends and the relevance of offshore wind turbines in that wider picture. This will serve to justify _why_ the goals we are setting out to achieve are worth reaching in the first place.
@@ -41,26 +43,18 @@ Such monitoring strategies can go from the very simple to the unimaginably compl
 
 Moving up a few steps in complexity, consider the monitoring of unidirectional fiber composite laminates via electrical resistance as described by @balageas_structural_2010 [ch. 5]. These materials exhibit piezoresistivity, meaning their electrical resistance changes as mechanical stress is applied to them. Once a particular element's stress-strain-electrical resistance characteristic is determined, one could use sensors to monitor for changes in that characteristic, which would indicate fractures in its microscopic fibers and alert to damage before catastrophic failure. This would require a more sophisticated controller than the earlier simple "compare-single-value" case.
 
-Turning up the difficulty even higher we reach the matter at hand: Structural Health Monitoring in offshore wind turbines.
+Turning up the difficulty even higher we reach the matter at hand: Structural Health Monitoring in offshore wind turbines. These are large structures made of many different elements and exposed to constantly changing and chaotic stresses due to varying atmospheric and sea conditions. Their state cannot be measured by single values like a tire's pressure or a composite's electrical resistance. All one can do is attach several accelerometers at different points on the structure, resulting in thousands upon thousands of readings per second that need to be somehow reduced to a single diagnosis.
 
-simple SHM (overpressure of some tank?) -> simple system or human can read
-vs
-complicated SHM (buncha accelerometers) -> ML can save the day
+To the human eye, such readings are impossible to decipher — too much data with entirely too much noise mixed in. With tried and true mathematical methods for dimensionality reduction it is possible to condense the data down to a more workable form, but even that does not open an easy path to diagnosis: the forces applied to the structure and its response to them is extremely specific to a particular wind turbine in a particular park in a particular place in the world at a particular time and date. There is no simple model or physical law that can answer the question "is this structure healthy?" from the accelerometer data.
 
-[@devriendt_structural_2014] applied SHM to actual offshore wind turbines
+Enter machine learning algorithms, which enable precisely the kind of pattern recognition needed for this problem. They provide the "mathematical means of associating measured data with given class labels" [@farrar_structural_2012, p. 8] without the need to actually model the system that is generating the measured data: it is enough to provide training data along with known correct class labels (e.g. this is data from a healthy structure, this is data from a damaged structure) and the algorithms are able to find the relevant features and apply them to classify data it has never encountered before.
 
-SHM is a whole thing. Introduce it very briefly, then quickly move on to how it's applied to offshore wind turbines. Big piles of data impossible to parse by humans... luckily math is here to save the day!
-
-(from abstrach) Improved processing of remotely-sensed data can help minimize the number of interventions needed, and thus also the human and economic costs involved: if we can more accurately tell how a structure is doing we don't need people to put themselves at risk by checking in on it in person as often.
-
-
-### Machine-learning algorithms
-May or may not end up removing this subsection. It could be here for a very brief introduction to what machine-learning algorithms _are_, very generally. Only as a way to make the reader's mouth start to water before we move on to the more exciting Methodology section.
+**TODO: [@devriendt_structural_2014] has applied SHM to actual offshore wind turbines, maybe worth pointing at it somewhere**
 
 ## Goals
 
 ### Reproducing an existing methodology with new data
-Actually properly cite the paper @ https://www.mdpi.com/1424-8220/20/7/1835. Explain how it proposes a methodology to tackle the problem we just defined.
+Explain how @vidal_structural_2020 proposes a methodology to tackle the problem we just defined.
 
 Explain that we're going to try to reproduce its results by applying the same methodology to a new data set. Maybe include a few lines about the importance of reproducibility in science and how the "replication crisis" is a whole thing the scientific community is contending with. All this to justify the existence of this very paper!
 
