@@ -19,7 +19,7 @@ Lastly we will discuss the role of machine learning algorithms, like the ones th
 ### The role of wind power
 According to the Global Wind Energy Council's 2024 Global Wind Report, wind power generation surpassed 1 TW of total installed capacity in 2023, and it is estimated to reach 2 TW by year 2030 [@lee_global_2024].
 
-According to the European Wind Power Action Plan published by the European Commission [@-european_commission_european_2023], wind power generation capacity in the European Union was 204 GW in 2023. In order to meet its renewable energy generation targets, that number will have to grow that to more than 500 GW by 2030.
+According to the European Wind Power Action Plan published by the European Commission [-@european_commission_european_2023], wind power generation capacity in the European Union was 204 GW in 2023. In order to meet its renewable energy generation targets, that number will have to grow that to more than 500 GW by 2030.
 
 It cannot be made any more clear: there is plenty of wind power in the world, and we can rightly expect there to be a lot more in the near future.
 
@@ -64,7 +64,7 @@ One might ask, what is the purpose of that? Why bother replicating the results o
 
 At its core, the scientific method involves coming up with falsifiable hypotheses that are then put to the test via experimentation. The results of those experiments are analyzed to determine whether they support the hypotheses, allowing us to refine our understanding of an aspect of the world. The approach can be applied to all sorts of questions one can come up with in all sorts of fields, like "does the Moon exist?" (most signs point to yes) or "can you use a Pozidriv screwdriver on a Phillips head screw?" (you can in a pinch, but the screw will suffer for it).
 
-Since it is all about improving our collective understanding of the world, it is _crucial_ that such results be replicable by others in the scientific community. That is the only to verify their correctness — not simply to spot actual mistakes made by the original researchers or flukes introduced by random chance, but to further refine our understanding through iteration and thus inch forwards toward progressively more accurate knowledge and better technique.
+Since it is all about improving our collective understanding of the world, it is _crucial_ that such results be replicable by others in the scientific community. That is the only way to verify their correctness — not simply to spot actual mistakes made by the original researchers or flukes introduced by random chance, but to further refine our understanding through iteration and thus inch forwards toward progressively more accurate knowledge and better technique.
 
 This is where we must pull up our sleeves and define some terminology. What does it mean to be able to replicate or reproduce existing research? What's the difference between the three terms? Unfortunately, the answer is "it depends". Looking at publications across several fields, @barba_terminologies_2018 found that "they either, A—make no distinction between the words reproduce and replicate, or B—use them distinctly. If B, then they are commonly divided in two camps. In a spectrum of concerns that starts at a minimum standard of 'same data+same methods=same results,' to 'new data and/or new methods in an independent study=same findings,' group 1 calls the minimum standard reproduce, while group 2 calls it replicate. This direct swap of the two terms aggravates an already weighty issue". Indeed a sorry state of affairs.
 
@@ -95,6 +95,7 @@ While the Replication Crisis first came up in the context of the field of psycho
 To wrap up the topic, we simply cannot discuss the issues without at least briefly mentioning potential causes. In the context of the field of psychology, @lilienfeld_psychologys_2017 confronts the impact of what he calls "grant culture", wherein the methods of allocation of research funding and the pressures exerted by employing institutions on researchers to obtain that funding (both positive "e.g., tenure, promotion, awards, salary increases, resources" and negative "e.g., threats of being denied tenure and promotion, loss of laboratory space and graduate student access") leads to several negative consequences, among them:
 
 >   "Disincentives for conducting direct replications. Until recently, major federal agencies have allocated relatively little funding to supporting direct replications of previous work. Hence, there is scant incentive for investigators to replicate others’ work. In this respect, the grant culture often works against the accumulation of reproducible knowledge."
+>
 >   \ — @lilienfeld_psychologys_2017
 
 As an outsider, the author of this work can hardly argue in favor or against that interpretation, but it rings valid as a systemic cause leading to systemic problems. Either way, and fortunately, those disincentives are not present in the context of a Final Thesis for an undergraduate degree. So let us take advantage of the opportunity and do some replication.
@@ -105,7 +106,9 @@ In discussing what they call a reproducibility crisis in machine-learning-based 
 One of those is of particular relevance to us:
 
 >   **\[L1\] Lack of clean separation of training and test dataset.** If the training dataset is not separated from the test dataset during all pre-processing, modeling, and evaluation steps, the model has access to information in the test set before its performance is evaluated. Because the model has access to information from the test set at training time, the model learns relationships between the predictors and the outcome that would not be available in additional data drawn from the distribution of interest. The performance of the model on these data therefore does not reflect how well the model would perform on a new test set drawn from the same distribution of data. This can happen in several ways, such as:
+>
 >   ...
+>
 >   **\[L1.2\] Pre-processing on training and test set.** Using the entire dataset for any pre-processing steps, such as imputation or over/under sampling, results in leakage.
 >   \ — @kapoor_leakage_2023 [p. 4]
 
