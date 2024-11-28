@@ -34,6 +34,8 @@ In the European Union, the offshore share of installed wind power capacity is 8%
 
 In other words: offshore wind turbines are already, today, a very significant part of wind power generation. According to industry estimates, its importance will become even larger in the near future. That is why it is not only useful, but _essential_, to closely examine the risks and costs involved in their daily operations and maintenance to mitigate human and economic costs as much as possible.
 
+**TODO: would be nice to talk more about OWT maintenance operations here, quantify that human/econ cost we're trying to minimize**
+
 ### Structural Health Monitoring in offshore wind turbines
 Structural Health Monitoring can be defined as a strategy that "aims to give, at every moment during the life of a structure, a diagnosis of the 'state' of the constituent materials, of the different parts, and of the full assembly of these parts constituting the structure as a whole" [@balageas_structural_2010].
 
@@ -53,10 +55,43 @@ Enter machine learning algorithms, which enable precisely the kind of pattern re
 
 ## Goals
 
-### Reproducing an existing methodology with new data
-Explain how @vidal_structural_2020 proposes a methodology to tackle the problem we just defined.
+### Replicating an existing methodology with new data
+@vidal_structural_2020 proposed an approach to processing accelerometer data from offshore wind turbines for the purpose of Structural Health Monitoring. We are going to take their methodology and attempt to replicate their results by applying it to a different data set.
 
-Explain that we're going to try to reproduce its results by applying the same methodology to a new data set. Maybe include a few lines about the importance of reproducibility in science and how the "replication crisis" is a whole thing the scientific community is contending with. All this to justify the existence of this very paper!
+The data set we will use was created by @leon_medina_online_2023 using the same experimental setup (meaning, the same physical model and sensors) for the purposes of defining alternative approaches to the same problem. This is ideal for our purposes because it means we have data similar enough to that used by @vidal_structural_2020 that it can be reasonably expected that their results can be replicated, but without being a simple one to one repeat of what they already did.
+
+One might ask, what is the purpose of that? Why bother replicating the results of an existing work? Answering that question requires at least some discussion on the principles behind the scientific method, the role reproduction and replication play in it, the Replication Crisis and how it relates to the field of Machine Learning.
+
+At its core, the scientific method involves coming up with falsifiable hypotheses that are then put to the test via experimentation. The results of those experiments are analyzed to determine whether they support the hypotheses, allowing us to refine our understanding of an aspect of the world. The approach can be applied to all sorts of questions one can come up with in all sorts of fields, like "does the Moon exist?" (most signs point to yes) or "can you use a Pozidriv screwdriver on a Phillips screw?" (you can in a pinch, but the screw will suffer for it).
+
+Since it is all about improving our collective understanding of the world, it is _crucial_ that such results be replicable by others in the scientific community. That is the only to verify their correctness — not simply to spot actual mistakes made by the original researchers or flukes introduced by random chance, but to further refine our understanding through iteration and thus inch forwards toward progressively more accurate knowledge and better technique.
+
+This is where we must pull up our sleeves and define some terminology. What does it mean to be able to replicate or reproduce existing research? What's the difference between the three terms? Unfortunately, the answer is "it depends". Looking at publications across several fields, @barba_terminologies_2018 found that "they either, A—make no distinction between the words reproduce and replicate, or B—use them distinctly. If B, then they are commonly divided in two camps. In a spectrum of concerns that starts at a minimum standard of 'same data+same methods=same results,' to 'new data and/or new methods in an independent study=same findings,' group 1 calls the minimum standard reproduce, while group 2 calls it replicate. This direct swap of the two terms aggravates an already weighty issue". Indeed a sorry state of affairs.
+
+So, rather than starting with our term of choice, let us build up to it using the following underlying concepts:
+
+>   Regardless of the specific terms used, the underlying concepts have long played essential roles in all scientific disciplines. These concepts are closely connected to the following general questions about scientific results:
+>   -  Are the data and analysis laid out with sufficient transparency and clarity that the results can be checked?
+>   -  If checked, do the data and analysis offered in support of the result in fact support that result?
+>   -  If the data and analysis are shown to support the original result, can the result reported be found again in the specific study context investigated?
+>   -  Finally, can the result reported or the inference drawn be found again in a broader set of study contexts?
+>   \ — @national_academies_of_sciences_engineering_and_medicine_reproducibility_2019 [p. 44]
+
+Our goal is to answer the third question above: "can the result reported be found again in the specific study context investigated?". We will not have access to the data and code used by @vidal_structural_2020 and instead we will do our best to apply their methodology as laid out in their paper. We will call this **replication**. If we can replicate their results, then their work is replicable. If we cannot, then either their work is not replicable or we failed in our efforts.
+
+Rather than stopping there, we will in turn provide all our data **TODO: !!! ask @leon_medina_online_2023 if they actually allow this, since it's their data !!!** and code such that anyone asking the first and second questions about our work will find that the answer is yes to both. This is what we will call **reproducibility**: anyone will be able to use our code to derive the same results from the data, so our work will be reproducible.
+
+These definitions for replicability and reproducibility match the ones used by the @national_academies_of_sciences_engineering_and_medicine_reproducibility_2019 and identified as "broadly disseminated across disciplines" by @barba_terminologies_2018. Beware that, as mentioned earlier, the two are not used consistently across disciplines and even less so in popular discourse.
+
+>the Replication Crisis (mostly applied to psychology and social sciences, but)
+
+>how it relates to the field of Machine Learning
+
+
+**TODO: why reproduce? talk about @shrout_psychology_2018 (general replication crisis) @gibney_could_2022 (general ML reproducibility crisis)**
+
+@lilienfeld_psychologys_2017 -> grant culture, "Disincentives for conducting direct replications"
+
 
 ### Proposed improvements
 Make it clear that we're attempting improvements not in the sense of "the paper did a thing wrong, we're going to do it properly" but in the sense of "wouldn't it be nice to _also_ try this other thing"?
@@ -66,6 +101,11 @@ Make it clear that we're attempting improvements not in the sense of "the paper 
 The paper tries out 2 different machine-learning classifiers. We'll try another one, called PLACEHOLDER, and we'll compare its results to those of the other classifiers. For more details, see the Methodology section.
 
 #### Scaling and dimensionality reduction on the training set only
+
+>   Lack of clean separation of training and test dataset. If the training dataset is not separated from the test dataset during all pre-processing, modeling, and evaluation steps, the model has access to information in the test set before its performance is evaluated. Because the model has access to information from the test set at training time, the model learns relationships between the predictors and the outcome that would not be available in additional data drawn from the distribution of interest. The performance of the model on these data therefore does not reflect how well the model would perform on a new test set drawn from the same distribution of data. This can happen in several ways, such as:
+>   ...
+>   Pre-processing on training and test set. Using the entire dataset for any pre-processing steps, such as imputation or over/under sampling, results in leakage. For instance, using oversampling before splitting the data into training and test
+>   \ — @kapoor_leakage_2023 [p. 4]
 
 The paper does scaling and dimensionality reduction with the entire data set, then separates it out into training and test data. Only the training data is used to train the classifiers, and then we evaluate how well it does at classifying the test data.
 
