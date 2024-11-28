@@ -80,7 +80,7 @@ So, rather than starting with our term of choice, let us build up to it using th
 >
 >   -  Finally, can the result reported or the inference drawn be found again in a broader set of study contexts?
 >
->   \ — @national_academies_of_sciences_engineering_and_medicine_reproducibility_2019 [p. 44]
+>   [@national_academies_of_sciences_engineering_and_medicine_reproducibility_2019, p. 44]
 
 Our goal is to answer the third question above: "can the result reported be found again in the specific study context investigated?". We will not have access to the data and code used by @vidal_structural_2020 and instead we will do our best to apply their methodology as laid out in their paper. We will call this **replication**. If we can replicate their results, then their work is replicable. If we cannot, then either their work is not replicable or we failed in our efforts.
 
@@ -88,15 +88,15 @@ Rather than stopping there, we will in turn provide all our data **TODO: !!! ask
 
 These definitions for replicability and reproducibility match the ones used by the @national_academies_of_sciences_engineering_and_medicine_reproducibility_2019 and identified as "broadly disseminated across disciplines" by @barba_terminologies_2018. Beware that, as mentioned earlier, the two are not used consistently across disciplines and even less so in popular discourse.
 
-Having defined these terms and going back to the importance of replicability, perhaps the best known example is the so-called Replication Crisis, a phenomenon widely reported over the last decade and change in which many published and peer-reviewed scientific papers turned out to not be replicable at all. As a surface level example, @shrout_psychology_2018 mentions "the effort by the Open Science Collaboration to replicate 100 results that were systematically sampled from three top-tier journals in psychology: (_a_) Only 36% of the replication efforts yielded significant findings, (_b_) 32% of the original findings were no longer significant when combined with the new data, (_c_) effect sizes in the replication studies were about half the size of those in the original studies, and (_d_) failures to replicate were related to features of the original study (e.g., replication failures were more common in social than in cognitive psychological studies and in studies reporting surprising rather than intuitive findings)".
+Having defined these terms and going back to the importance of replicability, perhaps the best known example is the so-called Replication Crisis, a phenomenon widely reported over the last decade and change in which many published and peer-reviewed scientific papers turned out to not be replicable at all. As a surface level example, @shrout_psychology_2018 mentions:
+
+>   ...the effort by the Open Science Collaboration to replicate 100 results that were systematically sampled from three top-tier journals in psychology: (_a_) Only 36% of the replication efforts yielded significant findings, (_b_) 32% of the original findings were no longer significant when combined with the new data, (_c_) effect sizes in the replication studies were about half the size of those in the original studies, and (_d_) failures to replicate were related to features of the original study (e.g., replication failures were more common in social than in cognitive psychological studies and in studies reporting surprising rather than intuitive findings) (p. 489)
 
 While the Replication Crisis first came up in the context of the field of psychology, it has brought to the foreground replicability and reproducibility issues in other social and natural sciences. Perhaps most relevant to this work, @kapoor_leakage_2023 discuss how the usage of Machine learning adds fuel to this fire, surveying "22 papers that identify pitfalls in the adoption of ML methods across 17 fields, collectively affecting 294 papers" which together with the lack of "systemic solutions that have been deployed for these failures" they argue supports the view "that ML-based science is suffering from a reproducibility crisis".
 
 To wrap up the topic, we simply cannot discuss the issues without at least briefly mentioning potential causes. In the context of the field of psychology, @lilienfeld_psychologys_2017 confronts the impact of what he calls "grant culture", wherein the methods of allocation of research funding and the pressures exerted by employing institutions on researchers to obtain that funding (both positive "e.g., tenure, promotion, awards, salary increases, resources" and negative "e.g., threats of being denied tenure and promotion, loss of laboratory space and graduate student access") leads to several negative consequences, among them:
 
->   "Disincentives for conducting direct replications. Until recently, major federal agencies have allocated relatively little funding to supporting direct replications of previous work. Hence, there is scant incentive for investigators to replicate others’ work. In this respect, the grant culture often works against the accumulation of reproducible knowledge."
->
->   \ — @lilienfeld_psychologys_2017
+>   Disincentives for conducting direct replications. Until recently, major federal agencies have allocated relatively little funding to supporting direct replications of previous work. Hence, there is scant incentive for investigators to replicate others’ work. In this respect, the grant culture often works against the accumulation of reproducible knowledge. (p. 662)
 
 As an outsider, the author of this work can hardly argue in favor or against that interpretation, but it rings valid as a systemic cause leading to systemic problems. Either way, and fortunately, those disincentives are not present in the context of a Final Thesis for an undergraduate degree. So let us take advantage of the opportunity and do some replication.
 
@@ -110,7 +110,7 @@ One of those is of particular relevance to us:
 >   ...
 >
 >   **\[L1.2\] Pre-processing on training and test set.** Using the entire dataset for any pre-processing steps, such as imputation or over/under sampling, results in leakage.
->   \ — @kapoor_leakage_2023 [p. 4]
+>   [@kapoor_leakage_2023, p. 4]
 
 In their methodology, @vidal_structural_2020 describe separating data into training and test datasets before the classification step and using cross-validation to avoid results being overly determined by the coincidental makeup of each set. However, there is no mention of also enforcing that separation during pre-processing: the scaling and dimensionality reduction steps.
 
