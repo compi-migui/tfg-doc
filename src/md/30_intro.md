@@ -62,7 +62,7 @@ The data set we will use was created by @leon_medina_online_2023 using the same 
 
 One might ask, what is the purpose of that? Why bother replicating the results of an existing work? Answering that question requires at least some discussion on the principles behind the scientific method, the role reproduction and replication play in it, the Replication Crisis and how it relates to the field of Machine Learning.
 
-At its core, the scientific method involves coming up with falsifiable hypotheses that are then put to the test via experimentation. The results of those experiments are analyzed to determine whether they support the hypotheses, allowing us to refine our understanding of an aspect of the world. The approach can be applied to all sorts of questions one can come up with in all sorts of fields, like "does the Moon exist?" (most signs point to yes) or "can you use a Pozidriv screwdriver on a Phillips screw?" (you can in a pinch, but the screw will suffer for it).
+At its core, the scientific method involves coming up with falsifiable hypotheses that are then put to the test via experimentation. The results of those experiments are analyzed to determine whether they support the hypotheses, allowing us to refine our understanding of an aspect of the world. The approach can be applied to all sorts of questions one can come up with in all sorts of fields, like "does the Moon exist?" (most signs point to yes) or "can you use a Pozidriv screwdriver on a Phillips head screw?" (you can in a pinch, but the screw will suffer for it).
 
 Since it is all about improving our collective understanding of the world, it is _crucial_ that such results be replicable by others in the scientific community. That is the only to verify their correctness — not simply to spot actual mistakes made by the original researchers or flukes introduced by random chance, but to further refine our understanding through iteration and thus inch forwards toward progressively more accurate knowledge and better technique.
 
@@ -71,10 +71,15 @@ This is where we must pull up our sleeves and define some terminology. What does
 So, rather than starting with our term of choice, let us build up to it using the following underlying concepts:
 
 >   Regardless of the specific terms used, the underlying concepts have long played essential roles in all scientific disciplines. These concepts are closely connected to the following general questions about scientific results:
+>
 >   -  Are the data and analysis laid out with sufficient transparency and clarity that the results can be checked?
+>
 >   -  If checked, do the data and analysis offered in support of the result in fact support that result?
+>
 >   -  If the data and analysis are shown to support the original result, can the result reported be found again in the specific study context investigated?
+>
 >   -  Finally, can the result reported or the inference drawn be found again in a broader set of study contexts?
+>
 >   \ — @national_academies_of_sciences_engineering_and_medicine_reproducibility_2019 [p. 44]
 
 Our goal is to answer the third question above: "can the result reported be found again in the specific study context investigated?". We will not have access to the data and code used by @vidal_structural_2020 and instead we will do our best to apply their methodology as laid out in their paper. We will call this **replication**. If we can replicate their results, then their work is replicable. If we cannot, then either their work is not replicable or we failed in our efforts.
@@ -83,30 +88,31 @@ Rather than stopping there, we will in turn provide all our data **TODO: !!! ask
 
 These definitions for replicability and reproducibility match the ones used by the @national_academies_of_sciences_engineering_and_medicine_reproducibility_2019 and identified as "broadly disseminated across disciplines" by @barba_terminologies_2018. Beware that, as mentioned earlier, the two are not used consistently across disciplines and even less so in popular discourse.
 
->the Replication Crisis (mostly applied to psychology and social sciences, but)
+Having defined these terms and going back to the importance of replicability, perhaps the best known example is the so-called Replication Crisis, a phenomenon widely reported over the last decade and change in which many published and peer-reviewed scientific papers turned out to not be replicable at all. As a surface level example, @shrout_psychology_2018 mentions "the effort by the Open Science Collaboration to replicate 100 results that were systematically sampled from three top-tier journals in psychology: (_a_) Only 36% of the replication efforts yielded significant findings, (_b_) 32% of the original findings were no longer significant when combined with the new data, (_c_) effect sizes in the replication studies were about half the size of those in the original studies, and (_d_) failures to replicate were related to features of the original study (e.g., replication failures were more common in social than in cognitive psychological studies and in studies reporting surprising rather than intuitive findings)".
 
->how it relates to the field of Machine Learning
+While the Replication Crisis first came up in the context of the field of psychology, it has brought to the foreground replicability and reproducibility issues in other social and natural sciences. Perhaps most relevant to this work, @kapoor_leakage_2023 discuss how the usage of Machine learning adds fuel to this fire, surveying "22 papers that identify pitfalls in the adoption of ML methods across 17 fields, collectively affecting 294 papers" which together with the lack of "systemic solutions that have been deployed for these failures" they argue supports the view "that ML-based science is suffering from a reproducibility crisis".
 
+To wrap up the topic, we simply cannot discuss the issues without at least briefly mentioning potential causes. In the context of the field of psychology, @lilienfeld_psychologys_2017 confronts the impact of what he calls "grant culture", wherein the methods of allocation of research funding and the pressures exerted by employing institutions on researchers to obtain that funding (both positive "e.g., tenure, promotion, awards, salary increases, resources" and negative "e.g., threats of being denied tenure and promotion, loss of laboratory space and graduate student access") leads to several negative consequences, among them:
 
-**TODO: why reproduce? talk about @shrout_psychology_2018 (general replication crisis) @gibney_could_2022 (general ML reproducibility crisis)**
+>   "Disincentives for conducting direct replications. Until recently, major federal agencies have allocated relatively little funding to supporting direct replications of previous work. Hence, there is scant incentive for investigators to replicate others’ work. In this respect, the grant culture often works against the accumulation of reproducible knowledge."
+>   \ — @lilienfeld_psychologys_2017
 
-@lilienfeld_psychologys_2017 -> grant culture, "Disincentives for conducting direct replications"
+As an outsider, the author of this work can hardly argue in favor or against that interpretation, but it rings valid as a systemic cause leading to systemic problems. Either way, and fortunately, those disincentives are not present in the context of a Final Thesis for an undergraduate degree. So let us take advantage of the opportunity and do some replication.
 
+### Proposed improvement: avoiding data leakage
+In discussing what they call a reproducibility crisis in machine-learning-based science, @kapoor_leakage_2023 define data leakage as "a spurious relationship between the independent variables and the target variable that arises as an artifact of the data collection, sampling, or pre-processing strategy" and they build a taxonomy of data leakage errors.
 
-### Proposed improvements
-Make it clear that we're attempting improvements not in the sense of "the paper did a thing wrong, we're going to do it properly" but in the sense of "wouldn't it be nice to _also_ try this other thing"?
+One of those is of particular relevance to us:
 
-#### Additional classifier(s)
-
-The paper tries out 2 different machine-learning classifiers. We'll try another one, called PLACEHOLDER, and we'll compare its results to those of the other classifiers. For more details, see the Methodology section.
-
-#### Scaling and dimensionality reduction on the training set only
-
->   Lack of clean separation of training and test dataset. If the training dataset is not separated from the test dataset during all pre-processing, modeling, and evaluation steps, the model has access to information in the test set before its performance is evaluated. Because the model has access to information from the test set at training time, the model learns relationships between the predictors and the outcome that would not be available in additional data drawn from the distribution of interest. The performance of the model on these data therefore does not reflect how well the model would perform on a new test set drawn from the same distribution of data. This can happen in several ways, such as:
+>   **\[L1\] Lack of clean separation of training and test dataset.** If the training dataset is not separated from the test dataset during all pre-processing, modeling, and evaluation steps, the model has access to information in the test set before its performance is evaluated. Because the model has access to information from the test set at training time, the model learns relationships between the predictors and the outcome that would not be available in additional data drawn from the distribution of interest. The performance of the model on these data therefore does not reflect how well the model would perform on a new test set drawn from the same distribution of data. This can happen in several ways, such as:
 >   ...
->   Pre-processing on training and test set. Using the entire dataset for any pre-processing steps, such as imputation or over/under sampling, results in leakage. For instance, using oversampling before splitting the data into training and test
+>   **\[L1.2\] Pre-processing on training and test set.** Using the entire dataset for any pre-processing steps, such as imputation or over/under sampling, results in leakage.
 >   \ — @kapoor_leakage_2023 [p. 4]
 
-The paper does scaling and dimensionality reduction with the entire data set, then separates it out into training and test data. Only the training data is used to train the classifiers, and then we evaluate how well it does at classifying the test data.
+In their methodology, @vidal_structural_2020 describe separating data into training and test datasets before the classification step and using cross-validation to avoid results being overly determined by the coincidental makeup of each set. However, there is no mention of also enforcing that separation during pre-processing: the scaling and dimensionality reduction steps.
 
-What if we do the training/test split **before** going through scaling and dimensionality reduction? How do the results change? Is it a significant difference? Which variation is closer to how this methodology might be applied on a real system?
+This could arguably lead to the data leakage described by @kapoor_leakage_2023: the scaling and dimensionality reduction applied to the training set is informed by the contents of the test set. If the training set was instead scaled and reduced in isolation, the classifiers trained on it would be comparatively less suited to handling the data in the (also pre-processed in isolation, but using the same scaling and vectorial space as the training set) test set — which is the point of keeping them separate in the first place.
+
+Note that this is not necessarily a mistake nor does it invalidate the obtained results. It is quite likely that the difference between the two approaches is insignificant in this instance. But we do not need to guess: after we have replicated the original methodology, we will also use a modified methodology in which we will apply the strict separation during pre-processing as advised by @kapoor_leakage_2023.
+
+With both sets of results we will be able to determine whether there was data leakage that altered the results significantly.
