@@ -2,7 +2,7 @@
 # Conclusions
 <!--  Segons els resultats obtinguts, conclusions, limitacions i extensions futures -->
 
-Summarize the results we saw a little bit. Were we able to reproduce the original methodology satisfactorily? Can we be said to be safe from the replication crisis, at least for today?
+Summarize the results we saw a little bit. Were we able to replicate the original methodology satisfactorily? Can we be said to be safe from the replication crisis, at least for today?
 
 What about the stuff we added on top? Did it give us any new insight? Was it about the same as what was already there? Or did we just come up with a new way to _not_ do Structural Health Monitoring for offshore wind turbines?
 

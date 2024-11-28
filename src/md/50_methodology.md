@@ -7,8 +7,8 @@ lof: true
 <!--  Descripció d’equips i materials utilitzats per a la realització del treball, metodologia emprada i descripció completa dels experiments realitzats -->
 What we do and how. Detailed description of all tooling and data used.
 
-## Reproduction
-We reproduced a paper. Explain that.
+## Replication
+We replicated a paper. Explain that.
 
 ### Original paper's methodology
 How did the paper do it?

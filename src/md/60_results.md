@@ -5,11 +5,11 @@ Describe results and analyze them. Make sure to include pretty graphs whenever p
 
 ## Experimental data used
 
-While we are reproducing the _methodology_ of @vidal_structural_2020, we do not aim to simply put the same experimental data through the same process. We will instead use the data that was generated for @leon_medina_online_2023, which used the same laboratory setup to run additional trials.
+While we are replicating the _methodology_ of @vidal_structural_2020, we do not aim to simply put the same experimental data through the same process. We will instead use the data that was generated for @leon_medina_online_2023, which used the same laboratory setup to run additional trials.
 
 @leon_medina_online_2023 deals with stream data classifiers and the data it collected is shaped accordingly: the duration of each of its trials is over 12 times longer than those of @vidal_structural_2020 in order to give its classifiers a chance to train online and start giving accurate results. **TODO: maybe worth going a bit more in depth about online vs. offline classifiers, like a paragraph or two. applications, memory usage, etc.**
 
-Because the methodology we are reproducing uses offline classifiers, which tend to work on the entire data set at once, using this data as-is imposes prohibitive resource requirements: 12 times as much data requires at 12 times as much working memory. While this is technically achievable using professional server hardware, it greatly increases running costs for very marginal or nonexistent benefit. That is why we will not use the data as-is. We will instead truncate the data sets, keeping all the complexity and varability (number of sensors, damage conditions, wind amplitude conditions and trials) while reducing memory requirements six-fold. **TODO: talk about time complexity and memory complexity and how it relates to the algorithms we are using? big O notation etc. Math is fun!**
+Because the methodology we are replicating uses offline classifiers, which tend to work on the entire data set at once, using this data as-is imposes prohibitive resource requirements: 12 times as much data requires at 12 times as much working memory. While this is technically achievable using professional server hardware, it greatly increases running costs for very marginal or nonexistent benefit. That is why we will not use the data as-is. We will instead truncate the data sets, keeping all the complexity and varability (number of sensors, damage conditions, wind amplitude conditions and trials) while reducing memory requirements six-fold. **TODO: talk about time complexity and memory complexity and how it relates to the algorithms we are using? big O notation etc. Math is fun!**
 
 |                                                         | @vidal_structural_2020 | @leon_medina_online_2023 | Truncated @leon_medina_online_2023 |
 |---------------------------------------------------------|------------------------|--------------------------|------------------------------------|
@@ -36,7 +36,7 @@ Because the methodology we are reproducing uses offline classifiers, which tend 
 
 ## Performance measures
 
-As we aim to reproduce an existing methodology, in order to make it possible to actually compare our results to @vidal_structural_2020's side by side we will evaluate the models using the same metrics they did. We will also look at a few metrics not evaluated in the original paper, namely the Matthews correlation coefficient (MCC) as described by @chicco_advantages_2020 and the General Performance Score as described by @de_diego_general_2022.
+As we aim to replicate an existing methodology, in order to make it possible to actually compare our results to @vidal_structural_2020's side by side we will evaluate the models using the same metrics they did. We will also look at a few metrics not evaluated in the original paper, namely the Matthews correlation coefficient (MCC) as described by @chicco_advantages_2020 and the General Performance Score as described by @de_diego_general_2022.
 
 ### Binary measures
 
@@ -95,7 +95,7 @@ $$ \overline{\text{F}_1} = \cfrac{2\cdot \overline{\text{ppv}}\cdot \overline{\t
 -   Average specificity:
 $$ \overline{\text{tnr}} = \cfrac{\sum\limits_{j=1}^{J} \text{tnr}_j}{J} $$ {#eq:definition-avg-tnr}
 
-In order to go beyond mere reproduction of what @vidal_structural_2020 did, we will also compute and examine two other multiclass performance measures not present in that work.
+In order to go beyond mere replication of what @vidal_structural_2020 did, we will also compute and examine two other multiclass performance measures not present in that work.
 
 One of them is the Matthews correlation coefficient (MCC). Before getting into what it is, we first ought to discuss _why_ one would want to use it — in other words, what problem it aims to solve.
 
@@ -144,9 +144,9 @@ $$ {#eq:definition-gps}
 
 With all our measures finally defined, we can move on to examine the results reached by our classifiers.
 
-## Reproduction
+## Replication
 
-For starters we are going to look at the results generated using the exact methodology reported by @vidal_structural_2020. The same scaling and dimensionality reduction techniques, the same classifiers with the same parameters. That is the point of reproduction: verifying whether a given methodology faced with new data yields similar results.
+For starters we are going to look at the results generated using the exact methodology reported by @vidal_structural_2020. The same scaling and dimensionality reduction techniques, the same classifiers with the same parameters. That is the point of replication: verifying whether a given methodology faced with new data yields similar results.
 
 As mentioned earlier, we are additionally going to compute two new performance measures: the Matthews correlation coefficient and the General Performance Score (the latter parametrized with class-specific Unified Performance Measures). These new metrics may shed some new light on the results or they may merely reinforce what was already apparent from the original results. We shall see.
 
@@ -241,9 +241,9 @@ Looking now at the actual performance metrics in [@tbl:reproduce-results-table-k
 
 : Performance indicators for the k-NN classifier using principal components that explain 85, 90 and 95% of variance. {#tbl:reproduce-results-table-knn}
 
-Another notable difference is the number of nearest neighbors (k) at which the classifier's performance peaks: it was 200 for @vidal_structural_2020 but 100 for our reproduction. This is trivially explained by the different number of samples in the respective data sets: we have used a data set with half as many samples, so of course it is optimal to examine half as many neighbors at a time come classification time.
+Another notable difference is the number of nearest neighbors (k) at which the classifier's performance peaks: it was 200 for @vidal_structural_2020 but 100 for our replication. This is trivially explained by the different number of samples in the respective data sets: we have used a data set with half as many samples, so of course it is optimal to examine half as many neighbors at a time come classification time.
 
-So far this is exactly what one would expect to see when applying the same model to a different data set. We can say the reproduction has been successful.
+So far this is exactly what one would expect to see when applying the same model to a different data set. We can say the replication has been successful.
 
 For the sake of an ideal 1:1 comparison, [@fig:reproduce-indicators-plot-knn-var0.9] contains a plot of performance indicators for the k-NN classifier using principal components that explain 90% of variance, much like the one that can be found in [@vidal_structural_2020, p.15].
 
