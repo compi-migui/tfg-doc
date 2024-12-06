@@ -1,9 +1,9 @@
 \newpage
-# Results
+# Results {#sec:results}
 <!--  Descripció i anàlisis dels resultats obtinguts amb la metodologia proposada -->
 Describe results and analyze them. Make sure to include pretty graphs whenever possible. Everybody loves pretty pictures.
 
-## Experimental data used
+## Experimental data used {#sec:results-data}
 
 While we are replicating the _methodology_ of @vidal_structural_2020, we do not aim to simply put the same experimental data through the same process. We will instead use the data that was generated for @leon_medina_online_2023, which used the same laboratory setup to run additional trials.
 

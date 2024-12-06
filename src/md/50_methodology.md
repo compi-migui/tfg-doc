@@ -41,21 +41,68 @@ The external libraries used directly, not accounting for dependencies of depende
 
 **TODO: explain a bit more what each of these does. joblib is particularly not obvious**
 
-
 ### Original paper's methodology
-How did the paper do it?
+Let us describe the original methodology we are trying to replicate.
 
 #### Data source
-Explain that the data _we_ comes from a different experiment generated from the same testbed as the paper.
+We do not use the experimental data gathered by @vidal_structural_2020, but rather that gathered by @leon_medina_online_2023's. The actual laboratory model is the same, and they describe it thusly:
+
+>   The data used in this study was obtained from a laboratory-scaled wind turbine. The wind turbine is 2.7 m high and consists of three parts: the jacket, the tower, and the nacelle. ... To simulate the effects of marine waves and wind that offshore structures are subjected to, a white noise signal was applied to a shaker. This signal was then amplified in a function generator by factors of 0.5, 1, 2, and 3. Subsequently, the structure was excited, and its vibration response was measured using eight triaxial accelerometers...
+
+Although the same turbine and sensor configuration is used in both studies, the latter uses longer trials: 9.789 seconds instead of the original's 0.7236 seconds, for over 13 times more readings per trial. It also has fewer total trials: 5740 to the original's 11620, or about half as many.
+
+The larger overall size of the data set has implications for memory requirements and execution time for our entire process. Its different shape has implications for the behavior of the classifiers we will use. The precise impact of both of these is examined more closely in @sec:results.
 
 #### Data reshape
-Our data was already reshaped into a matrix like the one the paper describes, but it consisted of (comparatively) too-long experiments that made a normal computer choke when running through them. Explain how I had to slice and cut to keep just the data from a smaller time frame.
+The first challenge encountered when trying to analyze the data is the fact that it is three-dimensional: there is a distinct data point for each triplet of specific trial (out of 5740), specific sensor-axis (out of 24, for the 8 triaxial accelerometers) and specific time instant.
+
+@vidal_structural_2020 propose reshaping the entire data set into a unified two-dimensional matrix where each row contains all the data for a specific trial and each column contains the reading from a specific sensor-axis and timestamp. This shape would be frankly incomprehensible to a human reader, but it suits our pre-processing and classification methods just fine. They attribute this unfolding procedure to @westerhuis_comparing_1999.
+
+**TODO: show matrix like the paper's equation 1, but maybe with quantities like J,K,L turned into our actual numbers for easier reading. could be a cool graph**
+
+An important note is that the data provided to the author of this work by @leon_medina_online_2023 was already shaped into this form. This made the truncation process described in @sec:results-data somewhat more convoluted as it required careful slicing of the rows, but otherwise has no effect on our analysis.
 
 #### Scaling
-Scal...ing.
+Next up in the processing pipeline is scaling the data, which @vidal_structural_2020 explain serves "two main reasons: first, to process data that come from different sensors and second, to simplify the computations of the data transformation using PCA".
+
+**TODO: mention problems this avoids, like this quote from https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html: "For instance many elements used in the objective function of a learning algorithm (such as the RBF kernel of Support Vector Machines or the L1 and L2 regularizers of linear models) assume that all features are centered around 0 and have variance in the same order. If a feature has a variance that is orders of magnitude larger than others, it might dominate the objective function and make the estimator unable to learn from other features correctly as expected."**
+
+The scaling is done column by column, and involves adjusting each data point such that the column as a whole has a mean value of zero and a variance of one. The scaled value $\breve{x}_{i,j}^{k,l}$ of a reading $x_{i,j}^{k,l}$ is thus:
+
+$$
+\breve{x}_{i,j}^{k,l} = \cfrac{x_{i,j}^{k,l} - \mu_{k,l}}{\sigma_{k,l}}
+$$ {#eq:column-scaling}
+
+Where $\mu_{k,l}$ is the mean value of all readings in column "$k,l$" that $x$ belongs to:
+
+$$
+\mu_{k,l} = \cfrac{\sum\limits_{i=1}^{I} \sum\limits_{j=1}^{J} x_{i,j}^{k,l}}{I\cdot J}
+$$ {#eq:column-scaling-mean}
+
+And $\sigma_{k,l}$ is the standard deviation of all readings in that same column:
+
+$$
+\sigma_{k,l} = \sqrt{\cfrac{1}{I\cdot J}\sum\limits_{i=1}^{I} \sum\limits_{j=1}^{J} (x_{i,j}^{k,l} - \mu_{k,l})^2}
+$$ {#eq:column-scaling-stdev}
+
+Remember that, because of the way the data was structured, scaling along columns means each reading is being standardized among all the readings from that same sensor-axis and time instant across all trials in the data set.
 
 #### Dimensionality reduction
-Everybody's favorite friend: PCA! What is it? Both in mathematical terms and in pragmatic "this is what it does for us here" terms.
+At this point, the values in the data have been scaled column-wise but there are still several thousand columns with readings for each trial. This is far more than most machine-learning algorithms are able to handle without collapsing — either by providing nonsense classifications or by requiring more memory and processing resources than a modest data center can provide.
+
+Consider that the information conveyed by the great majority of those readings is quite redundant and serves only to waste and distract. It is imperative to condense it down to the most salient characteristics: those that are most useful to distinguish one trial from another, as that is what a classification model will ultimately need to evaluate.
+
+If one wanted to describe a list of cars in a way that's optimized to telling them apart, it would be foolish to start each car's description by explaining in detail that it is a physical object, it exists in three-dimensional space, it is artificially made, it is used as a means of transportation, it has wheels... Those are characteristics that (most) all cars share, so they are redundant and superfluous. A better way would be to list make, model, color and license plate numbers of each car: the latter is unique to each one, while the other three allow for broad categorization.
+
+The data set in front of us is a lot more gnarly than the car analogy, but the same principle applies: taking a huge list of data points of dubious usefulness (9672 readings per trial) and turning it into a smaller list of data points that still allow to differentiate a trial from another as much as possible. This is dimensionality reduction.
+
+@vidal_structural_2020 achieve this by way of multiway Principal Component Analysis. Principal Component Analysis (PCA) is a technique that makes it possible "to extract the important information from the table, to represent it as a set of new orthogonal variables called principal components, and to display the pattern of similarity of the observations and of the variables as points in maps" [@abdi_principal_2010]. The "multiway" qualifier is earned by virtue of having reshaped the data in the fashion that we did, combining all readings in a trial into a single row; PCA is applied as usual after that.
+
+Note that PCA by itself does not _reduce_ the dimensions captured in the data (and thus its size): it merely transforms our original matrix into a matrix of the same size, which represents the original data projected onto the newly-found principal components. Visualizing a 9672-dimension rotation is a feat beyond the ability of most people, so this is a case where one can only trust the math.
+
+What actually makes PCA useful here is the fact that those principal components are sorted: the first one will have the largest possible variance, the second one will have the second largest and so on. This translates into the first principal component "explaining" or "extracting" (as phrased by @abdi_principal_2010) the largest possible variance from the original data, the second one "explaining" the second largest possible variance and so forth.
+
+We can therefore truncate the principal components, taking only an arbitrary number of them rather than all 9672, project the data onto that smaller set of components and end up with a significanly smaller data set that still describes a disproportionately large portion of the inter-trial variance of the original data. Explain as much with fewer dimensions.
 
 #### Classification
 Explain what each of these even is.
