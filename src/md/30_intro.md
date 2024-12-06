@@ -53,9 +53,9 @@ Enter machine learning algorithms, which enable precisely the kind of pattern re
 
 **TODO: [@devriendt_structural_2014] has applied SHM to actual offshore wind turbines, maybe worth pointing at it somewhere**
 
-## Goals
+## Goals {#sec:goals}
 
-### Replicating an existing methodology with new data
+### Replicating an existing methodology with new data {#sec:goals-replicate}
 @vidal_structural_2020 proposed an approach to processing accelerometer data from offshore wind turbines for the purpose of Structural Health Monitoring. We are going to take their methodology and attempt to replicate their results by applying it to a different data set.
 
 The data set we will use was created by @leon_medina_online_2023 using the same experimental setup (meaning, the same physical model and sensors) for the purposes of defining alternative approaches to the same problem. This is ideal for our purposes because it means we have data similar enough to that used by @vidal_structural_2020 that it can be reasonably expected that their results can be replicated, but without being a simple one to one repeat of what they already did.
