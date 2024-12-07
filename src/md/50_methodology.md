@@ -41,6 +41,8 @@ The external libraries used directly, not accounting for dependencies of depende
 
 **TODO: explain a bit more what each of these does. joblib is particularly not obvious**
 
+**TODO: maybe mention the relevant code bits used in each part of the methodology. this funcion from this library for scaling, etc.**
+
 ### Original paper's methodology
 Let us describe the original methodology we are trying to replicate.
 
@@ -88,7 +90,7 @@ $$ {#eq:column-scaling-stdev}
 Remember that, because of the way the data was structured, scaling along columns means each reading is being standardized among all the readings from that same sensor-axis and time instant across all trials in the data set.
 
 #### Dimensionality reduction
-At this point, the values in the data have been scaled column-wise but there are still several thousand columns with readings for each trial. This is far more than most machine-learning algorithms are able to handle without collapsing — either by providing nonsense classifications or by requiring more memory and processing resources than a modest data center can provide.
+At this point, the values in the data have been scaled column-wise but there are still several thousand columns with readings for each trial. This is far more than most machine-learning algorithms are able to handle without collapsing — either by providing nonsense classifications or by requiring absurdly large amounts of memory and processing capacity.
 
 Consider that the information conveyed by the great majority of those readings is quite redundant and serves only to waste and distract. It is imperative to condense it down to the most salient characteristics: those that are most useful to distinguish one trial from another, as that is what a classification model will ultimately need to evaluate.
 
@@ -104,18 +106,58 @@ What actually makes PCA useful here is the fact that those principal components 
 
 We can therefore truncate the principal components, taking only an arbitrary number of them rather than all 9672, project the data onto that smaller set of components and end up with a significanly smaller data set that still describes a disproportionately large portion of the inter-trial variance of the original data. Explain as much with fewer dimensions.
 
+**TODO: could mention and explain SVD since it's what we actually use to get the PCs**
+
 #### Classification
-Explain what each of these even is.
+With the data scaled and reduced to a more manageable size it is time for the machine-learning classifiers to shine. In general terms, the way they work is we first fit them to our problem space using a _training_ data set where each sample is labeled with its known correct class — the gold standard that lets each algorithm be adapted to our goals. Then, with the now trained model, we provide it an unlabeled _test_ data set and have it predict what class each of the samples belongs to.
 
-**TODO: mention OvO and OvA (One vs One/All)**
+Since our goal is to replicate the results of the original paper, we will use the same classifiers it does: the _k_-nearest neighbors classifier and the Support Vector Machine.
 
-##### kNN
-It kays the Ns.
 
-##### SVM
-Super Vicious Manatee!
+##### _k_-nearest neighbors classifier (_k_-NN)
+A concept first proposed by @fix_discriminatory_1951, the _k_-NN classifier is brilliantly simple, especially compared to the complexity one might expect when being introduced to the topic of "classification using machine-learning algorithms". Let us go over how it works, starting with some definitions.
 
-[@Fig:reproduce-pca-plot] visualizes the same principal components as the original paper did. Note how the results are different due to using a different data set, but only superficially: not all pairs of principal components match exactly, but their quadratic relationship still shows through. Specifically, [@fig:reproduce-pca-plot-1-vs-2] reveals the exact same shape of concentric circles.
+Let $x$ be a sample from the test set, represented by a point in $N$-dimensional space where $N$ is the number of principal components preserved in the dimensionality reduction step:
+
+$$
+x = \left(x_1,\  x_2,\  \ldots,\  x_N \right)
+$$ {#eq:definition-knn-x}
+
+Let $y$ be one of the $M$ samples from the training set (recall that these are labeled with its known correct classes), each with the same shape:
+
+$$
+\begin{gathered}
+y_m = \left(y_{m,1},\  y_{m,2},\  \ldots,\  y_{m,N} \right)\\
+y_m \epsilon \{y_1,\  y_2,\  \ldots,\  y_M\}
+\end{gathered}
+$$ {#eq:definition-knn-y}
+
+Then, let $d(x,y)$ represent the the Euclidean distance between the two points in $N$-dimensional space, namely:
+
+$$
+d(x,y) = \sqrt{\sum\limits_{n=1}^{N} (x_n - y_n)^2}
+$$  {#eq:definition-knn-distance}
+
+For each of the test samples $x$ we find the training sample that is closest to it, meaning the $y_p$ that has the minimum distance with respect to $x$:
+
+$$
+d(x,y_p) = \text{min } d(x,y_m) \quad m = 1, 2, \ldots, M
+$$  {#eq:definition-knn-distance-min}
+
+If _k_ is larger than one, we then repeat the process to find the second-closest training sample and so on until we find all _k_ nearest neighbors to the test sample. The majority class for all those neighbors is then assigned to it.
+
+The classifier will perform differently for different values of _k_. Much like the original paper, we will examine its behavior for several values.
+
+##### Support Vector Machine (SVM)
+The other classifier used by @vidal_structural_2020 is the Support Vector Machine. To quote them directly:
+
+>   It is not the purpose of this paper to give a detailed explanation of the SVM classifier. For the interested reader, an excellent detailed review is given in reference \[@smola_tutorial_2004\]. However, to hand over the background and motivation for the proposed methodology, a summary of the method is given. This recap is based on reference \[@vidal_wind_2018\].
+
+The same applies to this work. Rather than patronize readers by parroting here the words of other authors about hyperplanes, convex geometry and topological vector spaces, please refer to the above references for the mathematical background. For our purposes, it is enough to consider the following:
+
+It is relatively feasible to compute in the linear case, meaning it can be applied directly and perform well when the data points are linearly separable or close to it. Naively extending it to nonlinear cases makes it "...computationally infeasible for both polynomial features of higher order and higher dimensionality" [@smola_tutorial_2004].To avoid that pitfall, one can apply the "kernel trick", in which very computationally costly high-dimensional transformations are replaced with a so-called kernel function to be used as an inner product.
+
+The kernel function can be chosen to best fit the shape of the data. @vidal_structural_2020 mention the polynomial (quadratic, cubic, etc.), hyperbolic tangent, and Gaussian radial basis functions and settle on the quadratic kernel as the best fit for the data. Their reasoning is that "it can be seen that \[scatter plots of samples' principal components\] reveal a quadratic relationship and, particularly, the first versus the second feature scatter plot exposes a concentric circles shape of the data set". To follow along with their rationale, [@fig:reproduce-pca-plot] maps our data set in the same fashion.
 
 <div id="fig:reproduce-pca-plot" class="subfigures">
 ![First versus second principal component.](reproduce-pca-plot-1-vs-2.png){#fig:reproduce-pca-plot-1-vs-2 width=40%}
@@ -126,6 +168,18 @@ Super Vicious Manatee!
 
 Scatter plots of a few principal component pairs. Blue dots are trials from the "healthy" set, while other colors are trials of different damage configurations.
 </div>
+
+Note how the results appear different due to using a different data set, but only superficially: not all pairs of principal components match exactly, but their quadratic relationship still shows through. Specifically, [@fig:reproduce-pca-plot-1-vs-2] reveals the exact same shape of concentric circles.
+
+Their chosen quadratic kernel function is as follows:
+
+$$
+K(x_i,x_j) = \left(1 + \cfrac{1}{\rho^2}x_i^{\text{T}}x_j \right)^2
+$$ {#eq:definition-svm-kernel}
+
+Leaving \rho, the kernel scale parameter, as the parameter to tweak to try and fit the behavior of the model to the needs of our data set.
+
+**TODO: mention OvO and OvA (One vs One/All)**
 
 **TODO: in the Results section, add similar PCA plots but coloring by predicted class instead of true class**
 
