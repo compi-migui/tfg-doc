@@ -78,13 +78,13 @@ $$ {#eq:column-scaling}
 Where $\mu_{k,l}$ is the mean value of all readings in column "$k,l$" that $x$ belongs to:
 
 $$
-\mu_{k,l} = \cfrac{\sum\limits_{i=1}^{I} \sum\limits_{j=1}^{J} x_{i,j}^{k,l}}{I\cdot J}
+\mu_{k,l} = \cfrac{\sum\limits_{i,j} x_{i,j}^{k,l}}{I\cdot J}
 $$ {#eq:column-scaling-mean}
 
 And $\sigma_{k,l}$ is the standard deviation of all readings in that same column:
 
 $$
-\sigma_{k,l} = \sqrt{\cfrac{1}{I\cdot J}\sum\limits_{i=1}^{I} \sum\limits_{j=1}^{J} (x_{i,j}^{k,l} - \mu_{k,l})^2}
+\sigma_{k,l} = \sqrt{\cfrac{1}{I\cdot J}\sum\limits_{i,j} (x_{i,j}^{k,l} - \mu_{k,l})^2}
 $$ {#eq:column-scaling-stdev}
 
 Remember that, because of the way the data was structured, scaling along columns means each reading is being standardized among all the readings from that same sensor-axis and time instant across all trials in the data set.
@@ -128,7 +128,7 @@ Let $y$ be one of the $M$ samples from the training set (recall that these are l
 $$
 \begin{gathered}
 y_m = \left(y_{m,1},\  y_{m,2},\  \ldots,\  y_{m,N} \right)\\
-y_m \epsilon \{y_1,\  y_2,\  \ldots,\  y_M\}
+y_m \in \{y_1,\  y_2,\  \ldots,\  y_M\}
 \end{gathered}
 $$ {#eq:definition-knn-y}
 
@@ -136,13 +136,13 @@ Then, let $d(x,y)$ represent the the Euclidean distance between the two points i
 
 $$
 d(x,y) = \sqrt{\sum\limits_{n=1}^{N} (x_n - y_n)^2}
-$$  {#eq:definition-knn-distance}
+$$ {#eq:definition-knn-distance}
 
 For each of the test samples $x$ we find the training sample that is closest to it, meaning the $y_p$ that has the minimum distance with respect to $x$:
 
 $$
 d(x,y_p) = \text{min } d(x,y_m) \quad m = 1, 2, \ldots, M
-$$  {#eq:definition-knn-distance-min}
+$$ {#eq:definition-knn-distance-min}
 
 If _k_ is larger than one, we then repeat the process to find the second-closest training sample and so on until we find all _k_ nearest neighbors to the test sample. The majority class for all those neighbors is then assigned to it.
 
@@ -177,7 +177,7 @@ $$
 K(x_i,x_j) = \left(1 + \cfrac{1}{\rho^2}x_i^{\text{T}}x_j \right)^2
 $$ {#eq:definition-svm-kernel}
 
-Leaving \rho, the kernel scale parameter, as the parameter to tweak to try and fit the behavior of the model to the needs of our data set.
+Leaving $\rho$, the kernel scale parameter, as the parameter to tweak to try and fit the behavior of the model to the needs of our data set.
 
 **TODO: mention OvO and OvA (One vs One/All)**
 
@@ -190,17 +190,88 @@ In order to dodge this problem @vidal_structural_2020 propose using _k_-fold cro
 
 This leads to _k_ different sets of performance metrics, which are averaged together to obtain the performance metrics for the model as a whole.
 
-## Proposed improvements
-Do this instead of that.
+@vidal_structural_2020 choose 5-fold cross-validation, as will we in order to replicate their methodology most accurately.
 
-### Additional classifier(s)
-We'll try another one classifier, called PLACEHOLDER, and we'll compare its results to those of the other classifiers. Explain it here!
+## Proposed improvement
+We have just gone over every part of the methodology we aim to replicate. We will now propose an improvement to it, describing both how we will do it and why it is worth doing.
 
-Also talk about code stuff if relevant. How did we actually implement the new classifier?
+### Data leakage
+As explained in @sec:goals-leakage, data leakage is "a spurious relationship between the independent variables and the target variable that arises as an artifact of the data collection, sampling, or pre-processing strategy" [@kapoor_leakage_2023]. It is a broad category of pitfalls that can be encountered in using machine-learning algorithms and which "usually leads to inflated estimates of model performance".
 
-### Scaling and dimensionality reduction on the training set only
-The paper does scaling and dimensionality reduction with the entire data set, then separates it out into training and test data. Only the training data is used to train the classifiers, and then we evaluate how well it does at classifying the test data.
+In building a taxonomy of data leakage errors, @kapoor_leakage_2023 list three top-level categories:
 
-What if we do the training/test split **before** going through scaling and dimensionality reduction? How do the results change? Is it a significant difference? Which variation is closer to how this methodology might be applied on a real system?
+>   **\[L1\] Lack of clean separation of training and test dataset.** If the training dataset is not separated from the test dataset during all pre-processing, modeling, and evaluation steps, the model has access to information in the test set before its performance is evaluated.
+>
+>   **\[L2\] Model uses features that are not legitimate.** If the model has access to features that should not be legitimately available for use in the modeling exercise, this could result in leakage.
+>
+>   **\[L3\] Test set is not drawn from the distribution of scientific interest.** The distribution of data on which the performance of an ML model is evaluated differs from the distribution of data about which the scientific claims are made.
 
-Also talk about code stuff. How did we actually implement the new workflow? Mention [sklearn pipelines](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html) and all that good stuff.
+The original study is safe from category \[L2\]: the only features used by the model are readings from accelerometers attached to the turbine structure, present in both healthy and damaged states. These would also be present in both healthy and damaged turbines in a hypothetical real off-shore park that implemented a similar SHM strategy, so no data leakage there.
+
+It is also safe from category \[L3\], as the claims made it in its conclusions are appropriately narrow and limited to the context of the limited proof of concept:
+
+>   A vibration-response-only methodology has been conceived and a satisfactory experimental proof of concept has been conducted. However, future work is needed to validate the technology in a more realistic environment that takes into account the varying environmental and operational conditions. [@vidal_structural_2020]
+
+It is under the \[L1\] category that we may find instances of data leakage worth avoiding. Let us examine each of the second-level categories under it as described by @kapoor_leakage_2023:
+
+>   **\[L1.1\] No test set.** Using the same dataset for training and testing the model is a textbook example of overfitting, which leads to overoptimistic performance estimates.
+>
+>   **\[L1.2\] Pre-processing on training and test set.** Using the entire dataset for any pre-processing steps, such as imputation or over/under sampling, results in leakage.
+>
+>   **\[L1.3\]  Feature selection on training and test set.** Feature selection on the entire dataset results in using information about which feature performs well on the test set to make a decision about which features should be included in the model.
+
+\[L1.1\] can be discarded outright: the methodology described _does_ use separate training and test sets for the classifier, going as far as using _k_-fold cross-validation to avoid overoptimistic estimates due to the choice of split.
+
+We also do not run afoul of \[L1.3\] at any time. There is no after-the-fact feature selection; they are selected from the very beginning and all data gathered from the experiments is used in the model.
+
+Category \[L1.2\], however, arguably includes two aspects of the methodology we have just examined. @vidal_structural_2020 describe separating data into training and test datasets before the classification step and using cross-validation to avoid results being overly determined by the coincidental makeup of each set. However, there is no mention of also enforcing that separation during pre-processing: the scaling and dimensionality reduction steps.
+
+This can lead to the data leakage described in \[L1.2\]: looking at [@eq:column-scaling; @eq:column-scaling-mean; @eq:column-scaling-stdev] the values for $\mu_{k,l}$ and $\sigma_{k,l}$ are obtained from columns of the whole data set and therefore they are a function of the test set (and the training data set, but that is not the problematic part). Each individual scaled value $\breve{x}_{i,j}^{k,l}$ is a function of $\mu_{k,l}$ and $\sigma_{k,l}$ (as well as the original value $x_{i,j}^{k,l}$). Therefore, the scaled values in the training data set are dependent on the values in the test data set — not just because of the underlying physical phenomena we are measuring and attempting to predict, but also because our scaling procedure is leaking data!
+
+The same applies to the dimensionality reduction step: the principal components are chosen using the whole data set, and therefore the transformed values in the training set are dependent on the values in the test set. That's data leakage.
+
+#### Plugging the leaks
+Resolving these issues can be achieved by shuffling the steps in our data processing pipeline slightly. Instead of scaling and reducing the entire data set together and then splitting via cross-validation to train and test the classifiers, we first split via cross-validation, scale and reduce the training set in isolation and use it to train the classifiers. Then we take the scaling/reduction parameters (respectively: mean and standard deviation; principal components) obtained from the training set, apply them as-is to the test set and test the classifiers on the result.
+
+**TODO: a diagram of before and after would go a long way here**
+
+#### Scaling
+In the scaling step, the scaled value $\breve{x}_{i,j}^{k,l}$ of a reading $x_{i,j}^{k,l}$ is redefined as:
+
+$$
+\breve{x}_{i,j}^{k,l} = \cfrac{x_{i,j}^{k,l} - \mu_{k,l}^{\prime}}{\sigma_{k,l}^{\prime}}
+$$ {#eq:column-scaling-noleak}
+
+Where $\mu_{k,l}^{\prime}$ is the mean value of all readings in column "$k,l$" that $x$ belongs to, excluding rows that belong to the test set $T$:
+
+$$
+\mu_{k,l}^{\prime} = \cfrac{\sum\limits_{i,j}^{(i,j)\notin T} x_{i,j}^{k,l}}{I\cdot J - |T|}
+$$ {#eq:column-scaling-noleak-mean}
+
+Likewise, $\sigma_{k,l}^{\prime}$ is the standard deviation of all readings in that same column, excluding rows that belong to the test set $T$:
+
+$$
+\sigma_{k,l}^{\prime} = \sqrt{\cfrac{1}{I\cdot J - |T|}\sum\limits_{i,j}^{(i,j)\notin T} (x_{i,j}^{k,l} - \mu_{k,l})^2}
+$$ {#eq:column-scaling-noleak-stdev}
+
+Note than in [@eq:column-scaling-noleak-mean; @eq:column-scaling-noleak-stdev] the expression $|T|$ represents the size of the test set.
+
+Note also that the definition in [@eq:column-scaling-noleak] applies to values in both the training and test set: we obtain the mean and standard deviation using only the training set but apply them to both sets. Therefore the scaled test data is dependent on the training data, but not the other way around.
+
+It is worth mentioning that, because the methodology uses 5-fold cross-validation, this revised scaling step will actually run five different times: once for each separate execution of the pipeline performed for each training/test split.
+
+With this slight modification, there is no longer data leakage in the scaling step.
+
+#### Dimensionality reduction
+The same principle we followed in the scaling step also applies in the dimensionality reduction step: the principal components are chosen using only the training set, and then they are used to transform both the training and test set. Once again, the reduced test data is dependent on the training data but not the other way around.
+
+The revised dimensionality reduction will, too, run once for each training/test split for a total of five times.
+
+#### Potential impact
+It is hard to quantify what the impact of these two changes may have on the performance of the model as a whole without actually going through the motions of implementing them and comparing the results, so that is exactly what we will do.
+
+It is reasonable to expect the classifiers to do at least slightly worse, as data leakage usually leads to overly optimistic results. We shall see if reality agrees with this expectation or if it rudely subverts it.
+
+**TODO: Also talk about code stuff. How did we actually implement the new workflow? Mention [sklearn pipelines](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html) and all that good stuff.**
+
+**TODO: total number of tests isn't actually I times J because there's more of the healthy class. gotta go through and fix all the equations lol. maybe just call it N or some other letter**

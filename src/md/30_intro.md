@@ -100,7 +100,7 @@ To wrap up the topic, we simply cannot discuss the issues without at least brief
 
 As an outsider, the author of this work can hardly argue in favor or against that interpretation, but it rings valid as a systemic cause leading to systemic problems. Either way, and fortunately, those disincentives are not present in the context of a Final Thesis for an undergraduate degree. So let us take advantage of the opportunity and do some replication.
 
-### Proposed improvement: avoiding data leakage
+### Proposed improvement: avoiding data leakage {#sec:goals-leakage}
 In discussing what they call a reproducibility crisis in machine-learning-based science, @kapoor_leakage_2023 define data leakage as "a spurious relationship between the independent variables and the target variable that arises as an artifact of the data collection, sampling, or pre-processing strategy" and they build a taxonomy of data leakage errors.
 
 One of those is of particular relevance to us:
