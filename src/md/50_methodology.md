@@ -109,7 +109,7 @@ We can therefore truncate the principal components, taking only an arbitrary num
 **TODO: could mention and explain SVD since it's what we actually use to get the PCs**
 
 #### Classification
-With the data scaled and reduced to a more manageable size it is time for the machine-learning classifiers to shine. In general terms, the way they work is we first fit them to our problem space using a _training_ data set where each sample is labeled with its known correct class — the gold standard that lets each algorithm be adapted to our goals. Then, with the now trained model, we provide it an unlabeled _test_ data set and have it predict what class each of the samples belongs to.
+With the data scaled and reduced to a more manageable size it is time for the machine-learning classifiers to shine. In general terms, the way they work is we first fit them to our problem space using a _training_ data set where each sample is labeled with its known correct class — the gold standard that lets each algorithm be adapted to our goals. Then, with the now trained model, we provide it an unlabeled _test_ data set and have it predict what class each of the samples belongs to. This training/test split is called the holdout method.
 
 Since our goal is to replicate the results of the original paper, we will use the same classifiers it does: the _k_-nearest neighbors classifier and the Support Vector Machine.
 
@@ -184,11 +184,11 @@ Leaving \rho, the kernel scale parameter, as the parameter to tweak to try and f
 **TODO: in the Results section, add similar PCA plots but coloring by predicted class instead of true class**
 
 #### Cross-validation
-This isn't your grandma's boring training/test split!
+The separation of our data set into training and test sets risks an obvious pitfall: what if, by random chance, we end up with a split that is unfairly favorable to the classifiers? What if the reverse is true and the split is unfairly unfavorable? Either is possible: either set could end up with a disproportionate amount of samples that are easier or harder to classify correctly in ways we cannot identify ahead of time, thus skewing the performance results.
 
+In order to dodge this problem @vidal_structural_2020 propose using _k_-fold cross-validation. This involves splitting the data set into _k_ partitions and running the entire model training and classification steps _k_ times: in each cycle, one of the partitions is used as the test set while the rest are combined into a training set.
 
-### Other considerations
-I may come up with other stuff to say as I write this up.
+This leads to _k_ different sets of performance metrics, which are averaged together to obtain the performance metrics for the model as a whole.
 
 ## Proposed improvements
 Do this instead of that.
