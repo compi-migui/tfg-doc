@@ -42,6 +42,23 @@ tfg.pdf: ${mdfiles} pandoc pandoc-crossref
 		--number-sections \
 		${mdfiles}
 
+debug: ${mdfiles} pandoc pandoc-crossref
+	pandoc \
+		--filter pandoc-crossref \
+		--bibliography ${CITATIONSFILE} \
+		--csl ${CITATIONSTYLEFILE} \
+		--citeproc \
+		--list-of-figures=false \
+		--list-of-tables=false \
+		--standalone \
+		--pdf-engine xelatex \
+		-s \
+		--output "${OUTDIR}/tfg.tex" \
+		--template "${TEMPLATEDIR}/eisvogel.latex" \
+		--resource-path "${FIGURESDIR}" \
+		--number-sections \
+		${mdfiles}
+
 draft: pdf
 	cp "${OUTDIR}/tfg.pdf" "${OUTDIR}/tfg-draft-${TIMESTAMP}.pdf"
 	tar -czf "${OUTDIR}/tfg-draft-archive-${TIMESTAMP}.tar.gz" Makefile "${OUTDIR}/tfg-draft-${TIMESTAMP}.pdf" "${SRCDIR}"
