@@ -1044,6 +1044,11 @@ $endif$
 $endif$
 $endif$
 
+$if(titlepage-override)$
+\includepdf[pages=-]{$titlepage-override$}
+\pagenumbering{arabic}
+$endif$
+
 %%
 %% end titlepage
 %%
