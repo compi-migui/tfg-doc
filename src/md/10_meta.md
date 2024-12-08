@@ -21,6 +21,7 @@ secnumdepth: 3
 lang: "en"
 titlepage: false
 titlepage-override: "cover.pdf"
+header-left: "\\leftmark"
 toc: true
 toc-own-page: true
 lot: false

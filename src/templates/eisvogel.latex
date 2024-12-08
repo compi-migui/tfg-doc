@@ -933,6 +933,7 @@ $if(disable-header-and-footer)$
 $else$
 \usepackage[headsepline,footsepline]{scrlayer-scrpage}
 
+\automark*[section]{section}
 \newpairofpagestyles{eisvogel-header-footer}{
   \clearpairofpagestyles
   \ihead*{$if(header-left)$$header-left$$else$$title$$endif$}
