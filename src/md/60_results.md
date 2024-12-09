@@ -464,7 +464,7 @@ With these figures in hand we can confidently say that, at least for the _k_-NN 
 
 
 ### Support Vector Machine (SVM)
-Once again we will use all the same values for explained variance and kernel scale parameter ($\rho$) values as we did in the replication case. The results for all the permutations are displayed in [@tbl:noleak-results-table-svm].
+Once again we will use all the same values for explained variance and kernel scale parameter ($\rho$) values as we did in the replication case. The results for all the permutations are shown in [@tbl:noleak-results-table-svm].
 
 
 +------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
@@ -549,14 +549,16 @@ Once again we will use all the same values for explained variance and kernel sca
 |        95% |     1748 | 300 | 79.94% |   nan% | 29.77% |   nan% | 82.45% |      nan% | 28.80% |
 +------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
 
-: Performance indicators for the SVM classifier using principal components that explain 85, 90 and 95% of variance, with data leakage avoidance. **(TODO: figure out where the NaNs are coming from. probably terrible results for that ρ leading to division by zero when computing those indicators)** {#tbl:noleak-results-table-svm}
+: Performance indicators for the SVM classifier using principal components that explain 85, 90 and 95% of variance, with data leakage avoidance.  {#tbl:noleak-results-table-svm}
+
+**TODO: talk about the results here. rough notes:**
 
 > peak at different explained variance
+
 > base case consistently better (albeit very slightly)
+
 > difference still very small, but 99.94% to 99.83% is actually more significant than it seems: it goes from getting only 3 wrong up to 7 wrong, more than twice the errors
+
 > still doesn't invalidate the conclusions of the paper, but a good indicator that we should keep data leaks in mind
-
-Looking at the performance indicators, it turns out that the results are functionally identical to the ones reached with the original methodology (seen in [@tbl:reproduce-results-table-knn]). The numbers vary very slightly up and down, but those represent only a handful of samples being labeled differently. This tiny variation seems to go in either direction, sometimes worsening and sometimes improving the results compared to the base case.
-
 
 ![Indicators evaluating the performance of the SVM method using 85% of variance, with data leakage avoidance. Higher values are better. **TODO: NaNs break this figure bad. maybe just exclude ρ=200 and 300 from it**](reproduce-indicators-plot-svm-var0.85.png){#fig:noleak-indicators-plot-svm-var0.85 width=80%}
