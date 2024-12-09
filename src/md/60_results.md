@@ -4,7 +4,6 @@
 Describe results and analyze them. Make sure to include pretty graphs whenever possible. Everybody loves pretty pictures.
 
 ## Experimental data used {#sec:results-data}
-
 While we are replicating the _methodology_ of @vidal_structural_2020, we do not aim to simply put the same experimental data through the same process. We will instead use the data that was generated for @leon_medina_online_2023, which used the same laboratory setup to run additional trials.
 
 @leon_medina_online_2023 deals with stream data classifiers and the data it collected is shaped accordingly: the duration of each of its trials is over 12 times longer than those of @vidal_structural_2020 in order to give its classifiers a chance to train online and start giving accurate results. **TODO: maybe worth going a bit more in depth about online vs. offline classifiers, like a paragraph or two. applications, memory usage, etc.**
@@ -35,11 +34,9 @@ Because the methodology we are replicating uses offline classifiers, which tend 
 **TODO: better heading for this table? the full citations are cumbersome**
 
 ## Performance measures
-
 As we aim to replicate an existing methodology, in order to make it possible to actually compare our results to @vidal_structural_2020's side by side we will evaluate the models using the same metrics they did. We will also look at a few metrics not evaluated in the original paper, namely the Matthews correlation coefficient (MCC) as described by @chicco_advantages_2020 and the General Performance Score as described by @de_diego_general_2022.
 
 ### Binary measures
-
 There can be no doubt that we are tackling a multiclass classification problem. Our data set was gathered from experiments that ran on five structural configurations: one healthy and four of different damaged states. We want our classifiers to be able to discern not simply whether a given trial belongs to a healthy or damaged structure, but to which specific configuration out of the five.
 
 However, when it comes to evaluating the results, it is very useful to start with very simple metrics that we use as stepping stones to reach more generalized or global metrics. These are binary classifier performance measures: designed to evaluate the performance of binary classifiers, but applicable to multiclass classifiers with some creative reshaping of the raw results.
@@ -77,7 +74,6 @@ $$ \text{UPM} = \cfrac{1}{1 + \cfrac{(\text{TP} + \text{TN}) \cdot (\text{FP} + 
 **TODO: a graphic like the one in oreilly's fig 3-2 illustrating confusion matrices would be neat**
 
 ### Multiclass measures
-
 Now that we have laid out a foundation of simple binary measures, it is time to build up to the ones that are actually equipped to describe the performance of multiclass classifiers such as the ones we are dealing with.
 
 Let us first consider the metrics used by @vidal_structural_2020. They are obtained by simply taking, for each of the binary measures described earlier, the average value across all classes (in our case, those are the different structural states) and using that to evaluate the performance of the classifier as a whole.
@@ -145,14 +141,12 @@ $$ {#eq:definition-gps}
 With all our measures finally defined, we can move on to examine the results reached by our classifiers.
 
 ## Replication
-
 For starters we are going to look at the results generated using the exact methodology reported by @vidal_structural_2020. The same scaling and dimensionality reduction techniques, the same classifiers with the same parameters. That is the point of replication: verifying whether a given methodology faced with new data yields similar results.
 
 As mentioned earlier, we are additionally going to compute two new performance measures: the Matthews correlation coefficient and the General Performance Score (the latter parametrized with class-specific Unified Performance Measures). These new metrics may shed some new light on the results or they may merely reinforce what was already apparent from the original results. We shall see.
 
-### Results of kNN
-
-There are two different values we can set to tweak the behavior of the k-NN classifier: one is *k*, the number of neighbors that the algorithm will take into account for each point. The other does not actually belong to the classifier itself, but rather is about the shape of the data we provide it: the number of principal components of the data we feed it.
+### _k_-nearest neighbors classifier (_k_-NN) {#sec:results-reproduce-knn}
+There are two different values we can set to tweak the behavior of the _k_-NN classifier: one is _k_, the number of neighbors that the algorithm will take into account for each point. The other does not actually belong to the classifier itself, but rather is about the shape of the data we provide it: the number of principal components of the data we feed it.
 
 Much like @vidal_structural_2020 we choose three numbers of principal components: ones that explain 85, 90 and 95% of variance; then we run the classifier using a range of numbers of neighbors between 1 and 500. This sort of sweep lets us judge its performance for several combinations of parameters such that we can hone in on the most sensible approach.
 
@@ -164,7 +158,7 @@ Before getting into the performance of the classifier itself, it is worth noting
 
 More complex data has more variability that needs more dimensions to be described with the same precision. The growth is not directly proportional, which means that much of the new information provided by the longer trial can be covered by the same components -- but not all. It remains to be seen if this additional information is useful signal that helps the classifiers or noise that confuses them and throws them off balance.
 
-Looking now at the actual performance metrics in [@tbl:reproduce-results-table-knn] and comparing them to the ones in [@vidal_structural_2020, p.16] we can see a striking similarity. They are quite close, although there is a slight improvement across the board. Where their peak values for accuracy and recall at 90% explained variance were 95.0% and 93.1% ours are 98.08% and 93.33%. This is no doubt the effect of the longer trials: enough extra data was captured to make the classifiers slightly more accurate.
+Looking now at the actual performance metrics in [@tbl:reproduce-results-table-knn] and comparing them to the ones in @vidal_structural_2020 [p.16] we can see a striking similarity. They are quite close, although there is a slight improvement across the board. Where their peak values for accuracy and recall at 90% explained variance were 95.0% and 93.1% ours are 98.08% and 93.33%. This is no doubt the effect of the longer trials: enough extra data was captured to make the classifiers slightly more accurate.
 
 **TODO: do not repeat variance/pc_num values in all rows**
 **TODO: put hats over variables in headers if they are averages**
@@ -245,7 +239,7 @@ Another notable difference is the number of nearest neighbors (k) at which the c
 
 So far this is exactly what one would expect to see when applying the same model to a different data set. We can say the replication has been successful.
 
-For the sake of an ideal 1:1 comparison, [@fig:reproduce-indicators-plot-knn-var0.9] contains a plot of performance indicators for the k-NN classifier using principal components that explain 90% of variance, much like the one that can be found in [@vidal_structural_2020, p.15].
+For the sake of an ideal 1:1 comparison, [@fig:reproduce-indicators-plot-knn-var0.9] contains a plot of performance indicators for the k-NN classifier using principal components that explain 90% of variance, much like the one that can be found in @vidal_structural_2020 [p.15].
 
 ![Indicators evaluating the performance of the k-NN method using 90% of variance. Higher values are better.](reproduce-indicators-plot-knn-var0.9.png){#fig:reproduce-indicators-plot-knn-var0.9 width=80%}
 
@@ -261,7 +255,16 @@ In terms of choosing between the MCC and the GPS~UPM~ as a singular metric, thes
 
 **TODO: (maybe) see if literature seems to agree with these conclusions wrt MCC/GPS**
 
-### Results of SVM
+### Support Vector Machine (SVM)
+Much like with the _k_-NN classifier there are two knobs we can turn to adjust the behavior of the SVM classifier. One is the number of principal components of the data that we put through it, and the other actually belongs to the SVM classifier itself: $\rho$, the kernel scale parameter, as seen in [@eq:definition-svm-kernel].
+
+Rather than attempt to work out ahead of time what the optimal kernel scale value is for our data set we simply run different variations so that we can examine the results as a whole. Once again we use three numbers of principal components: ones that explain 85, 90 and 95% of variance. This is the approach used by @vidal_structural_2020.
+
+As we compare our results here with theirs we must keep in mind the note about number of principal components and data set size explained in @sec:results-reproduce-knn.
+
+The actual performance metrics of the SVM classifier can be found in [@tbl:reproduce-results-table-svm]. Looking at it side by side with the ones obtained by @vidal_structural_2020 [p.18] we once again see great similarity with only subtle differences. In both cases we find the best performance in the scenario that uses fewest principal components. Both the original study and our replication reach peak values of upwards of 99.9% for all metrics.
+
+It seems having fewer but longer trials did not translate to an improvement or worsening of the peak performance of the classifier, unlike the _k_-NN classifier where we saw a slight improvement. The same can be said if we look in isolation at the less optimal configurations, the ones that use more principal components to explain 90% and 95% of variance,
 
 +------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
 |   variance |   pc_num |   ρ |    acc |    ppv |    tpr |     f1 |    tnr |   gps_upm |    mcc |
@@ -347,13 +350,213 @@ In terms of choosing between the MCC and the GPS~UPM~ as a singular metric, thes
 
 : Performance indicators for the SVM classifier using principal components that explain 85, 90 and 95% of variance. **(TODO: figure out where the NaNs are coming from. probably terrible results for that ρ leading to division by zero when computing those indicators)** {#tbl:reproduce-results-table-svm}
 
+We can however see that the peak performance happens with a different value of $\rho$: for @vidal_structural_2020 the best results happened with values of 90 and 100, whereas we find our peak at a value of 40. This mirrors the different best _k_ we found for the _k_-NN classifier, and can similarly be attributed to the different shape of the data set — we have fewer samples but need more principal components, both of which will make the aglorithm behave optimally with different parameters.
+
+This is exactly what one would expect to see when applying the same model to a different data set. The replication has also been successful for this classifier.
+
+A perhaps surprising detail in our results is the fact that three indicators were not computable for the cases where a $\rho$ value of 200 and 300 was used: precision, the F~1~-measure and GPS~UPM~. To understand why, we must look at the raw results of those runs, namely the confusion matrices found in [@fig:reproduce-conf_matrices-svm-var0.85-0; @fig:reproduce-conf_matrices-svm-var0.9-0; @fig:reproduce-conf_matrices-svm-var0.95-0].
+
+We can see that performance was so bad in the $\rho = 200$ case that _all_ samples belonging to the damaged configurations 2 and 4 were misclassified as belonging to the healthy class (true label 0 in the matrices). This means there were no true positives for those classes. No samples belonging to other classes were misclassified into them either, so there were no false positives.
+
+Looking back at the definition for precision in [@eq:definition-ppv] we see the sum of true positives and false positives in the denominator. When both are zero, as happened in these cases, we end up with a division by zero. This undefined value propagates into the average precision computed in [@eq:definition-avg-ppv] also making it undefined. The same thing happens to the F~1~-measure, which is derived in part from the precision as seen in [@eq:definition-avg-f1].
+
+The GPS~UPM~ is the harmonic mean of individual classes' UPM ([@eq:definition-gps]), which in turn ends up with a division by zero when the number of true positives is zero (see [@eq:definition-upm]).
+
+So the missing values are not due to a mistake when calculating them: they are simply not able to handle the case where a model does not assign even one sample to a given class.
+
+This actually reveals a strength of the Matthews correlation coefficient: even when other measures collapse and become undefined it is still able to gauge the performance of the classifier in a useful way. Looking again at [@tbl:reproduce-results-table-svm], specifically at the rows where $\rho$ is 200 and 300, since both the F~1~-measure and GPS~UPM~ are undefined so they cannot quantify which performs better. However we can see the MCC assigns a worse score to the $\rho = 300$ case (circa 28%) than to the $\rho = 200$ case (circa 47%).
+
+This would be extremely useful in a situation where one is approaching a problem for the first time not knowing what ranges might be appropriate for a parameter. If we allowed the F~1~-measure or GPS~UPM~ to guides us and tried $\rho$ values of 200 and 300 we would know they are bad values, but we would not know whether we should increase or decrease them to find better results. On the other hand, the MCC would let us quantify how bad they are compared to each other: 200 is better than 300, so we ought to try lowering it.
+
+In this scenario other measures like accuracy and sensitivity would also serve that function, but the Matthews correlation coefficient condenses it all into a single number that we can use as a score. This is very advantageous if we were trying to find the optimal $\rho$ algorithmically, a common practice in machine-learning problems.
+
+[@Fig:reproduce-indicators-plot-knn-var0.9] includes a plot of the performance indicators of the SVM method using 85% of variance for easy comparison with the plot shown by @vidal_structural_2020 [p.19].
+
 
 ![Indicators evaluating the performance of the SVM method using 85% of variance. Higher values are better. **TODO: NaNs break this figure bad. maybe just exclude ρ=200 and 300 from it**](reproduce-indicators-plot-svm-var0.85.png){#fig:reproduce-indicators-plot-svm-var0.85 width=80%}
 
-## Proposed improvements
+## Proposed improvement: data leakage avoidance
+Now that we have gone over the results obtained in replicating the methodology proposed by @vidal_structural_2020, let us look at the ones obtained after applying our proposed improvement as explained in [@sec:methodology-proposed-improvement].
 
-### Results of additional classifier(s)
-bad
+### _k_-nearest neighbors classifier (_k_-NN)
+In order to ensure these results are as comparable as possible to the earlier ones, we will use all the same values for explained variance and number of nearest neighbors (_k_). The results for all the permutations are displayed in [@tbl:noleak-results-table-knn].
 
-### Results of scaling and dimensionality reduction on the training set only
-*shrug*
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|   variance |   pc_num |   k |    acc |    ppv |    tpr |     f1 |    tnr |   gps_upm |    mcc |
++============+==========+=====+========+========+========+========+========+===========+========+
+|        85% |      530 |   1 | 93.78% | 84.92% | 84.69% | 84.80% | 95.86% |    88.39% | 79.20% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        85% |      530 |   5 | 94.31% | 87.32% | 83.26% | 85.24% | 95.77% |    89.33% | 80.46% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        85% |      530 |  10 | 93.79% | 87.46% | 80.88% | 84.04% | 95.20% |    88.33% | 78.69% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        85% |      530 |  25 | 93.96% | 88.83% | 79.72% | 84.03% | 95.23% |    88.21% | 79.49% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        85% |      530 |  50 | 96.08% | 91.74% | 86.66% | 89.13% | 97.20% |    92.11% | 86.85% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        85% |      530 | 100 | 97.81% | 94.61% | 92.41% | 93.49% | 98.56% |    95.50% | 92.69% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        85% |      530 | 150 | 97.09% | 92.29% | 89.88% | 91.07% | 98.17% |    93.90% | 90.30% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        85% |      530 | 200 | 96.69% | 91.54% | 88.46% | 89.97% | 97.87% |    93.12% | 88.94% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        85% |      530 | 250 | 96.17% | 90.62% | 86.64% | 88.58% | 97.44% |    92.17% | 87.12% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        85% |      530 | 300 | 94.95% | 88.63% | 82.41% | 85.40% | 96.44% |    89.73% | 82.92% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        85% |      530 | 500 | 86.93% | 77.54% | 54.31% | 63.87% | 89.39% |    60.88% | 55.16% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 |   1 | 93.76% | 84.93% | 85.42% | 85.17% | 95.97% |    88.43% | 79.44% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 |   5 | 93.78% | 85.76% | 82.80% | 84.25% | 95.52% |    88.49% | 78.73% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 |  10 | 93.51% | 84.97% | 81.18% | 83.03% | 95.30% |    87.56% | 77.71% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 |  25 | 94.65% | 88.99% | 82.56% | 85.65% | 95.96% |    89.48% | 81.82% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 |  50 | 96.41% | 92.01% | 87.80% | 89.85% | 97.56% |    92.58% | 88.03% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 | 100 | 98.09% | 95.11% | 93.37% | 94.23% | 98.79% |    95.97% | 93.65% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 | 150 | 97.23% | 92.62% | 90.37% | 91.48% | 98.28% |    94.17% | 90.81% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 | 200 | 96.70% | 91.55% | 88.48% | 89.99% | 97.89% |    93.09% | 88.99% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 | 250 | 96.10% | 90.44% | 86.39% | 88.37% | 97.42% |    91.93% | 86.91% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 | 300 | 94.94% | 88.60% | 82.38% | 85.37% | 96.47% |    89.62% | 82.93% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 | 500 | 86.98% | 77.98% | 54.50% | 64.15% | 89.42% |    61.12% | 55.35% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 |   1 | 93.55% | 84.38% | 85.10% | 84.74% | 95.85% |    88.03% | 78.79% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 |   5 | 93.71% | 85.24% | 82.87% | 84.04% | 95.54% |    88.27% | 78.52% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 |  10 | 93.51% | 84.65% | 81.66% | 83.13% | 95.39% |    87.60% | 77.78% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 |  25 | 94.97% | 89.42% | 83.63% | 86.43% | 96.26% |    89.97% | 82.97% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 |  50 | 96.60% | 92.34% | 88.42% | 90.33% | 97.75% |    92.86% | 88.73% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 | 100 | 98.21% | 95.34% | 93.79% | 94.56% | 98.89% |    96.16% | 94.07% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 | 150 | 97.25% | 92.69% | 90.43% | 91.54% | 98.29% |    94.19% | 90.87% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 | 200 | 96.79% | 91.75% | 88.82% | 90.26% | 97.98% |    93.22% | 89.35% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 | 250 | 96.13% | 90.54% | 86.48% | 88.46% | 97.46% |    91.91% | 87.05% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 | 300 | 95.14% | 88.99% | 83.07% | 85.93% | 96.64% |    90.02% | 83.64% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 | 500 | 87.09% | 78.14% | 54.89% | 64.47% | 89.55% |    61.84% | 55.72% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+
+: Performance indicators for the k-NN classifier using principal components that explain 85, 90 and 95% of variance, with data leakage avoidance. {#tbl:noleak-results-table-knn}
+
+The number of principal components needed to explain a given amount of variance has gone down compared to the replication case. Recall that part of our improvement is to properly hold out the test set during all pre-processing steps, including during dimensionality reduction. Because the principal components are selected using only the training set, which is smaller than the entire set, fewer components are needed to explain its variance.
+
+Looking at the performance indicators, it turns out that the results are functionally identical to the ones reached with the original methodology (seen in [@tbl:reproduce-results-table-knn]). The numbers vary very slightly up and down, but those represent only a handful of samples being labeled differently. This tiny variation seems to go in either direction, sometimes worsening and sometimes improving the results compared to the base case.
+
+With these figures in hand we can confidently say that, at least for the _k_-NN classifier, data leakage issues had no material effect on the obtained results — even if they may have technically been present.
+
+
+![Indicators evaluating the performance of the k-NN method using 90% of variance, with data leakage avoidance. Higher values are better.](reproduce-indicators-plot-knn-var0.9.png){#fig:noleak-indicators-plot-knn-var0.9 width=80%}
+
+
+### Support Vector Machine (SVM)
+Once again we will use all the same values for explained variance and kernel scale parameter ($\rho$) values as we did in the replication case. The results for all the permutations are displayed in [@tbl:noleak-results-table-svm].
+
+
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|   variance |   pc_num |   ρ |    acc |    ppv |    tpr |     f1 |    tnr |   gps_upm |    mcc |
++============+==========+=====+========+========+========+========+========+===========+========+
+|        85% |      530 |   5 | 99.79% | 99.71% | 99.29% | 99.50% | 99.82% |    99.67% | 99.29% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        85% |      530 |  20 | 99.79% | 99.71% | 99.29% | 99.50% | 99.82% |    99.67% | 99.29% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        85% |      530 |  30 | 99.80% | 99.73% | 99.31% | 99.52% | 99.83% |    99.68% | 99.31% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        85% |      530 |  40 | 99.83% | 99.78% | 99.41% | 99.59% | 99.85% |    99.73% | 99.41% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        85% |      530 |  50 | 98.91% | 97.10% | 96.15% | 96.62% | 99.32% |    97.69% | 96.37% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        85% |      530 |  60 | 97.41% | 93.88% | 90.97% | 92.40% | 98.44% |    94.46% | 91.52% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        85% |      530 |  70 | 96.95% | 93.21% | 89.36% | 91.25% | 98.11% |    93.55% | 90.03% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        85% |      530 |  80 | 94.97% | 94.59% | 82.39% | 88.05% | 95.68% |    90.80% | 83.38% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        85% |      530 |  90 | 93.33% | 94.40% | 76.70% | 84.62% | 94.17% |    86.77% | 78.26% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        85% |      530 | 100 | 92.02% | 93.66% | 72.09% | 81.46% | 93.02% |    82.48% | 74.12% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        85% |      530 | 150 | 86.28% | 91.11% | 52.01% | 66.21% | 88.00% |    30.31% | 55.51% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        85% |      530 | 200 | 83.85% |   nan% | 43.51% |   nan% | 85.87% |      nan% | 46.48% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        85% |      530 | 300 | 79.94% |   nan% | 29.75% |   nan% | 82.44% |      nan% | 28.76% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 |   5 | 99.83% | 99.80% | 99.39% | 99.60% | 99.85% |    99.73% | 99.41% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 |  20 | 99.83% | 99.80% | 99.39% | 99.60% | 99.85% |    99.73% | 99.41% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 |  30 | 99.83% | 99.80% | 99.39% | 99.60% | 99.85% |    99.73% | 99.41% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 |  40 | 99.83% | 99.80% | 99.39% | 99.60% | 99.85% |    99.73% | 99.41% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 |  50 | 99.18% | 97.81% | 97.06% | 97.44% | 99.47% |    98.30% | 97.24% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 |  60 | 97.66% | 94.33% | 91.83% | 93.06% | 98.58% |    95.01% | 92.32% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 |  70 | 96.97% | 93.24% | 89.40% | 91.28% | 98.12% |    93.57% | 90.08% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 |  80 | 94.72% | 95.28% | 81.54% | 87.85% | 95.40% |    90.44% | 82.68% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 |  90 | 93.40% | 94.45% | 76.95% | 84.79% | 94.23% |    87.07% | 78.47% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 | 100 | 92.36% | 93.84% | 73.28% | 82.28% | 93.32% |    83.96% | 75.18% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 | 150 | 86.47% | 91.18% | 52.67% | 66.76% | 88.16% |    37.47% | 56.14% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 | 200 | 83.94% |   nan% | 43.80% |   nan% | 85.95% |      nan% | 46.81% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        90% |      926 | 300 | 79.94% |   nan% | 29.77% |   nan% | 82.45% |      nan% | 28.80% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 |   5 | 99.83% | 99.81% | 99.42% | 99.61% | 99.85% |    99.74% | 99.43% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 |  20 | 99.83% | 99.81% | 99.42% | 99.61% | 99.85% |    99.74% | 99.43% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 |  30 | 99.83% | 99.81% | 99.42% | 99.61% | 99.85% |    99.74% | 99.43% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 |  40 | 99.83% | 99.81% | 99.42% | 99.61% | 99.85% |    99.74% | 99.43% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 |  50 | 99.67% | 99.27% | 98.84% | 99.05% | 99.76% |    99.40% | 98.89% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 |  60 | 97.91% | 94.80% | 92.70% | 93.74% | 98.73% |    95.53% | 93.12% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 |  70 | 96.98% | 93.21% | 89.42% | 91.27% | 98.15% |    93.54% | 90.13% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 |  80 | 94.89% | 95.39% | 82.10% | 88.23% | 95.54% |    90.80% | 83.19% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 |  90 | 93.42% | 94.46% | 77.02% | 84.84% | 94.25% |    87.12% | 78.54% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 | 100 | 92.52% | 93.93% | 73.82% | 82.65% | 93.45% |    84.53% | 75.66% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 | 150 | 86.58% | 91.22% | 53.05% | 67.08% | 88.26% |    41.62% | 56.50% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 | 200 | 83.97% |   nan% | 43.92% |   nan% | 85.98% |      nan% | 46.95% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+|        95% |     1748 | 300 | 79.94% |   nan% | 29.77% |   nan% | 82.45% |      nan% | 28.80% |
++------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
+
+: Performance indicators for the SVM classifier using principal components that explain 85, 90 and 95% of variance, with data leakage avoidance. **(TODO: figure out where the NaNs are coming from. probably terrible results for that ρ leading to division by zero when computing those indicators)** {#tbl:noleak-results-table-svm}
+
+> peak at different explained variance
+> base case consistently better (albeit very slightly)
+> difference still very small, but 99.94% to 99.83% is actually more significant than it seems: it goes from getting only 3 wrong up to 7 wrong, more than twice the errors
+> still doesn't invalidate the conclusions of the paper, but a good indicator that we should keep data leaks in mind
+
+Looking at the performance indicators, it turns out that the results are functionally identical to the ones reached with the original methodology (seen in [@tbl:reproduce-results-table-knn]). The numbers vary very slightly up and down, but those represent only a handful of samples being labeled differently. This tiny variation seems to go in either direction, sometimes worsening and sometimes improving the results compared to the base case.
+
+
+![Indicators evaluating the performance of the SVM method using 85% of variance, with data leakage avoidance. Higher values are better. **TODO: NaNs break this figure bad. maybe just exclude ρ=200 and 300 from it**](reproduce-indicators-plot-svm-var0.85.png){#fig:noleak-indicators-plot-svm-var0.85 width=80%}

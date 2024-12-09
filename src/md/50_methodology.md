@@ -123,7 +123,7 @@ $$
 x = \left(x_1,\  x_2,\  \ldots,\  x_N \right)
 $$ {#eq:definition-knn-x}
 
-Let $y$ be one of the $M$ samples from the training set (recall that these are labeled with its known correct classes), each with the same shape:
+Let $y$ be one of the $M$ samples from the training set (recall that these are labeled with their known correct classes), each with the same shape:
 
 $$
 \begin{gathered}
@@ -192,7 +192,7 @@ This leads to _k_ different sets of performance metrics, which are averaged toge
 
 @vidal_structural_2020 choose 5-fold cross-validation, as will we in order to replicate their methodology most accurately.
 
-## Proposed improvement
+## Proposed improvement {#sec:methodology-proposed-improvement}
 We have just gone over every part of the methodology we aim to replicate. We will now propose an improvement to it, describing both how we will do it and why it is worth doing.
 
 ### Data leakage
@@ -230,7 +230,7 @@ This can lead to the data leakage described in \[L1.2\]: looking at [@eq:column-
 
 The same applies to the dimensionality reduction step: the principal components are chosen using the whole data set, and therefore the transformed values in the training set are dependent on the values in the test set. That's data leakage.
 
-#### Plugging the leaks
+### Avoiding the leaks
 Resolving these issues can be achieved by shuffling the steps in our data processing pipeline slightly. Instead of scaling and reducing the entire data set together and then splitting via cross-validation to train and test the classifiers, we first split via cross-validation, scale and reduce the training set in isolation and use it to train the classifiers. Then we take the scaling/reduction parameters (respectively: mean and standard deviation; principal components) obtained from the training set, apply them as-is to the test set and test the classifiers on the result.
 
 **TODO: a diagram of before and after would go a long way here**
@@ -267,7 +267,7 @@ The same principle we followed in the scaling step also applies in the dimension
 
 The revised dimensionality reduction will, too, run once for each training/test split for a total of five times.
 
-#### Potential impact
+### Potential impact
 It is hard to quantify what the impact of these two changes may have on the performance of the model as a whole without actually going through the motions of implementing them and comparing the results, so that is exactly what we will do.
 
 It is reasonable to expect the classifiers to do at least slightly worse, as data leakage usually leads to overly optimistic results. We shall see if reality agrees with this expectation or if it rudely subverts it.
