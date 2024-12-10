@@ -372,7 +372,6 @@ In this scenario other measures like accuracy and sensitivity would also serve t
 
 [@Fig:reproduce-indicators-plot-knn-var0.9] includes a plot of the performance indicators of the SVM method using 85% of variance for easy comparison with the plot shown by @vidal_structural_2020 [p.19].
 
-
 ![Indicators evaluating the performance of the SVM method using 85% of variance. Higher values are better. **TODO: NaNs break this figure bad. maybe just exclude ρ=200 and 300 from it**](reproduce-indicators-plot-svm-var0.85.png){#fig:reproduce-indicators-plot-svm-var0.85 width=80%}
 
 ## Proposed improvement: data leakage avoidance
@@ -458,7 +457,6 @@ The number of principal components needed to explain a given amount of variance 
 Looking at the performance indicators, it turns out that the results are functionally identical to the ones reached with the original methodology (seen in [@tbl:reproduce-results-table-knn]). The numbers vary very slightly up and down, but those represent only a handful of samples being labeled differently. This tiny variation seems to go in either direction, sometimes worsening and sometimes improving the results compared to the base case.
 
 With these figures in hand we can confidently say that, at least for the _k_-NN classifier, data leakage issues had no material effect on the obtained results — even if they may have technically been present.
-
 
 ![Indicators evaluating the performance of the k-NN method using 90% of variance, with data leakage avoidance. Higher values are better.](reproduce-indicators-plot-knn-var0.9.png){#fig:noleak-indicators-plot-knn-var0.9 width=80%}
 
@@ -551,14 +549,12 @@ Once again we will use all the same values for explained variance and kernel sca
 
 : Performance indicators for the SVM classifier using principal components that explain 85, 90 and 95% of variance, with data leakage avoidance.  {#tbl:noleak-results-table-svm}
 
-**TODO: talk about the results here. rough notes:**
+Much like we saw with the _k_-NN classifier, the results obtained using the modified methodology are very close to the ones obtained earlier. In the SVM classifier, however, there is a noteworthy difference.
 
-> peak at different explained variance
+Whereas in the _k_-NN classifier the performance measures sometimes did not strictly improve or worsen with the new approach, here we see a very consistent (albeit small) lowering of the scores across the board. This lines up with the expectation that motivated the proposed improvement: we wanted to avoid data leaks that would lead to overoptimistic results, and by avoiding them we indeed obtained less optimistic ones.
 
-> base case consistently better (albeit very slightly)
+Regarding the size of this effect, consider the peak performance in each approach. With the original methodology the highest accuracy was 99.94%; with the new one it is 99.83%. While it might be tempting to call this completely insignificant due to being such a small difference in absolute terms (just 0.11%), consider instead that it represents _more than doubling_ the rate of errors: in the base case the SVM classifier at its best misclassified 3 samples but after avoiding data leaks it misclassified 7 of them.
 
-> difference still very small, but 99.94% to 99.83% is actually more significant than it seems: it goes from getting only 3 wrong up to 7 wrong, more than twice the errors
-
-> still doesn't invalidate the conclusions of the paper, but a good indicator that we should keep data leaks in mind
+Therefore we can conclude that for the SVM classifier data leakage issues in the original methodology led to a quite small but quite consistent bias towards overoptimistic results, and that enforcing separation of training and test data during pre-processing corrected the bias.
 
 ![Indicators evaluating the performance of the SVM method using 85% of variance, with data leakage avoidance. Higher values are better. **TODO: NaNs break this figure bad. maybe just exclude ρ=200 and 300 from it**](reproduce-indicators-plot-svm-var0.85.png){#fig:noleak-indicators-plot-svm-var0.85 width=80%}
