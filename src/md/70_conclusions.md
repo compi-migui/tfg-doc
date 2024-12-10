@@ -15,7 +15,7 @@ In the process we added two new performance metrics to the mix to determine if t
 
 We found that the Matthews correlation coefficient added value by still being able to measure performance even in the worst scenarios where other measures were not computable, allowing the use of a single measure to judge the performance of a classifier. This would be particularly useful during model tuning, where one wants to iteratively find the optimal classifier parameters that provide the best performance.
 
-With respect to the GPS~UPM~ we found no reason to use it over the Matthews correlation coefficient. It is possible that its advantages simply did not show in our particular use case, so we cannot rule out it being useful in other scenarios.
+With respect to the GPS~UPM~ we found no reason to use it over the Matthews correlation coefficient. It is possible that its advantages simply did not show through in our particular use case, so we cannot rule out it being useful in other scenarios.
 
 ## Data leakage avoidance
 With respect to the second goal, we were indeed able to apply our modified methodology with strict separation of training and test data during pre-processing.
