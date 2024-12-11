@@ -67,7 +67,7 @@ An important note is that the data provided to the author of this work by @leon_
 #### Scaling
 Next up in the processing pipeline is scaling the data, which @vidal_structural_2020 explain serves "two main reasons: first, to process data that come from different sensors and second, to simplify the computations of the data transformation using PCA".
 
-**TODO: mention problems this avoids, like this quote from https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html: "For instance many elements used in the objective function of a learning algorithm (such as the RBF kernel of Support Vector Machines or the L1 and L2 regularizers of linear models) assume that all features are centered around 0 and have variance in the same order. If a feature has a variance that is orders of magnitude larger than others, it might dominate the objective function and make the estimator unable to learn from other features correctly as expected."**
+**TODO: mention problems this avoids, like this quote from https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html: "For instance many elements used in the objective function of a learning algorithm (such as the RBF kernel of support vector machines or the L1 and L2 regularizers of linear models) assume that all features are centered around 0 and have variance in the same order. If a feature has a variance that is orders of magnitude larger than others, it might dominate the objective function and make the estimator unable to learn from other features correctly as expected."**
 
 The scaling is done column by column, and involves adjusting each data point such that the column as a whole has a mean value of zero and a variance of one. The scaled value $\breve{x}_{i,j}^{k,l}$ of a reading $x_{i,j}^{k,l}$ is thus:
 
@@ -98,7 +98,7 @@ If one wanted to describe a list of cars in a way that's optimized to telling th
 
 The data set in front of us is a lot more gnarly than the car analogy, but the same principle applies: taking a huge list of data points of dubious usefulness (9672 readings per trial) and turning it into a smaller list of data points that still allow to differentiate a trial from another as much as possible. This is dimensionality reduction.
 
-@vidal_structural_2020 achieve this by way of multiway Principal Component Analysis. Principal Component Analysis (PCA) is a technique that makes it possible "to extract the important information from the table, to represent it as a set of new orthogonal variables called principal components, and to display the pattern of similarity of the observations and of the variables as points in maps" [@abdi_principal_2010]. The "multiway" qualifier is earned by virtue of having reshaped the data in the fashion that we did, combining all readings in a trial into a single row; PCA is applied as usual after that.
+@vidal_structural_2020 achieve this by way of multiway principal component analysis. Principal component analysis (PCA) is a technique that makes it possible "to extract the important information from the table, to represent it as a set of new orthogonal variables called principal components, and to display the pattern of similarity of the observations and of the variables as points in maps" [@abdi_principal_2010]. The "multiway" qualifier is earned by virtue of having reshaped the data in the fashion that we did, combining all readings in a trial into a single row; PCA is applied as usual after that.
 
 Note that PCA by itself does not _reduce_ the dimensions captured in the data (and thus its size): it merely transforms our original matrix into a matrix of the same size, which represents the original data projected onto the newly-found principal components. Visualizing a 9672-dimension rotation is a feat beyond the ability of most people, so this is a case where one can only trust the math.
 
@@ -111,7 +111,7 @@ We can therefore truncate the principal components, taking only an arbitrary num
 #### Classification
 With the data scaled and reduced to a more manageable size it is time for the machine-learning classifiers to shine. In general terms, the way they work is we first fit them to our problem space using a _training_ data set where each sample is labeled with its known correct class — the gold standard that lets each algorithm be adapted to our goals. Then, with the now trained model, we provide it an unlabeled _test_ data set and have it predict what class each of the samples belongs to. This training/test split is called the holdout method.
 
-Since our goal is to replicate the results of the original paper, we will use the same classifiers it does: the _k_-nearest neighbors classifier and the Support Vector Machine.
+Since our goal is to replicate the results of the original paper, we will use the same classifiers it does: the _k_-nearest neighbors classifier and the support vector machine.
 
 
 ##### _k_-nearest neighbors classifier (_k_-NN)
@@ -148,8 +148,8 @@ If _k_ is larger than one, we then repeat the process to find the second-closest
 
 The classifier will perform differently for different values of _k_. Much like the original paper, we will examine its behavior for several values.
 
-##### Support Vector Machine (SVM)
-The other classifier used by @vidal_structural_2020 is the Support Vector Machine. To quote them directly:
+##### Support vector machine (SVM)
+The other classifier used by @vidal_structural_2020 is the support vector machine. To quote them directly:
 
 >   It is not the purpose of this paper to give a detailed explanation of the SVM classifier. For the interested reader, an excellent detailed review is given in reference \[@smola_tutorial_2004\]. However, to hand over the background and motivation for the proposed methodology, a summary of the method is given. This recap is based on reference \[@vidal_wind_2018\].
 

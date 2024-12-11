@@ -34,7 +34,7 @@ Because the methodology we are replicating uses offline classifiers, which tend 
 **TODO: better heading for this table? the full citations are cumbersome**
 
 ## Performance measures
-As we aim to replicate an existing methodology, in order to make it possible to actually compare our results to @vidal_structural_2020's side by side we will evaluate the models using the same metrics they did. We will also look at a few metrics not evaluated in the original paper, namely the Matthews correlation coefficient (MCC) as described by @chicco_advantages_2020 and the General Performance Score as described by @de_diego_general_2022.
+As we aim to replicate an existing methodology, in order to make it possible to actually compare our results to @vidal_structural_2020's side by side we will evaluate the models using the same metrics they did. We will also look at a few metrics not evaluated in the original paper, namely the Matthews correlation coefficient (MCC) as described by @chicco_advantages_2020 and the general performance score as described by @de_diego_general_2022.
 
 ### Binary measures
 There can be no doubt that we are tackling a multiclass classification problem. Our data set was gathered from experiments that ran on five structural configurations: one healthy and four of different damaged states. We want our classifiers to be able to discern not simply whether a given trial belongs to a healthy or damaged structure, but to which specific configuration out of the five.
@@ -43,7 +43,7 @@ However, when it comes to evaluating the results, it is very useful to start wit
 
 For each of the _classes_ — in our case, structural states — we look only at whether a given sample belongs to it or not (a true/false binary) and whether the classifier asserted it belongs to it or not (another true/false binary). The four possible conditions can be represented as a confusion matrix, a construct reminiscent of but distinct from truth tables. See **TODO: add example truth table**
 
-This gives us our first quantifiable results: out of actually positive samples, ones that were correctly predicted as such are True Positive results (TP) and ones that were incorrectly predicted as negative matches are False Negatives (FN). Conversely, out of actually negative samples, ones that were correctly predicted as such are True Negatives (TN) whereas ones that were incorrectly predicted as positive matches are False Positives (FP).
+This gives us our first quantifiable results: out of actually positive samples, ones that were correctly predicted as such are true positive results (TP) and ones that were incorrectly predicted as negative matches are false negatives (FN). Conversely, out of actually negative samples, ones that were correctly predicted as such are true negatives (TN) whereas ones that were incorrectly predicted as positive matches are false positives (FP).
 
 From there we can compute the rest of the simple binary measures right away. They are:
 
@@ -61,9 +61,9 @@ Note that, even though it is not readily apparent in the final simplified form o
 -   Specificity: also known as the true negative rate. It is "the fraction of negative examples predicted correctly by a model" [@sammut_encyclopedia_2017, p. 1167]
 $$ \text{tnr} = \cfrac{\text{TN}}{\text{TN} + \text{FP}} $$ {#eq:definition-tnr}
 
-The metrics we have looked at so far are the ones used by @vidal_structural_2020. There is one more we must define before moving on to multiclass measures, as we will use it to compute the General Performance Score mentioned earlier in this section. It is the ambitiously-named unified performance measure (UPM), proposed by @redondo_unified_2020.
+The metrics we have looked at so far are the ones used by @vidal_structural_2020. There is one more we must define before moving on to multiclass measures, as we will use it to compute the general performance score mentioned earlier in this section. It is the ambitiously-named unified performance measure (UPM), proposed by @redondo_unified_2020.
 
-In their proposal, @redondo_unified_2020 explain that the unified performance measure "in the imbalanced classification problems, improves the stability of MCC and veracity of Accuracy, F~1~^+ and F~1~^-" and that "the evidence from \[that\] study suggests the use of UPM for both imbalanced and balanced data". As we are dealing with a multiclass problem, the UPM is not directly useful to us, but the General Performance Score that builds on it will be.
+In their proposal, @redondo_unified_2020 explain that the unified performance measure "in the imbalanced classification problems, improves the stability of MCC and veracity of Accuracy, F~1~^+ and F~1~^-" and that "the evidence from \[that\] study suggests the use of UPM for both imbalanced and balanced data". As we are dealing with a multiclass problem, the UPM is not directly useful to us, but the general performance score that builds on it will be.
 
 The UPM is defined as:
 $$ \text{UPM} = \cfrac{1}{1 + \cfrac{(\text{TP} + \text{TN}) \cdot (\text{FP} + \text{FN})}{4 \cdot \text{TP} \cdot \text{TN}}} $$ {#eq:definition-upm}
@@ -132,7 +132,7 @@ $$ {#eq:definition-mcc}
 
 Where $C_{a,b}$ is the number of samples classified into class _a_ that actually belong to class _b_.
 
-The last metric we will examine is the General Performance Score, proposed by @de_diego_general_2022 and generally defined as the harmonic mean of a set of arbitrary performance measures. We will use one specific instance of it, GPS~UPM~, wherein we parametrize it with the individual Unified Performance Measures derived for each class in our multiclass problem:
+The last metric we will examine is the general performance score, proposed by @de_diego_general_2022 and generally defined as the harmonic mean of a set of arbitrary performance measures. We will use one specific instance of it, GPS~UPM~, wherein we parametrize it with the individual unified performance measures derived for each class in our multiclass problem:
 
 $$
 \text{GPS}_\text{UPM} = \cfrac{K \cdot \prod\limits_{k=1}^{K} \text{UPM}_k}{\sum\limits_{k\prime=1}^{K} \prod\limits_{\substack{k=1\\k\neq k\prime}}^{K} \text{UPM}_k}
@@ -143,7 +143,7 @@ With all our measures finally defined, we can move on to examine the results rea
 ## Replication
 For starters we are going to look at the results generated using the exact methodology reported by @vidal_structural_2020. The same scaling and dimensionality reduction techniques, the same classifiers with the same parameters. That is the point of replication: verifying whether a given methodology faced with new data yields similar results.
 
-As mentioned earlier, we are additionally going to compute two new performance measures: the Matthews correlation coefficient and the General Performance Score (the latter parametrized with class-specific Unified Performance Measures). These new metrics may shed some new light on the results or they may merely reinforce what was already apparent from the original results. We shall see.
+As mentioned earlier, we are additionally going to compute two new performance measures: the Matthews correlation coefficient and the general performance score (the latter parametrized with class-specific unified performance measures). These new metrics may shed some new light on the results or they may merely reinforce what was already apparent from the original results. We shall see.
 
 ### _k_-nearest neighbors classifier (_k_-NN) {#sec:results-reproduce-knn}
 There are two different values we can set to tweak the behavior of the _k_-NN classifier: one is _k_, the number of neighbors that the algorithm will take into account for each point. The other does not actually belong to the classifier itself, but rather is about the shape of the data we provide it: the number of principal components of the data we feed it.
@@ -255,7 +255,7 @@ In terms of choosing between the MCC and the GPS~UPM~ as a singular metric, thes
 
 **TODO: (maybe) see if literature seems to agree with these conclusions wrt MCC/GPS**
 
-### Support Vector Machine (SVM)
+### Support vector machine (SVM)
 Much like with the _k_-NN classifier there are two knobs we can turn to adjust the behavior of the SVM classifier. One is the number of principal components of the data that we put through it, and the other actually belongs to the SVM classifier itself: $\rho$, the kernel scale parameter, as seen in [@Eq:definition-svm-kernel].
 
 Rather than attempt to work out ahead of time what the optimal kernel scale value is for our data set we simply run different variations so that we can examine the results as a whole. Once again we use three numbers of principal components: ones that explain 85, 90 and 95% of variance. This is the approach used by @vidal_structural_2020.
@@ -461,7 +461,7 @@ With these figures in hand we can confidently say that, at least for the _k_-NN 
 ![Indicators evaluating the performance of the k-NN method using 90% of variance, with data leakage avoidance. Higher values are better.](reproduce-indicators-plot-knn-var0.9.png){#fig:noleak-indicators-plot-knn-var0.9 width=80%}
 
 
-### Support Vector Machine (SVM)
+### Support vector machine (SVM)
 Once again we will use all the same values for explained variance and kernel scale parameter ($\rho$) values as we did in the replication case. The results for all the permutations are shown in [@Tbl:noleak-results-table-svm].
 
 

@@ -34,7 +34,7 @@ Let us list possible sources of expenses that could have had an economic impact 
 
 No hardware had to be acquired specifically to develop it: an existing personal computer was enough.
 
-The software used was developed specifically for it and relies exclusively on Free and Open Source libraries that are available free of charge, so there was no associated cost other than the author's own time.
+The software used was developed specifically for it and relies exclusively on free and open source libraries that are available free of charge, so there was no associated cost other than the author's own time.
 
 There are certainly administrative and personnel costs involved in the enrollment and supervision of a final degree thesis, shared between tuition payments and public funding. Quantifying those is outside the scope of this work, but note that they exist.
 
@@ -56,7 +56,7 @@ See [@Sec:env-impact-execution].
 ### Social impact
 
 #### Development {#sec:social-impact-dev}
-Leaving aside humorous remarks about the impact of the development on the author's social life, having to research details about the Replication Crisis and how it relates to problematic ongoing practices in the use of machine-learning in science has been quite illuminating. It is a topic not really covered in the standard Engineering curriculum but with huge implications in both research and practical application of machine-learning techniques.
+Leaving aside humorous remarks about the impact of the development on the author's social life, having to research details about the replication crisis and how it relates to problematic ongoing practices in the use of machine-learning in science has been quite illuminating. It is a topic not really covered in the standard Engineering curriculum but with huge implications in both research and practical application of machine-learning techniques.
 
 The author hopes the discussions in [@Sec:goals] may inform the attitudes of readers towards the importance, relevance and intrinsic value of replication and reproduction, and towards the importance of enforcing best practices in the use of machine-learning techniques. At the very least may it serve the members of the examination committee, in their role as researchers and educators; and hopefully through them, their colleagues and students. If the effect goes that far or even beyond then this work will have had a greatly positive social and ethical impact indeed.
 
@@ -85,7 +85,7 @@ It is worth alluding to the ongoing social and ethical debate around "artificial
 ## Relationship with Sustainable Development Goals (SDGs)
 Let us discuss how this works relates to the goals set out by the United Nations' 2030 Agenda for Sustainable Development [@united_nations_general_assembly_transforming_2015]. All quotes in this section are sourced from that document.
 
-Because we discuss a procedure that is being proposed at a relatively early proof of concept, using only data from very controlled laboratory experiments, the connection to any SDGs is very tenuous. We have to project ourselves into a hypothetical future where, after years of iteration and improvement and refinement, a similar technique is successfully applied for Structural Health Monitoring of actual offshore wind turbines as part of their regular operation and it leads to a decrease in the human and economic cost of their maintenance operations.
+Because we discuss a procedure that is being proposed at a relatively early proof of concept, using only data from very controlled laboratory experiments, the connection to any SDGs is very tenuous. We have to project ourselves into a hypothetical future where, after years of iteration and improvement and refinement, a similar technique is successfully applied for structural health monitoring of actual offshore wind turbines as part of their regular operation and it leads to a decrease in the human and economic cost of their maintenance operations.
 
 That is a big leap indeed, but it will allow us to go through this thought exercise.
 

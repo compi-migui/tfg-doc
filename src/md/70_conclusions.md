@@ -2,12 +2,12 @@
 # Conclusions
 <!--  Segons els resultats obtinguts, conclusions, limitacions i extensions futures -->
 
-As set out in [@Sec:goals], our goals were to replicate the results of an approach to processing accelerometer data from offshore wind turbines for the purpose of Structural Health Monitoring as proposed by @vidal_structural_2020 using new data and to improve that approach by avoiding data leakage.
+As set out in [@Sec:goals], our goals were to replicate the results of an approach to processing accelerometer data from offshore wind turbines for the purpose of structural health monitoring as proposed by @vidal_structural_2020 using new data and to improve that approach by avoiding data leakage.
 
 ## Replication
 With respect to the first goal, the replication was absolutely successful. Using only their methodology as described in the published paper we were able to obtain virtually identical results with only slight differences explained by the different characteristics of the data we used.
 
-In [@Sec:goals-replicate] we discussed the Replication Crisis and how it brought to the foreground the fact that many fields of social and natural sciences face systemic issues with replication and reproduction of published results. We also discussed how the use machine learning in any discipline can greatly exacerbate those issues. Unfortunately, in short, not all published science would survive being faced with this level of scrutiny.
+In [@Sec:goals-replicate] we discussed the replication crisis and how it brought to the foreground the fact that many fields of social and natural sciences face systemic issues with replication and reproduction of published results. We also discussed how the use machine learning in any discipline can greatly exacerbate those issues. Unfortunately, in short, not all published science would survive being faced with this level of scrutiny.
 
 But @vidal_structural_2020 did, as we just showed.
 
