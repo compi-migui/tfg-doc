@@ -20,7 +20,7 @@ Because the methodology we are replicating uses offline classifiers, which tend 
 | $n_3$                                                   | 1660                   | 820                      | 820                                |
 | $n_4$                                                   | 1660                   | 820                      | 820                                |
 | $n_5$                                                   | 1660                   | 820                      | 820                                |
-| $n_{total}$                                             | 11620                  | 5740                     | 5740                               |
+| $n_{\text{total}}$                                             | 11620                  | 5740                     | 5740                               |
 | Sensors ($k$)                                           | 24                     | 24                       | 24                                 |
 | Timestamps per trial ($L$)                              | 199                    | 2417                     | 403                                |
 | Sampling frequency, in Hz                               | 275                    | 275                      | 275                                |
