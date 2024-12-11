@@ -47,7 +47,7 @@ $$ {#eq:econ-power-usage}
 One should also consider the approximately 600 hours of the author's labor that went into developing the work. We will not assign a monetary value to that.
 
 #### Execution and supply chain risks and limitations
-See [@sec:env-impact-execution].
+See [@Sec:env-impact-execution].
 
 **TODO: we could say it "helps" wind power/renewable energy stuff by potentially making it cheaper to operate thus incentivizing it in the future... but that's the overbroad generalization we may want to avoid**
 
@@ -58,25 +58,25 @@ See [@sec:env-impact-execution].
 #### Development {#sec:social-impact-dev}
 Leaving aside humorous remarks about the impact of the development on the author's social life, having to research details about the Replication Crisis and how it relates to problematic ongoing practices in the use of machine-learning in science has been quite illuminating. It is a topic not really covered in the standard Engineering curriculum but with huge implications in both research and practical application of machine-learning techniques.
 
-The author hopes the discussions in [@sec:goals] may inform the attitudes of readers towards the importance, relevance and intrinsic value of replication and reproduction, and towards the importance of enforcing best practices in the use of machine-learning techniques. At the very least may it serve the members of the examination committee, in their role as researchers and educators; and hopefully through them, their colleagues and students. If the effect goes that far or even beyond then this work will have had a greatly positive social and ethical impact indeed.
+The author hopes the discussions in [@Sec:goals] may inform the attitudes of readers towards the importance, relevance and intrinsic value of replication and reproduction, and towards the importance of enforcing best practices in the use of machine-learning techniques. At the very least may it serve the members of the examination committee, in their role as researchers and educators; and hopefully through them, their colleagues and students. If the effect goes that far or even beyond then this work will have had a greatly positive social and ethical impact indeed.
 
 Even if that does not happen, the author is still glad to have dug into those issues when setting out the goals for this thesis, and will likely be a better engineer for it.
 
 #### Execution and supply chain risks and limitations
-See [@sec:env-impact-execution].
+See [@Sec:env-impact-execution].
 
 **TODO: we could say it "helps" wind power/renewable energy stuff by potentially making it cheaper to operate thus incentivizing it in the future... but that's the overbroad generalization we may want to avoid**
 
 **TODO: could also say it "helps" reduce the human cost of blah because detecting issues remotely means fewer dangerous in-person interventions for unforeseen emergencies. huge astersisks though**
 
 ## Ethical implications
-The issues pointed out in [@sec:social-impact-dev] also belong here, but they are worth stating again so please excuse the repetition.
+The issues pointed out in [@Sec:social-impact-dev] also belong here, but they are worth stating again so please excuse the repetition.
 
 At first, this work was meant to be a relatively straightforward exercise in aping a technique as used in published research — a way to prove a level of ability and execution sufficient to meet the requirements of a final degree thesis. It was only in the process of researching, justifying and doing the thing that the social and ethical dimension of it all revealed itself. And once it did, one could only pull at that thread and see where it led.
 
 Let that be a valuable lesson to anyone who needs it: it is certainly good to be able to do complicated things and create great works. It is alright to strive for those things. But it is all the more important to keep one's eyes open while doing those things, and keep asking questions like why one is doing them and what wider context they fit into.
 
-The author hopes the discussions in [@sec:goals] may inform the attitudes of readers towards the importance, relevance and intrinsic value of replication and reproduction, and towards the importance of enforcing best practices in the use of machine-learning techniques. At the very least may it serve the members of the examination committee, in their role as researchers and educators; and hopefully through them, their colleagues and students. If the effect goes that far or even beyond then this work will have had a greatly positive social and ethical impact indeed.
+The author hopes the discussions in [@Sec:goals] may inform the attitudes of readers towards the importance, relevance and intrinsic value of replication and reproduction, and towards the importance of enforcing best practices in the use of machine-learning techniques. At the very least may it serve the members of the examination committee, in their role as researchers and educators; and hopefully through them, their colleagues and students. If the effect goes that far or even beyond then this work will have had a greatly positive social and ethical impact indeed.
 
 Even if that does not happen, the author is still glad to have dug into those issues when setting out the goals for this thesis, and will likely be a better engineer for it.
 

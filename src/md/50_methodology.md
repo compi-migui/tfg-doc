@@ -5,12 +5,12 @@ lof: true
 \newpage
 # Methodology
 <!--  Descripció d’equips i materials utilitzats per a la realització del treball, metodologia emprada i descripció completa dels experiments realitzats -->
-As explained in @sec:goals, we intend to do two different things: firstly, replicating the results of @vidal_structural_2020. Secondly, proposing an improvement to their methodology with which to avoid so-called data leakage.
+As explained in @Sec:goals, we intend to do two different things: firstly, replicating the results of @vidal_structural_2020. Secondly, proposing an improvement to their methodology with which to avoid so-called data leakage.
 
 In this section we will examine in detail how we will achieve each of those two goals.
 
 ## Replication
-In @sec:goals-replicate we went over the often confusing usages of the words "replication" and "reproduction", and settled on the following definitions:
+In @Sec:goals-replicate we went over the often confusing usages of the words "replication" and "reproduction", and settled on the following definitions:
 
    - Reproduction: Starting from an existing work, taking all its data, code and analysis to verify if they actually support the obtained results.
    - Replication: Starting from an existing work, but using new data, code and analysis, seeing if similar results can be found "in the specific study context investigated" [@national_academies_of_sciences_engineering_and_medicine_reproducibility_2019, p. 44].
@@ -53,7 +53,7 @@ We do not use the experimental data gathered by @vidal_structural_2020, but rath
 
 Although the same turbine and sensor configuration is used in both studies, the latter uses longer trials: 9.789 seconds instead of the original's 0.7236 seconds, for over 13 times more readings per trial. It also has fewer total trials: 5740 to the original's 11620, or about half as many.
 
-The larger overall size of the data set has implications for memory requirements and execution time for our entire process. Its different shape has implications for the behavior of the classifiers we will use. The precise impact of both of these is examined more closely in @sec:results.
+The larger overall size of the data set has implications for memory requirements and execution time for our entire process. Its different shape has implications for the behavior of the classifiers we will use. The precise impact of both of these is examined more closely in @Sec:results.
 
 #### Data reshape
 The first challenge encountered when trying to analyze the data is the fact that it is three-dimensional: there is a distinct data point for each triplet of specific trial (out of 5740), specific sensor-axis (out of 24, for the 8 triaxial accelerometers) and specific time instant.
@@ -62,7 +62,7 @@ The first challenge encountered when trying to analyze the data is the fact that
 
 **TODO: show matrix like the paper's equation 1, but maybe with quantities like J,K,L turned into our actual numbers for easier reading. could be a cool graph**
 
-An important note is that the data provided to the author of this work by @leon_medina_online_2023 was already shaped into this form. This made the truncation process described in @sec:results-data somewhat more convoluted as it required careful slicing of the rows, but otherwise has no effect on our analysis.
+An important note is that the data provided to the author of this work by @leon_medina_online_2023 was already shaped into this form. This made the truncation process described in @Sec:results-data somewhat more convoluted as it required careful slicing of the rows, but otherwise has no effect on our analysis.
 
 #### Scaling
 Next up in the processing pipeline is scaling the data, which @vidal_structural_2020 explain serves "two main reasons: first, to process data that come from different sensors and second, to simplify the computations of the data transformation using PCA".
@@ -157,7 +157,7 @@ The same applies to this work. Rather than patronize readers by parroting here t
 
 It is relatively feasible to compute in the linear case, meaning it can be applied directly and perform well when the data points are linearly separable or close to it. Naively extending it to nonlinear cases makes it "...computationally infeasible for both polynomial features of higher order and higher dimensionality" [@smola_tutorial_2004].To avoid that pitfall, one can apply the "kernel trick", in which very computationally costly high-dimensional transformations are replaced with a so-called kernel function to be used as an inner product.
 
-The kernel function can be chosen to best fit the shape of the data. @vidal_structural_2020 mention the polynomial (quadratic, cubic, etc.), hyperbolic tangent, and Gaussian radial basis functions and settle on the quadratic kernel as the best fit for the data. Their reasoning is that "it can be seen that \[scatter plots of samples' principal components\] reveal a quadratic relationship and, particularly, the first versus the second feature scatter plot exposes a concentric circles shape of the data set". To follow along with their rationale, [@fig:reproduce-pca-plot] maps our data set in the same fashion.
+The kernel function can be chosen to best fit the shape of the data. @vidal_structural_2020 mention the polynomial (quadratic, cubic, etc.), hyperbolic tangent, and Gaussian radial basis functions and settle on the quadratic kernel as the best fit for the data. Their reasoning is that "it can be seen that \[scatter plots of samples' principal components\] reveal a quadratic relationship and, particularly, the first versus the second feature scatter plot exposes a concentric circles shape of the data set". To follow along with their rationale, [@Fig:reproduce-pca-plot] maps our data set in the same fashion.
 
 <div id="fig:reproduce-pca-plot" class="subfigures">
 ![First versus second principal component.](reproduce-pca-plot-1-vs-2.png){#fig:reproduce-pca-plot-1-vs-2 width=40%}
@@ -169,7 +169,7 @@ The kernel function can be chosen to best fit the shape of the data. @vidal_stru
 Scatter plots of a few principal component pairs. Blue dots are trials from the "healthy" set, while other colors are trials of different damage configurations.
 </div>
 
-Note how the results appear different due to using a different data set, but only superficially: not all pairs of principal components match exactly, but their quadratic relationship still shows through. Specifically, [@fig:reproduce-pca-plot-1-vs-2] reveals the exact same shape of concentric circles.
+Note how the results appear different due to using a different data set, but only superficially: not all pairs of principal components match exactly, but their quadratic relationship still shows through. Specifically, [@Fig:reproduce-pca-plot-1-vs-2] reveals the exact same shape of concentric circles.
 
 Their chosen quadratic kernel function is as follows:
 
@@ -196,7 +196,7 @@ This leads to _k_ different sets of performance metrics, which are averaged toge
 We have just gone over every part of the methodology we aim to replicate. We will now propose an improvement to it, describing both how we will do it and why it is worth doing.
 
 ### Data leakage
-As explained in @sec:goals-leakage, data leakage is "a spurious relationship between the independent variables and the target variable that arises as an artifact of the data collection, sampling, or pre-processing strategy" [@kapoor_leakage_2023]. It is a broad category of pitfalls that can be encountered in using machine-learning algorithms and which "usually leads to inflated estimates of model performance".
+As explained in @Sec:goals-leakage, data leakage is "a spurious relationship between the independent variables and the target variable that arises as an artifact of the data collection, sampling, or pre-processing strategy" [@kapoor_leakage_2023]. It is a broad category of pitfalls that can be encountered in using machine-learning algorithms and which "usually leads to inflated estimates of model performance".
 
 In building a taxonomy of data leakage errors, @kapoor_leakage_2023 list three top-level categories:
 
@@ -226,7 +226,7 @@ We also do not run afoul of \[L1.3\] at any time. There is no after-the-fact fea
 
 Category \[L1.2\], however, arguably includes two aspects of the methodology we have just examined. @vidal_structural_2020 describe separating data into training and test datasets before the classification step and using cross-validation to avoid results being overly determined by the coincidental makeup of each set. However, there is no mention of also enforcing that separation during pre-processing: the scaling and dimensionality reduction steps.
 
-This can lead to the data leakage described in \[L1.2\]: looking at [@eq:column-scaling; @eq:column-scaling-mean; @eq:column-scaling-stdev] the values for $\mu_{k,l}$ and $\sigma_{k,l}$ are obtained from columns of the whole data set and therefore they are a function of the test set (and the training data set, but that is not the problematic part). Each individual scaled value $\breve{x}_{i,j}^{k,l}$ is a function of $\mu_{k,l}$ and $\sigma_{k,l}$ (as well as the original value $x_{i,j}^{k,l}$). Therefore, the scaled values in the training data set are dependent on the values in the test data set — not just because of the underlying physical phenomena we are measuring and attempting to predict, but also because our scaling procedure is leaking data!
+This can lead to the data leakage described in \[L1.2\]: looking at [@Eq:column-scaling; @Eq:column-scaling-mean; @Eq:column-scaling-stdev] the values for $\mu_{k,l}$ and $\sigma_{k,l}$ are obtained from columns of the whole data set and therefore they are a function of the test set (and the training data set, but that is not the problematic part). Each individual scaled value $\breve{x}_{i,j}^{k,l}$ is a function of $\mu_{k,l}$ and $\sigma_{k,l}$ (as well as the original value $x_{i,j}^{k,l}$). Therefore, the scaled values in the training data set are dependent on the values in the test data set — not just because of the underlying physical phenomena we are measuring and attempting to predict, but also because our scaling procedure is leaking data!
 
 The same applies to the dimensionality reduction step: the principal components are chosen using the whole data set, and therefore the transformed values in the training set are dependent on the values in the test set. That's data leakage.
 
@@ -254,9 +254,9 @@ $$
 \sigma_{k,l}^{\prime} = \sqrt{\cfrac{1}{I\cdot J - |T|}\sum\limits_{i,j}^{(i,j)\notin T} (x_{i,j}^{k,l} - \mu_{k,l})^2}
 $$ {#eq:column-scaling-noleak-stdev}
 
-Note than in [@eq:column-scaling-noleak-mean; @eq:column-scaling-noleak-stdev] the expression $|T|$ represents the size of the test set.
+Note than in [@Eq:column-scaling-noleak-mean; @Eq:column-scaling-noleak-stdev] the expression $|T|$ represents the size of the test set.
 
-Note also that the definition in [@eq:column-scaling-noleak] applies to values in both the training and test set: we obtain the mean and standard deviation using only the training set but apply them to both sets. Therefore the scaled test data is dependent on the training data, but not the other way around.
+Note also that the definition in [@Eq:column-scaling-noleak] applies to values in both the training and test set: we obtain the mean and standard deviation using only the training set but apply them to both sets. Therefore the scaled test data is dependent on the training data, but not the other way around.
 
 It is worth mentioning that, because the methodology uses 5-fold cross-validation, this revised scaling step will actually run five different times: once for each separate execution of the pipeline performed for each training/test split.
 

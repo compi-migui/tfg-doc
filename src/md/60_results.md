@@ -57,7 +57,7 @@ $$ \text{tpr} = \cfrac{\text{TP}}{\text{TP} + \text{FN}} $$ {#eq:definition-tpr}
 $$\cfrac{1}{H} = \cfrac{\left(\sum\limits_{k=1}^{N} \cfrac{1}{a_n}\right)}{N}$$ {#eq:definition-harmonic-mean}
 Thus the F~1~-measure is:
 $$ \text{F}_1 = \cfrac{2}{\left(\cfrac{1}{\text{ppv}} + \cfrac{1}{\text{tpr}}\right)} = \cfrac{2\cdot \text{ppv}\cdot \text{tpr}}{\text{ppv}+\text{tpr}} $$ {#eq:definition-f1}
-Note that, even though it is not readily apparent in the final simplified form of [@eq:definition-f1], the reprocicals of both accuracy and precision are used in the definition of the F~1~-measure. Because of that, if either of them is zero (e.g. because there are no true positive results) there can be no F~1~-measure. **TODO: actually we can just decide to define it as 0 for that particular case, since it represents an astoundingly bad result. and something similar for others that can end up dividing by 0**
+Note that, even though it is not readily apparent in the final simplified form of [@Eq:definition-f1], the reprocicals of both accuracy and precision are used in the definition of the F~1~-measure. Because of that, if either of them is zero (e.g. because there are no true positive results) there can be no F~1~-measure. **TODO: actually we can just decide to define it as 0 for that particular case, since it represents an astoundingly bad result. and something similar for others that can end up dividing by 0**
 -   Specificity: also known as the true negative rate. It is "the fraction of negative examples predicted correctly by a model" [@sammut_encyclopedia_2017, p. 1167]
 $$ \text{tnr} = \cfrac{\text{TN}}{\text{TN} + \text{FP}} $$ {#eq:definition-tnr}
 
@@ -152,13 +152,13 @@ Much like @vidal_structural_2020 we choose three numbers of principal components
 
 **TODO: Talk about how this brute-force approach is generally best when approaching a new problem using ML, as the "ideal" parameter values can vary wildly depending on characteristics of the data that we cannot really determine beforehand. Make sure to cite relevant works.**
 
-The results for all these permutations are displayed in [@tbl:reproduce-results-table-knn].
+The results for all these permutations are displayed in [@Tbl:reproduce-results-table-knn].
 
-Before getting into the performance of the classifier itself, it is worth noting that our data requires more principal components to reach the same explained variance target: for 85% explained variance we need 580 components where @vidal_structural_2020 only needed 443; for 90%, 1034 and 887; for 95%, 1985 and 1770. This is a reasonable difference when we take into account the different sizes of the samples in the respective data sets: we use trials 9672 readings long while they use trials 4776 readings long (see [@tbl:input-data-comparison]).
+Before getting into the performance of the classifier itself, it is worth noting that our data requires more principal components to reach the same explained variance target: for 85% explained variance we need 580 components where @vidal_structural_2020 only needed 443; for 90%, 1034 and 887; for 95%, 1985 and 1770. This is a reasonable difference when we take into account the different sizes of the samples in the respective data sets: we use trials 9672 readings long while they use trials 4776 readings long (see [@Tbl:input-data-comparison]).
 
 More complex data has more variability that needs more dimensions to be described with the same precision. The growth is not directly proportional, which means that much of the new information provided by the longer trial can be covered by the same components -- but not all. It remains to be seen if this additional information is useful signal that helps the classifiers or noise that confuses them and throws them off balance.
 
-Looking now at the actual performance metrics in [@tbl:reproduce-results-table-knn] and comparing them to the ones in @vidal_structural_2020 [p.16] we can see a striking similarity. They are quite close, although there is a slight improvement across the board. Where their peak values for accuracy and recall at 90% explained variance were 95.0% and 93.1% ours are 98.08% and 93.33%. This is no doubt the effect of the longer trials: enough extra data was captured to make the classifiers slightly more accurate.
+Looking now at the actual performance metrics in [@Tbl:reproduce-results-table-knn] and comparing them to the ones in @vidal_structural_2020 [p.16] we can see a striking similarity. They are quite close, although there is a slight improvement across the board. Where their peak values for accuracy and recall at 90% explained variance were 95.0% and 93.1% ours are 98.08% and 93.33%. This is no doubt the effect of the longer trials: enough extra data was captured to make the classifiers slightly more accurate.
 
 **TODO: do not repeat variance/pc_num values in all rows**
 **TODO: put hats over variables in headers if they are averages**
@@ -239,7 +239,7 @@ Another notable difference is the number of nearest neighbors (k) at which the c
 
 So far this is exactly what one would expect to see when applying the same model to a different data set. We can say the replication has been successful.
 
-For the sake of an ideal 1:1 comparison, [@fig:reproduce-indicators-plot-knn-var0.9] contains a plot of performance indicators for the k-NN classifier using principal components that explain 90% of variance, much like the one that can be found in @vidal_structural_2020 [p.15].
+For the sake of an ideal 1:1 comparison, [@Fig:reproduce-indicators-plot-knn-var0.9] contains a plot of performance indicators for the k-NN classifier using principal components that explain 90% of variance, much like the one that can be found in @vidal_structural_2020 [p.15].
 
 ![Indicators evaluating the performance of the k-NN method using 90% of variance. Higher values are better.](reproduce-indicators-plot-knn-var0.9.png){#fig:reproduce-indicators-plot-knn-var0.9 width=80%}
 
@@ -256,13 +256,13 @@ In terms of choosing between the MCC and the GPS~UPM~ as a singular metric, thes
 **TODO: (maybe) see if literature seems to agree with these conclusions wrt MCC/GPS**
 
 ### Support Vector Machine (SVM)
-Much like with the _k_-NN classifier there are two knobs we can turn to adjust the behavior of the SVM classifier. One is the number of principal components of the data that we put through it, and the other actually belongs to the SVM classifier itself: $\rho$, the kernel scale parameter, as seen in [@eq:definition-svm-kernel].
+Much like with the _k_-NN classifier there are two knobs we can turn to adjust the behavior of the SVM classifier. One is the number of principal components of the data that we put through it, and the other actually belongs to the SVM classifier itself: $\rho$, the kernel scale parameter, as seen in [@Eq:definition-svm-kernel].
 
 Rather than attempt to work out ahead of time what the optimal kernel scale value is for our data set we simply run different variations so that we can examine the results as a whole. Once again we use three numbers of principal components: ones that explain 85, 90 and 95% of variance. This is the approach used by @vidal_structural_2020.
 
-As we compare our results here with theirs we must keep in mind the note about number of principal components and data set size explained in @sec:results-reproduce-knn.
+As we compare our results here with theirs we must keep in mind the note about number of principal components and data set size explained in @Sec:results-reproduce-knn.
 
-The actual performance metrics of the SVM classifier can be found in [@tbl:reproduce-results-table-svm]. Looking at it side by side with the ones obtained by @vidal_structural_2020 [p.18] we once again see great similarity with only subtle differences. In both cases we find the best performance in the scenario that uses fewest principal components. Both the original study and our replication reach peak values of upwards of 99.9% for all metrics.
+The actual performance metrics of the SVM classifier can be found in [@Tbl:reproduce-results-table-svm]. Looking at it side by side with the ones obtained by @vidal_structural_2020 [p.18] we once again see great similarity with only subtle differences. In both cases we find the best performance in the scenario that uses fewest principal components. Both the original study and our replication reach peak values of upwards of 99.9% for all metrics.
 
 It seems having fewer but longer trials did not translate to an improvement or worsening of the peak performance of the classifier, unlike the _k_-NN classifier where we saw a slight improvement. The same can be said if we look in isolation at the less optimal configurations, the ones that use more principal components to explain 90% and 95% of variance,
 
@@ -354,17 +354,17 @@ We can however see that the peak performance happens with a different value of $
 
 This is exactly what one would expect to see when applying the same model to a different data set. The replication has also been successful for this classifier.
 
-A perhaps surprising detail in our results is the fact that three indicators were not computable for the cases where a $\rho$ value of 200 and 300 was used: precision, the F~1~-measure and GPS~UPM~. To understand why, we must look at the raw results of those runs, namely the confusion matrices found in [@fig:reproduce-conf_matrices-svm-var0.85-0; @fig:reproduce-conf_matrices-svm-var0.9-0; @fig:reproduce-conf_matrices-svm-var0.95-0].
+A perhaps surprising detail in our results is the fact that three indicators were not computable for the cases where a $\rho$ value of 200 and 300 was used: precision, the F~1~-measure and GPS~UPM~. To understand why, we must look at the raw results of those runs, namely the confusion matrices found in [@Fig:reproduce-conf_matrices-svm-var0.85-0; @Fig:reproduce-conf_matrices-svm-var0.9-0; @Fig:reproduce-conf_matrices-svm-var0.95-0].
 
 We can see that performance was so bad in the $\rho = 200$ case that _all_ samples belonging to the damaged configurations 2 and 4 were misclassified as belonging to the healthy class (true label 0 in the matrices). This means there were no true positives for those classes. No samples belonging to other classes were misclassified into them either, so there were no false positives.
 
-Looking back at the definition for precision in [@eq:definition-ppv] we see the sum of true positives and false positives in the denominator. When both are zero, as happened in these cases, we end up with a division by zero. This undefined value propagates into the average precision computed in [@eq:definition-avg-ppv] also making it undefined. The same thing happens to the F~1~-measure, which is derived in part from the precision as seen in [@eq:definition-avg-f1].
+Looking back at the definition for precision in [@Eq:definition-ppv] we see the sum of true positives and false positives in the denominator. When both are zero, as happened in these cases, we end up with a division by zero. This undefined value propagates into the average precision computed in [@Eq:definition-avg-ppv] also making it undefined. The same thing happens to the F~1~-measure, which is derived in part from the precision as seen in [@Eq:definition-avg-f1].
 
-The GPS~UPM~ is the harmonic mean of individual classes' UPM ([@eq:definition-gps]), which in turn ends up with a division by zero when the number of true positives is zero (see [@eq:definition-upm]).
+The GPS~UPM~ is the harmonic mean of individual classes' UPM ([@Eq:definition-gps]), which in turn ends up with a division by zero when the number of true positives is zero (see [@Eq:definition-upm]).
 
 So the missing values are not due to a mistake when calculating them: they are simply not able to handle the case where a model does not assign even one sample to a given class.
 
-This actually reveals a strength of the Matthews correlation coefficient: even when other measures collapse and become undefined it is still able to gauge the performance of the classifier in a useful way. Looking again at [@tbl:reproduce-results-table-svm], specifically at the rows where $\rho$ is 200 and 300, since both the F~1~-measure and GPS~UPM~ are undefined so they cannot quantify which performs better. However we can see the MCC assigns a worse score to the $\rho = 300$ case (circa 28%) than to the $\rho = 200$ case (circa 47%).
+This actually reveals a strength of the Matthews correlation coefficient: even when other measures collapse and become undefined it is still able to gauge the performance of the classifier in a useful way. Looking again at [@Tbl:reproduce-results-table-svm], specifically at the rows where $\rho$ is 200 and 300, since both the F~1~-measure and GPS~UPM~ are undefined so they cannot quantify which performs better. However we can see the MCC assigns a worse score to the $\rho = 300$ case (circa 28%) than to the $\rho = 200$ case (circa 47%).
 
 This would be extremely useful in a situation where one is approaching a problem for the first time not knowing what ranges might be appropriate for a parameter. If we allowed the F~1~-measure or GPS~UPM~ to guides us and tried $\rho$ values of 200 and 300 we would know they are bad values, but we would not know whether we should increase or decrease them to find better results. On the other hand, the MCC would let us quantify how bad they are compared to each other: 200 is better than 300, so we ought to try lowering it.
 
@@ -375,10 +375,10 @@ In this scenario other measures like accuracy and sensitivity would also serve t
 ![Indicators evaluating the performance of the SVM method using 85% of variance. Higher values are better. **TODO: NaNs break this figure bad. maybe just exclude ρ=200 and 300 from it**](reproduce-indicators-plot-svm-var0.85.png){#fig:reproduce-indicators-plot-svm-var0.85 width=80%}
 
 ## Proposed improvement: data leakage avoidance
-Now that we have gone over the results obtained in replicating the methodology proposed by @vidal_structural_2020, let us look at the ones obtained after applying our proposed improvement as explained in [@sec:methodology-proposed-improvement].
+Now that we have gone over the results obtained in replicating the methodology proposed by @vidal_structural_2020, let us look at the ones obtained after applying our proposed improvement as explained in [@Sec:methodology-proposed-improvement].
 
 ### _k_-nearest neighbors classifier (_k_-NN)
-In order to ensure these results are as comparable as possible to the earlier ones, we will use all the same values for explained variance and number of nearest neighbors (_k_). The results for all the permutations are displayed in [@tbl:noleak-results-table-knn].
+In order to ensure these results are as comparable as possible to the earlier ones, we will use all the same values for explained variance and number of nearest neighbors (_k_). The results for all the permutations are displayed in [@Tbl:noleak-results-table-knn].
 
 +------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
 |   variance |   pc_num |   k |    acc |    ppv |    tpr |     f1 |    tnr |   gps_upm |    mcc |
@@ -454,7 +454,7 @@ In order to ensure these results are as comparable as possible to the earlier on
 
 The number of principal components needed to explain a given amount of variance has gone down compared to the replication case. Recall that part of our improvement is to properly hold out the test set during all pre-processing steps, including during dimensionality reduction. Because the principal components are selected using only the training set, which is smaller than the entire set, fewer components are needed to explain its variance.
 
-Looking at the performance indicators, it turns out that the results are functionally identical to the ones reached with the original methodology (seen in [@tbl:reproduce-results-table-knn]). The numbers vary very slightly up and down, but those represent only a handful of samples being labeled differently. This tiny variation seems to go in either direction, sometimes worsening and sometimes improving the results compared to the base case.
+Looking at the performance indicators, it turns out that the results are functionally identical to the ones reached with the original methodology (seen in [@Tbl:reproduce-results-table-knn]). The numbers vary very slightly up and down, but those represent only a handful of samples being labeled differently. This tiny variation seems to go in either direction, sometimes worsening and sometimes improving the results compared to the base case.
 
 With these figures in hand we can confidently say that, at least for the _k_-NN classifier, data leakage issues had no material effect on the obtained results — even if they may have technically been present.
 
@@ -462,7 +462,7 @@ With these figures in hand we can confidently say that, at least for the _k_-NN 
 
 
 ### Support Vector Machine (SVM)
-Once again we will use all the same values for explained variance and kernel scale parameter ($\rho$) values as we did in the replication case. The results for all the permutations are shown in [@tbl:noleak-results-table-svm].
+Once again we will use all the same values for explained variance and kernel scale parameter ($\rho$) values as we did in the replication case. The results for all the permutations are shown in [@Tbl:noleak-results-table-svm].
 
 
 +------------+----------+-----+--------+--------+--------+--------+--------+-----------+--------+
