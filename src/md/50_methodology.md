@@ -81,15 +81,15 @@ $$ {#eq:data-matrix}
 
 More specifically, [@Eq:data-matrix] shows the matrix representation they propose, where
 
->   - i = 1, . . . , n j represents the i −th experimental trial, while n j is the number of observations or
+>   - $i = 1, \ldots, n_j$ represents the $i$−th experimental trial, while $n_j$ is the number of observations or
 experimental trials per structural state;
 >
->   - j = 1, . . . , J is the structural state that is been measured, while J is the quantity of different
+>   - $j = 1, \ldots, J$ is the structural state that is been measured, while $J$ is the quantity of different
 structural states;
 >
->   - k = 1, . . . , K indicates the sensor that is measuring, while K is the total number of sensors;
+>   - $k = 1, \ldots, K$ indicates the sensor that is measuring, while $K$ is the total number of sensors;
 >
->   - l = 1, . . . , L identifies the time stamp, while L is the number of time stamps per experiment.
+>   - $l = 1, \ldots, L$ identifies the time stamp, while $L$ is the number of time stamps per experiment.
 >
 > [@vidal_structural_2020, p.7-8]
 
@@ -137,13 +137,13 @@ $$ {#eq:column-scaling}
 Where $\mu_{k,l}$ is the mean value of all readings in column "$k,l$" that $x$ belongs to:
 
 $$
-\mu_{k,l} = \cfrac{\sum\limits_{i,j} x_{i,j}^{k,l}}{I\cdot J}
+\mu_{k,l} = \cfrac{\sum\limits_{i,j} x_{i,j}^{k,l}}{\sum\limits_{j} n_j}
 $$ {#eq:column-scaling-mean}
 
 And $\sigma_{k,l}$ is the standard deviation of all readings in that same column:
 
 $$
-\sigma_{k,l} = \sqrt{\cfrac{1}{I\cdot J}\sum\limits_{i,j} (x_{i,j}^{k,l} - \mu_{k,l})^2}
+\sigma_{k,l} = \sqrt{\cfrac{1}{\sum\limits_{j} n_j}\sum\limits_{i,j} (x_{i,j}^{k,l} - \mu_{k,l})^2}
 $$ {#eq:column-scaling-stdev}
 
 Remember that, because of the way the data was structured, scaling along columns means each reading is being standardized among all the readings from that same sensor-axis and time instant across all trials in the data set.
@@ -304,13 +304,13 @@ $$ {#eq:column-scaling-noleak}
 Where $\mu_{k,l}^{\prime}$ is the mean value of all readings in column "$k,l$" that $x$ belongs to, excluding rows that belong to the test set $T$:
 
 $$
-\mu_{k,l}^{\prime} = \cfrac{\sum\limits_{i,j}^{(i,j)\notin T} x_{i,j}^{k,l}}{I\cdot J - |T|}
+\mu_{k,l}^{\prime} = \cfrac{\sum\limits_{i,j}^{(i,j)\notin T} x_{i,j}^{k,l}}{\sum\limits_{j} n_j - |T|}
 $$ {#eq:column-scaling-noleak-mean}
 
 Likewise, $\sigma_{k,l}^{\prime}$ is the standard deviation of all readings in that same column, excluding rows that belong to the test set $T$:
 
 $$
-\sigma_{k,l}^{\prime} = \sqrt{\cfrac{1}{I\cdot J - |T|}\sum\limits_{i,j}^{(i,j)\notin T} (x_{i,j}^{k,l} - \mu_{k,l})^2}
+\sigma_{k,l}^{\prime} = \sqrt{\cfrac{1}{\sum\limits_{j} n_j - |T|}\sum\limits_{i,j}^{(i,j)\notin T} (x_{i,j}^{k,l} - \mu_{k,l})^2}
 $$ {#eq:column-scaling-noleak-stdev}
 
 Note than in [@Eq:column-scaling-noleak-mean; @Eq:column-scaling-noleak-stdev] the expression $|T|$ represents the size of the test set.

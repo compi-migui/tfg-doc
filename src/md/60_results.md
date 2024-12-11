@@ -14,19 +14,19 @@ Because the methodology we are replicating uses offline classifiers, which tend 
 |---------------------------------------------------------|------------------------|--------------------------|------------------------------------|
 | Structural states ($J$)                                 | 5                      | 5                        | 5                                  |
 | Wind amplitudes ($A$)                                   | 4                      | 4                        | 4                                  |
-| Total trials, by structural state ($n_i$)               |                        |                          |                                    |
+| Total trials, by structural state ($n_j$)               |                        |                          |                                    |
 | $n_1$                                                   | 4980                   | 2460                     | 2460                               |
 | $n_2$                                                   | 1660                   | 820                      | 820                                |
 | $n_3$                                                   | 1660                   | 820                      | 820                                |
 | $n_4$                                                   | 1660                   | 820                      | 820                                |
 | $n_5$                                                   | 1660                   | 820                      | 820                                |
 | $n_{\text{total}}$                                             | 11620                  | 5740                     | 5740                               |
-| Sensors ($k$)                                           | 24                     | 24                       | 24                                 |
+| Sensors ($K$)                                           | 24                     | 24                       | 24                                 |
 | Timestamps per trial ($L$)                              | 199                    | 2417                     | 403                                |
 | Sampling frequency, in Hz                               | 275                    | 275                      | 275                                |
-| Readings per trial ($k \cdot L$)                        | 4776                   | 58008                    | 9672                               |
+| Readings per trial ($K \cdot L$)                        | 4776                   | 58008                    | 9672                               |
 |                                                         |                        |                          |                                    |
-| Data set size ($n_{\text{total}} \cdot k \cdot L$)             | 5.55E+07               | 3.33E+08                 | 5.55E+07                           |
+| Data set size ($n_{\text{total}} \cdot K \cdot L$)             | 5.55E+07               | 3.33E+08                 | 5.55E+07                           |
 | Size ratio                                              | 1.0                    | 6.0                      | 1.0                                |
 
 : Comparison between the shapes of the data used by @vidal_structural_2020, @leon_medina_online_2023 and the truncated version of the latter used in this work. {#tbl:input-data-comparison}
