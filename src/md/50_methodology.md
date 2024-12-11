@@ -159,13 +159,20 @@ The data set in front of us is a lot more gnarly than the car analogy, but the s
 
 @vidal_structural_2020 achieve this by way of multiway principal component analysis. Principal component analysis (PCA) is a technique that makes it possible "to extract the important information from the table, to represent it as a set of new orthogonal variables called principal components, and to display the pattern of similarity of the observations and of the variables as points in maps" [@abdi_principal_2010]. The "multiway" qualifier is earned by virtue of having reshaped the data in the fashion that we did, combining all readings in a trial into a single row; PCA is applied as usual after that.
 
-Note that PCA by itself does not _reduce_ the dimensions captured in the data (and thus its size): it merely transforms our original matrix into a matrix of the same size, which represents the original data projected onto the newly-found principal components. Visualizing a 9672-dimension rotation is a feat beyond the ability of most people, so this is a case where one can only trust the math.
+
+Note that PCA by itself does not _reduce_ the dimensions captured in the data (and thus its size): it merely transforms our original matrix into a matrix of the same size, which represents the original data projected onto the newly-found principal components. Visualizing a 9672-dimension rotation is a feat beyond the ability of most people, so this is a case where one can only trust the math. [@Eq:pca] shows the relationship between $\breve{\mathbf{X}}$ (the scaled matrix), $\mathbf{P}$ (its principal components) and $\mathbf{T}$ (the transformed matrix).
+
+$$
+\mathbf{T} = \breve{\mathbf{X}}\mathbf{P}
+$$ {#eq:pca}
 
 What actually makes PCA useful here is the fact that those principal components are sorted: the first one will have the largest possible variance, the second one will have the second largest and so on. This translates into the first principal component "explaining" or "extracting" (as phrased by @abdi_principal_2010) the largest possible variance from the original data, the second one "explaining" the second largest possible variance and so forth.
 
-We can therefore truncate the principal components, taking only an arbitrary number of them rather than all 9672, project the data onto that smaller set of components and end up with a significanly smaller data set that still describes a disproportionately large portion of the inter-trial variance of the original data. Explain as much with fewer dimensions.
+We can therefore truncate the principal components, taking only an arbitrary number of them rather than all 9672 ($\mathbf{P}_{g}$), project the data onto that smaller set of components and end up with a significanly smaller data set ($\mathbf{T_{g}}$) that still describes a disproportionately large portion of the inter-trial variance of the original data. Explain as much with fewer dimensions. [@Eq:pca-reduced] shows this relationship.
 
-**TODO: could mention and explain SVD since it's what we actually use to get the PCs**
+$$
+\mathbf{T_{g}} = \breve{\mathbf{X}}\mathbf{P_{g}}
+$$ {#eq:pca-reduced}
 
 #### Classification
 With the data scaled and reduced to a more manageable size it is time for the machine-learning classifiers to shine. In general terms, the way they work is we first fit them to our problem space using a _training_ data set where each sample is labeled with its known correct class — the gold standard that lets each algorithm be adapted to our goals. Then, with the now trained model, we provide it an unlabeled _test_ data set and have it predict what class each of the samples belongs to. This training/test split is called the holdout method.
@@ -323,6 +330,18 @@ With this slight modification, there is no longer data leakage in the scaling st
 
 #### Dimensionality reduction
 The same principle we followed in the scaling step also applies in the dimensionality reduction step: the principal components are chosen using only the training set, and then they are used to transform both the training and test set. Once again, the reduced test data is dependent on the training data but not the other way around.
+
+Let $\breve{\mathbf{X}}$ be the scaled data matrix with only training samples, and $\breve{\mathbf{Y}}$ the scaled data matrix with only test samples. The principal components are selected using only $\breve{\mathbf{X}}$ and satisfy the following relationship:
+
+$$
+\mathbf{T}_{\breve{\mathbf{X}},g} = \breve{\mathbf{X}}\mathbf{P}_{\breve{\mathbf{X}},g}
+$$ {#eq:pca-reduced-noleak}
+
+Those same principal components, $\mathbf{P}_{g}$, will be used to transform the test data:
+
+$$
+\mathbf{T}_{\breve{\mathbf{Y}},g} = \breve{\mathbf{Y}}\mathbf{P}_{\breve{\mathbf{X}},g}
+$$ {#eq:pca-reduced-y-noleak}
 
 The revised dimensionality reduction will, too, run once for each training/test split for a total of five times.
 
