@@ -60,9 +60,8 @@ The first challenge encountered when trying to analyze the data is the fact that
 
 @vidal_structural_2020 propose reshaping the entire data set into a unified two-dimensional matrix where each row contains all the data for a specific trial and each column contains the reading from a specific sensor-axis and timestamp. This shape would be frankly incomprehensible to a human reader, but it suits our pre-processing and classification methods just fine. They attribute this unfolding procedure to @westerhuis_comparing_1999.
 
-
 $$
-X = x_{i,j}^{k,l} =
+\mathbf{X} = x_{i,j}^{k,l} =
 \left[
 \def\arraystretch{1.5}
 \begin{array}{ccc:ccc:c:ccc}
@@ -80,7 +79,47 @@ x_{n_J,J}^{1,1} & \ldots & x_{n_J,J}^{1,L} & x_{n_J,J}^{2,1} & \ldots & x_{n_J,J
 \right]
 $$ {#eq:data-matrix}
 
-**TODO: show matrix like the paper's equation 1, but maybe with quantities like J,K,L turned into our actual numbers for easier reading. could be a cool graph**
+More specifically, [@Eq:data-matrix] shows the matrix representation they propose, where
+
+>   - i = 1, . . . , n j represents the i −th experimental trial, while n j is the number of observations or
+experimental trials per structural state;
+>
+>   - j = 1, . . . , J is the structural state that is been measured, while J is the quantity of different
+structural states;
+>
+>   - k = 1, . . . , K indicates the sensor that is measuring, while K is the total number of sensors;
+>
+>   - l = 1, . . . , L identifies the time stamp, while L is the number of time stamps per experiment.
+>
+> [@vidal_structural_2020, p.7-8]
+
+As an aid in visualizing how this relates to the data used in this work, [@Eq:data-matrix-substituted] shows the same matrix substituting values from [@Tbl:input-data-comparison].
+
+$$
+\mathbf{X} = x_{i,j}^{k,l} =
+\left[
+\def\arraystretch{1.5}
+\begin{array}{ccc:ccc:c:ccc}
+x_{1,1}^{1,1} & \ldots & x_{1,1}^{1,403} & x_{1,1}^{2,1} & \ldots & x_{1,1}^{2,403} & \ldots & x_{1,1}^{24,1} & \ldots & x_{1,1}^{24,403} \\
+\vdots & \ddots & \vdots & \vdots & \ddots & \vdots & \ddots & \vdots & \ddots & \vdots \\
+x_{2460,1}^{1,1} & \ldots & x_{2460,1}^{1,403} & x_{2460,1}^{2,1} & \ldots & x_{2460,1}^{2,403} & \ldots & x_{2460,1}^{24,1} & \ldots & x_{2460,1}^{24,403} \\\hdashline
+x_{1,2}^{1,1} & \ldots & x_{1,2}^{1,403} & x_{1,2}^{2,1} & \ldots & x_{1,2}^{2,403} & \ldots & x_{1,2}^{24,1} & \ldots & x_{1,2}^{24,403} \\
+\vdots & \ddots & \vdots & \vdots & \ddots & \vdots & \ddots & \vdots & \ddots & \vdots \\
+x_{820,2}^{1,1} & \ldots & x_{820,2}^{1,403} & x_{820,2}^{2,1} & \ldots & x_{820,2}^{2,403} & \ldots & x_{820,2}^{24,1} & \ldots & x_{820,2}^{24,403} \\\hdashline
+x_{1,2}^{1,1} & \ldots & x_{1,2}^{1,403} & x_{1,2}^{2,1} & \ldots & x_{1,2}^{2,403} & \ldots & x_{1,2}^{24,1} & \ldots & x_{1,2}^{24,403} \\
+\vdots & \ddots & \vdots & \vdots & \ddots & \vdots & \ddots & \vdots & \ddots & \vdots \\
+x_{820,3}^{1,1} & \ldots & x_{820,3}^{1,403} & x_{820,3}^{2,1} & \ldots & x_{820,3}^{2,403} & \ldots & x_{820,3}^{24,1} & \ldots & x_{820,3}^{24,403} \\\hdashline
+x_{1,2}^{1,1} & \ldots & x_{1,2}^{1,403} & x_{1,2}^{2,1} & \ldots & x_{1,2}^{2,403} & \ldots & x_{1,2}^{24,1} & \ldots & x_{1,2}^{24,403} \\
+\vdots & \ddots & \vdots & \vdots & \ddots & \vdots & \ddots & \vdots & \ddots & \vdots \\
+x_{820,4}^{1,1} & \ldots & x_{820,4}^{1,403} & x_{820,4}^{2,1} & \ldots & x_{820,4}^{2,403} & \ldots & x_{820,4}^{24,1} & \ldots & x_{820,4}^{24,403} \\\hdashline
+x_{1,5}^{1,1} & \ldots & x_{1,5}^{1,403} & x_{1,5}^{2,1} & \ldots & x_{1,5}^{2,403} & \ldots & x_{1,5}^{24,1} & \ldots & x_{1,5}^{24,403} \\
+\vdots & \ddots & \vdots & \vdots & \ddots & \vdots & \ddots & \vdots & \ddots & \vdots \\
+x_{820,5}^{1,1} & \ldots & x_{820,5}^{1,403} & x_{820,5}^{2,1} & \ldots & x_{820,5}^{2,403} & \ldots & x_{820,5}^{24,1} & \ldots & x_{820,5}^{24,403} \\
+\end{array}
+\right]
+$$ {#eq:data-matrix-substituted}
+
+The resulting matrix has a total of 5740 rows (one for each trial) and 9672 columns (one for each individual reading in a trial).
 
 An important note is that the data provided to the author of this work by @leon_medina_online_2023 was already shaped into this form. This made the truncation process described in @Sec:results-data somewhat more convoluted as it required careful slicing of the rows, but otherwise has no effect on our analysis.
 
