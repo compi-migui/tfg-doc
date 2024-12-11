@@ -60,23 +60,25 @@ The first challenge encountered when trying to analyze the data is the fact that
 
 @vidal_structural_2020 propose reshaping the entire data set into a unified two-dimensional matrix where each row contains all the data for a specific trial and each column contains the reading from a specific sensor-axis and timestamp. This shape would be frankly incomprehensible to a human reader, but it suits our pre-processing and classification methods just fine. They attribute this unfolding procedure to @westerhuis_comparing_1999.
 
+
 $$
 X = x_{i,j}^{k,l} =
-\begin{bmatrix}
+\left[
+\def\arraystretch{1.5}
+\begin{array}{ccc:ccc:c:ccc}
 x_{1,1}^{1,1} & \ldots & x_{1,1}^{1,L} & x_{1,1}^{2,1} & \ldots & x_{1,1}^{2,L} & \ldots & x_{1,1}^{K,1} & \ldots & x_{1,1}^{K,L} \\
 \vdots & \ddots & \vdots & \vdots & \ddots & \vdots & \ddots & \vdots & \ddots & \vdots \\
-x_{n_1,1}^{1,1} & \ldots & x_{n_1,1}^{1,L} & x_{n_1,1}^{2,1} & \ldots & x_{n_1,1}^{2,L} & \ldots & x_{n_1,1}^{K,1} & \ldots & x_{n_1,1}^{K,L} \\
+x_{n_1,1}^{1,1} & \ldots & x_{n_1,1}^{1,L} & x_{n_1,1}^{2,1} & \ldots & x_{n_1,1}^{2,L} & \ldots & x_{n_1,1}^{K,1} & \ldots & x_{n_1,1}^{K,L} \\\hdashline
 x_{1,2}^{1,1} & \ldots & x_{1,2}^{1,L} & x_{1,2}^{2,1} & \ldots & x_{1,2}^{2,L} & \ldots & x_{1,2}^{K,1} & \ldots & x_{1,2}^{K,L} \\
 \vdots & \ddots & \vdots & \vdots & \ddots & \vdots & \ddots & \vdots & \ddots & \vdots \\
-x_{n_2,2}^{1,1} & \ldots & x_{n_2,2}^{1,L} & x_{n_2,2}^{2,1} & \ldots & x_{n_2,2}^{2,L} & \ldots & x_{n_2,2}^{K,1} & \ldots & x_{n_2,2}^{K,L} \\
-\vdots & \ddots & \vdots & \vdots & \ddots & \vdots & \ddots & \vdots & \ddots & \vdots \\
+x_{n_2,2}^{1,1} & \ldots & x_{n_2,2}^{1,L} & x_{n_2,2}^{2,1} & \ldots & x_{n_2,2}^{2,L} & \ldots & x_{n_2,2}^{K,1} & \ldots & x_{n_2,2}^{K,L} \\\hdashline
+\vdots & \ddots & \vdots & \vdots & \ddots & \vdots & \ddots & \vdots & \ddots & \vdots \\\hdashline
 x_{1,J}^{1,1} & \ldots & x_{1,J}^{1,L} & x_{1,J}^{2,1} & \ldots & x_{1,J}^{2,L} & \ldots & x_{1,J}^{K,1} & \ldots & x_{1,J}^{K,L} \\
 \vdots & \ddots & \vdots & \vdots & \ddots & \vdots & \ddots & \vdots & \ddots & \vdots \\
 x_{n_J,J}^{1,1} & \ldots & x_{n_J,J}^{1,L} & x_{n_J,J}^{2,1} & \ldots & x_{n_J,J}^{2,L} & \ldots & x_{n_J,J}^{K,1} & \ldots & x_{n_J,J}^{K,L} \\
-\end{bmatrix}
+\end{array}
+\right]
 $$ {#eq:data-matrix}
-
-> \ldots), \vdots ("vertical dots"), and \ddots ("diagonal dots")
 
 **TODO: show matrix like the paper's equation 1, but maybe with quantities like J,K,L turned into our actual numbers for easier reading. could be a cool graph**
 

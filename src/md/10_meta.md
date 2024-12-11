@@ -15,6 +15,7 @@ header-includes: |
     afterskip=1sp plus -1sp minus 1sp,
     font=\normalfont\bfseries,
     indent=0pt]{subparagraph}
+  \usepackage{arydshln}
   \usepackage{appendix}
   \usepackage{pdfpages}
 secnumdepth: 3
