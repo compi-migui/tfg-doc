@@ -20,6 +20,7 @@ header-includes: |
   \usepackage{pdfpages}
   \usepackage{makecell}
   \usepackage{multirow}
+  \usepackage[capitalise,nameinlink]{cleveref}
 secnumdepth: 3
 lang: "en"
 titlepage: false
