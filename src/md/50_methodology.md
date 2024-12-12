@@ -122,7 +122,7 @@ An important note is that the data provided to the author of this work by @leon_
 #### Scaling
 Next up in the processing pipeline is scaling the data, which @vidal_structural_2020 explain serves "two main reasons: first, to process data that come from different sensors and second, to simplify the computations of the data transformation using PCA".
 
-Scaling, also known as data normalization, is a crucial pre-processing step in most machine-learning classification. To that effect, @singh_investigating_2020 investigates the impact of fourteen different approaches on the performance of the _k_-nearest neighbors classifier and conclude that "scaling methods \[z-score normalization\] and \[Pareto scaling\] and are best since these achieve good classification performance and handle the outliers more effectively than other scaling methods". Z-score normalization is the approach chosen in the original study and replicated here.
+Scaling, also known as data normalization, is a crucial pre-processing step in most machine-learning classification. To that effect, @singh_investigating_2020 investigate the impact of fourteen different approaches on the performance of the _k_-nearest neighbors classifier and conclude that "scaling methods \[z-score normalization\] and \[Pareto scaling\] and are best since these achieve good classification performance and handle the outliers more effectively than other scaling methods". Z-score normalization is the approach chosen in the original study and replicated here.
 
 The scaling is done column by column, and involves adjusting each data point such that the column as a whole has a mean value of zero and a variance of one. The scaled value $\breve{x}_{i,j}^{k,l}$ of a reading $x_{i,j}^{k,l}$ is thus:
 
