@@ -6,7 +6,7 @@
 \appendixheaderon
 \appendixpage
 
-# Confusion matrices for all configurations
+# Confusion matrices for all configurations {#sec:appendix-confusion-matrices}
 This appendix includes confusion matrices with raw results for classifier configurations used throughout this work. Note that, because we used 5-fold cross-validation, there are actually five different confusion matrices for each configuration which were then used to compute separate performance metrics to be averaged together.
 
 Including all five matrices for all configurations would bloat the size of this document for very questionable value, so only the first one out of five is presented.
