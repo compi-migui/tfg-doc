@@ -21,6 +21,7 @@ header-includes: |
   \usepackage{makecell}
   \usepackage{multirow}
   \usepackage[capitalise,nameinlink]{cleveref}
+  \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,fontsize=\scriptsize,commandchars=\\\{\}}
 secnumdepth: 3
 lang: "en"
 titlepage: false

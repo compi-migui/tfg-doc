@@ -45,9 +45,8 @@ That repository is by far the best way to view the source code. However, to guar
 ## Documentation
 
 ### README.md
-The project is briefly introduced and documented by a _README.md_, in markdown format. It states its purpose and gives instructions to install and execute it.
+The project is briefly introduced and documented by a _README.md_, in markdown format. It states its purpose and provides instructions to install and execute it.
 
-\small
 ``````markdown {.numberLines}
 # shmowt
 Structural Health Monitoring for Jacket-Type Offshore Wind Turbines.
@@ -78,14 +77,12 @@ Run shmowt:
 SHMOWT_CONFIG=~/shmowt/contrib/config.ini poetry run
 ```
 ``````
-\normalsize
 
 ## Configuration
 
 ### config.ini
 A _config.ini_ file allows providing the path to the data file to be processed, the path where joblib's disk cache will be stored and also allows setting verbosity flags to ease debugging.
 
-\small
 ```ini {.numberLines}
 [data]
 path = "/path/to/your_data.mat"
@@ -97,7 +94,6 @@ path = ""
 verbosity_memory = 0
 verbose_pipelines = False
 ```
-\normalsize
 
 ## Packaging and dependency management
 The project's packaging and dependencies are managed using the [Poetry tool](https://python-poetry.org/docs/). There are two files that describe them.
@@ -105,7 +101,6 @@ The project's packaging and dependencies are managed using the [Poetry tool](htt
 ### pyproject.toml
 _pyproject.toml_ contains some project metadata and the top-level dependencies (libraries the project imports directly).
 
-\small
 ```ini {.numberLines}
 [tool.poetry]
 name = "shmowt"
@@ -129,7 +124,6 @@ joblib = "^1.4.2"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 ```
-\normalsize
 
 ### poetry.lock
 _poetry.lock_ is a frozen snapshot of the exact version of all recursive dependencies (meaning, the project's direct dependencies, their dependencies and so on) to be installed. The use of this lockfile makes execution and reproduction possible even after years of version drift in dependencies of dependencies.
@@ -171,7 +165,6 @@ The actual source code of the project is split into three files: _config.py_, _d
 ### config.py
 _config.py_ contains the configuration loader function that allows extracting parameters set in the _config.ini_ file.
 
-\small
 ```python {.numberLines}
 import configparser
 from pathlib import Path
@@ -184,12 +177,10 @@ def get_config(config_path=None):
     config.read(config_path)
     return config
 ```
-\normalsize
 
 ### data.py
 _data.py_ contains the function that extract the data to be processed from a file, truncate the samples as described in [@Sec:results-data}] and add class labels (the data set provided to the author does not include label metadata, but the samples were sorted by class).
 
-\small
 ```python {.numberLines}
 from pathlib import Path
 
@@ -232,12 +223,10 @@ def class_mapper(n):
     elif 2460 + 820*3 <= n < 2460 + 820*4:
         return classes[4]
 ```
-\normalsize
 
 ### main.py
 _main.py_ includes the bulk of the data processing, performance measurement and the generation of all plots and tables included in this document.
 
-\small
 ```python {.numberLines}
 import os
 from pathlib import Path
@@ -778,4 +767,3 @@ def main():
 if __name__ == '__main__':
     main()
 ```
-\normalsize

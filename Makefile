@@ -39,6 +39,7 @@ tfg.pdf: ${mdfiles} pandoc pandoc-crossref
 		--output "${OUTDIR}/tfg.pdf" \
 		--template "${TEMPLATEDIR}/eisvogel.latex" \
 		--resource-path "${FIGURESDIR}" \
+		--highlight-style "${TEMPLATEDIR}/pygments-with-bg.theme" \
 		--number-sections \
 		${mdfiles}
 
@@ -56,6 +57,7 @@ debug: ${mdfiles} pandoc pandoc-crossref
 		--output "${OUTDIR}/tfg.tex" \
 		--template "${TEMPLATEDIR}/eisvogel.latex" \
 		--resource-path "${FIGURESDIR}" \
+		--highlight-style "${TEMPLATEDIR}/pygments-with-bg.theme" \
 		--number-sections \
 		${mdfiles}
 
