@@ -25,8 +25,6 @@ $$ {#eq:dev-power-usage}
 #### Execution and supply chain risks and limitations {#sec:env-impact-execution}
 This work does not describe a project to be executed. Even though we describe a methodology that could eventually, given further research and tuning, be applied on the field, we cannot at this point quantify the impact of such a hypothetical effort without overbroad generalizations and essentially pulling numbers out of a hat which would defeat the purpose of such an analysis.
 
-**TODO: we could say it "helps" wind power/renewable energy stuff by potentially making it cheaper to operate thus incentivizing it in the future... but that's the overbroad generalization we may want to avoid**
-
 ### Economic impact
 
 #### Development
@@ -49,10 +47,6 @@ One should also consider the approximately 600 hours of the author's labor that 
 #### Execution and supply chain risks and limitations
 See [@Sec:env-impact-execution].
 
-**TODO: we could say it "helps" wind power/renewable energy stuff by potentially making it cheaper to operate thus incentivizing it in the future... but that's the overbroad generalization we may want to avoid**
-
->   we can say it "helps" wind power/renewable energy stuff by potentially making it cheaper to operate thus incentivizing it
-
 ### Social impact
 
 #### Development {#sec:social-impact-dev}
@@ -64,10 +58,6 @@ Even if that does not happen, the author is still glad to have dug into those is
 
 #### Execution and supply chain risks and limitations
 See [@Sec:env-impact-execution].
-
-**TODO: we could say it "helps" wind power/renewable energy stuff by potentially making it cheaper to operate thus incentivizing it in the future... but that's the overbroad generalization we may want to avoid**
-
-**TODO: could also say it "helps" reduce the human cost of blah because detecting issues remotely means fewer dangerous in-person interventions for unforeseen emergencies. huge astersisks though**
 
 ## Ethical implications
 The issues pointed out in [@Sec:social-impact-dev] also belong here, but they are worth stating again so please excuse the repetition.

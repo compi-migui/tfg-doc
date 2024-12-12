@@ -67,8 +67,6 @@ To the human eye, such readings are impossible to decipher — too much data wit
 
 Enter machine learning algorithms, which enable precisely the kind of pattern recognition needed for this problem. They provide the "mathematical means of associating measured data with given class labels" [@farrar_structural_2012, p. 8] without the need to actually model the system that is generating the measured data: it is enough to provide training data along with known correct class labels (e.g. this is data from a healthy structure, this is data from a damaged structure) and the algorithms are able to find the relevant features and apply them to classify data it has never encountered before.
 
-**TODO: [@devriendt_structural_2014] has applied SHM to actual offshore wind turbines, maybe worth pointing at it somewhere**
-
 ## Goals {#sec:goals}
 
 ### Replicating an existing methodology with new data {#sec:goals-replicate}
@@ -100,7 +98,7 @@ So, rather than starting with our term of choice, let us build up to it using th
 
 Our goal is to answer the third question above: "can the result reported be found again in the specific study context investigated?". We will not have access to the data and code used by @vidal_structural_2020 and instead we will do our best to apply their methodology as laid out in their paper. We will call this **replication**. If we can replicate their results, then their work is replicable. If we cannot, then either their work is not replicable or we failed in our efforts.
 
-Rather than stopping there, we will in turn provide all our data **TODO: !!! ask @leon_medina_online_2023 if they actually allow this, since it's their data !!!** and code such that anyone asking the first and second questions about our work will find that the answer is yes to both. This is what we will call **reproducibility**: anyone will be able to use our code to derive the same results from the data, so our work will be reproducible.
+Rather than stopping there, we will in turn provide all the code used in the replication such that anyone asking the first and second questions about this work will find that the answer is yes to both. This is what we will call **reproducibility**: anyone will be able to use the code to derive the same results from the data, so the work will be reproducible.
 
 These definitions for replicability and reproducibility match the ones used by the @national_academies_of_sciences_engineering_and_medicine_reproducibility_2019 and identified as "broadly disseminated across disciplines" by @barba_terminologies_2018. Beware that, as mentioned earlier, the two are not used consistently across disciplines and even less so in popular discourse.
 

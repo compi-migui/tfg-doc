@@ -6,9 +6,9 @@ Describe results and analyze them. Make sure to include pretty graphs whenever p
 ## Experimental data used {#sec:results-data}
 While we are replicating the _methodology_ of @vidal_structural_2020, we do not aim to simply put the same experimental data through the same process. We will instead use the data that was generated for @leon_medina_online_2023, which used the same laboratory setup to run additional trials.
 
-@leon_medina_online_2023 deals with stream data classifiers and the data it collected is shaped accordingly: the duration of each of its trials is over 12 times longer than those of @vidal_structural_2020 in order to give its classifiers a chance to train online and start giving accurate results. **TODO: maybe worth going a bit more in depth about online vs. offline classifiers, like a paragraph or two. applications, memory usage, etc.**
+@leon_medina_online_2023 deals with stream data classifiers and the data it collected is shaped accordingly: the duration of each of its trials is over 12 times longer than those of @vidal_structural_2020 in order to give its classifiers a chance to train online and start giving accurate results.
 
-Because the methodology we are replicating uses offline classifiers, which tend to work on the entire data set at once, using this data as-is imposes prohibitive resource requirements: 12 times as much data requires at 12 times as much working memory. While this is technically achievable using professional server hardware, it greatly increases running costs for very marginal or nonexistent benefit. That is why we will not use the data as-is. We will instead truncate the data sets, keeping all the complexity and varability (number of sensors, damage conditions, wind amplitude conditions and trials) while reducing memory requirements six-fold. **TODO: talk about time complexity and memory complexity and how it relates to the algorithms we are using? big O notation etc. Math is fun!**
+Because the methodology we are replicating uses offline classifiers, which tend to work on the entire data set at once, using this data as-is imposes prohibitive resource requirements: 12 times as much data requires at 12 times as much working memory. While this is technically achievable using professional server hardware, it greatly increases running costs for very marginal or nonexistent benefit. That is why we will not use the data as-is. We will instead truncate the data sets, keeping all the complexity and varability (number of sensors, damage conditions, wind amplitude conditions and trials) while reducing memory requirements six-fold.
 
 |                                                         | @vidal_structural_2020 | @leon_medina_online_2023 | Truncated @leon_medina_online_2023 |
 |---------------------------------------------------------|------------------------|--------------------------|------------------------------------|
@@ -30,8 +30,6 @@ Because the methodology we are replicating uses offline classifiers, which tend 
 | Size ratio                                              | 1.0                    | 6.0                      | 1.0                                |
 
 : Comparison between the shapes of the data used by @vidal_structural_2020, @leon_medina_online_2023 and the truncated version of the latter used in this work. {#tbl:input-data-comparison}
-
-**TODO: better heading for this table? the full citations are cumbersome**
 
 ## Performance measures
 As we aim to replicate an existing methodology, in order to make it possible to actually compare our results to @vidal_structural_2020's side by side we will evaluate the models using the same metrics they did. We will also look at a few metrics not evaluated in the original paper, namely the Matthews correlation coefficient (MCC) as described by @chicco_advantages_2020 and the general performance score as described by @de_diego_general_2022.
@@ -69,11 +67,6 @@ In their proposal, @redondo_unified_2020 explain that the unified performance me
 The UPM is defined as:
 $$ \text{UPM} = \cfrac{1}{1 + \cfrac{(\text{TP} + \text{TN}) \cdot (\text{FP} + \text{FN})}{4 \cdot \text{TP} \cdot \text{TN}}} $$ {#eq:definition-upm}
 
-
-**TODO: talk about precision/recall tradeoff?**
-
-**TODO: a graphic like the one in oreilly's fig 3-2 illustrating confusion matrices would be neat**
-
 ### Multiclass measures
 Now that we have laid out a foundation of simple binary measures, it is time to build up to the ones that are actually equipped to describe the performance of multiclass classifiers such as the ones we are dealing with.
 
@@ -87,7 +80,7 @@ $$ \overline{\text{acc}} = \cfrac{\sum\limits_{j=1}^{J} \text{acc}_j}{J} $$ {#eq
 $$ \overline{\text{ppv}} = \cfrac{\sum\limits_{j=1}^{J} \text{ppv}_j}{J} $$ {#eq:definition-avg-ppv}
 -   Average sensitivity:
 $$ \overline{\text{tpr}} = \cfrac{\sum\limits_{j=1}^{J} \text{tpr}_j}{J} $$ {#eq:definition-avg-tpr}
--   Average F~1~-measure: **TODO: is this actually equivalent to the average of the individual F~1~s? actually check and explain explicitly. average of harmonic means vs harmonic mean of averages**
+-   Average F~1~-measure:
 $$ \overline{\text{F}_1} = \cfrac{2\cdot \overline{\text{ppv}}\cdot \overline{\text{tpr}}}{\overline{\text{ppv}}+\overline{\text{tpr}}} $$ {#eq:definition-avg-f1}
 -   Average specificity:
 $$ \overline{\text{tnr}} = \cfrac{\sum\limits_{j=1}^{J} \text{tnr}_j}{J} $$ {#eq:definition-avg-tnr}
@@ -114,15 +107,13 @@ Some particularly imbalanced data sets and classifiers can lead to the denominat
 
 $$ \text{MCC}_2 =
 \begin{cases}
-    1 & \text{if TP $\neq 0$ and FN = FP = TN = 0}\\
-    1 & \text{if TN $\neq 0$ and FN = FP = TP = 0}\\
-    -1 & \text{if FP $\neq 0$ and FN = TP = TN = 0}\\
-    -1 & \text{if FN $\neq 0$ and TP = FP = TN = 0}\\
-    0 & \text{if exactly two of (TP, FN, FP, TN) are 0}\\
+    1 & \text{if TP $\neq 0$ and FN $=$ FP $=$ TN $= 0$}\\
+    1 & \text{if TN $\neq 0$ and FN $=$ FP $=$ TP $= 0$}\\
+    -1 & \text{if FP $\neq 0$ and FN $=$ TP $=$ TN $= 0$}\\
+    -1 & \text{if FN $\neq 0$ and TP $=$ FP $=$ TN $= 0$}\\
+    0 & \text{if exactly two of (TP, FN, FP, TN) are $0$}\\
     \cfrac{\text{TP} \cdot \text{TN} - \text{FP} \cdot \text{FN}}{\sqrt{(\text{TP} + \text{FP}) \cdot (\text{TP} + \text{FN}) \cdot (\text{TN} + \text{FP}) \cdot (\text{TN} + \text{FN})}} & \text{otherwise}
 \end{cases} $$ {#eq:definition-mcc-single-special-cases}
-
-**TODO: spacing between does-not-equal sign and 0s is wrong. maybe omit text other than for TP/FN/etc**
 
 Its value can be between -1 and +1. An MCC value of +1 indicates all samples are classified correctly, a value of -1 means they are _all_ classified incorrectly (quite a feat in itself) and a value of 0 denotes exactly half the samples (adjusted for class imbalance) are classified correctly.
 
@@ -153,8 +144,6 @@ As mentioned earlier, we are additionally going to compute two new performance m
 There are two different values we can set to tweak the behavior of the _k_-NN classifier: one is _k_, the number of neighbors that the algorithm will take into account for each point. The other does not actually belong to the classifier itself, but rather is about the shape of the data we provide it: the number of principal components of the data we feed it.
 
 Much like @vidal_structural_2020 we choose three numbers of principal components: ones that explain 85, 90 and 95% of variance; then we run the classifier using a range of numbers of neighbors between 1 and 500. This sort of sweep lets us judge its performance for several combinations of parameters such that we can hone in on the most sensible approach.
-
-**TODO: Talk about how this brute-force approach is generally best when approaching a new problem using ML, as the "ideal" parameter values can vary wildly depending on characteristics of the data that we cannot really determine beforehand. Make sure to cite relevant works.**
 
 The results for all these permutations are displayed in [@Tbl:reproduce-results-table-knn].
 
@@ -236,8 +225,6 @@ However, because the MCC and the GPS~UPM~ account for those cases and actually c
 This does not mean that they make the other, simpler, metrics obsolete — far from it. A researcher who wishes to take a deeper look at what their model is doing and _how_ (not just _if_) it is coming short must still rely on them. In other words: decide what your goals are and pick your tools accordingly.
 
 In terms of choosing between the MCC and the GPS~UPM~ as a singular metric, these results do not show a clear winner. They both seem to rise and fall together, with the MCC figure consistently lower. It is possible that in other scenarios they would illustrate different things but in the matter at hand they seem to be redundant with each other.
-
-**TODO: (maybe) see if literature seems to agree with these conclusions wrt MCC/GPS**
 
 ### Support vector machine (SVM)
 Much like with the _k_-NN classifier there are two knobs we can turn to adjust the behavior of the SVM classifier. One is the number of principal components of the data that we put through it, and the other actually belongs to the SVM classifier itself: $\rho$, the kernel scale parameter, as seen in [@Eq:definition-svm-kernel].
@@ -332,7 +319,7 @@ In this scenario other measures like accuracy and sensitivity would also serve t
 
 [@Fig:reproduce-indicators-plot-knn-var0.9] includes a plot of the performance indicators of the SVM method using 85% of variance for easy comparison with the plot shown by @vidal_structural_2020 [p.19].
 
-![Indicators evaluating the performance of the SVM method using 85% of variance. Higher values are better. **TODO: NaNs break this figure bad. maybe just exclude ρ=200 and 300 from it**](reproduce-indicators-plot-svm-var0.85.png){#fig:reproduce-indicators-plot-svm-var0.85 width=80%}
+![Indicators evaluating the performance of the SVM method using 85% of variance. Higher values are better.](reproduce-indicators-plot-svm-var0.85.png){#fig:reproduce-indicators-plot-svm-var0.85 width=80%}
 
 ## Proposed improvement: data leakage avoidance
 Now that we have gone over the results obtained in replicating the methodology proposed by @vidal_structural_2020, let us look at the ones obtained after applying our proposed improvement as explained in [@Sec:methodology-proposed-improvement].
@@ -470,4 +457,4 @@ Regarding the size of this effect, consider the peak performance in each approac
 
 Therefore we can conclude that for the SVM classifier data leakage issues in the original methodology led to a quite small but quite consistent bias towards overoptimistic results, and that enforcing separation of training and test data during pre-processing corrected the bias.
 
-![Indicators evaluating the performance of the SVM method using 85% of variance, with data leakage avoidance. Higher values are better. **TODO: NaNs break this figure bad. maybe just exclude ρ=200 and 300 from it**](reproduce-indicators-plot-svm-var0.85.png){#fig:noleak-indicators-plot-svm-var0.85 width=80%}
+![Indicators evaluating the performance of the SVM method using 85% of variance, with data leakage avoidance. Higher values are better.](reproduce-indicators-plot-svm-var0.85.png){#fig:noleak-indicators-plot-svm-var0.85 width=80%}

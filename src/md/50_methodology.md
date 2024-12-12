@@ -122,7 +122,7 @@ An important note is that the data provided to the author of this work by @leon_
 #### Scaling
 Next up in the processing pipeline is scaling the data, which @vidal_structural_2020 explain serves "two main reasons: first, to process data that come from different sensors and second, to simplify the computations of the data transformation using PCA".
 
-**TODO: mention problems this avoids, like this quote from https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html: "For instance many elements used in the objective function of a learning algorithm (such as the RBF kernel of support vector machines or the L1 and L2 regularizers of linear models) assume that all features are centered around 0 and have variance in the same order. If a feature has a variance that is orders of magnitude larger than others, it might dominate the objective function and make the estimator unable to learn from other features correctly as expected."**
+Scaling, also known as data normalization, is a crucial pre-processing step in most machine-learning classification. To that effect, @singh_investigating_2020 investigates the impact of fourteen different approaches on the performance of the _k_-nearest neighbors classifier and conclude that "scaling methods \[z-score normalization\] and \[Pareto scaling\] and are best since these achieve good classification performance and handle the outliers more effectively than other scaling methods". Z-score normalization is the approach chosen in the original study and replicated here.
 
 The scaling is done column by column, and involves adjusting each data point such that the column as a whole has a mean value of zero and a variance of one. The scaled value $\breve{x}_{i,j}^{k,l}$ of a reading $x_{i,j}^{k,l}$ is thus:
 
@@ -291,7 +291,7 @@ The same applies to the dimensionality reduction step: the principal components 
 ### Avoiding the leaks
 Resolving these issues can be achieved by shuffling the steps in our data processing pipeline slightly. Instead of scaling and reducing the entire data set together and then splitting via cross-validation to train and test the classifiers, we first split via cross-validation, scale and reduce the training set in isolation and use it to train the classifiers. Then we take the scaling/reduction parameters (respectively: mean and standard deviation; principal components) obtained from the training set, apply them as-is to the test set and test the classifiers on the result.
 
-**TODO: a diagram of before and after would go a long way here**
+<!-- **TODO: a diagram of before and after would go a long way here** -->
 
 #### Scaling
 In the scaling step, the scaled value $\breve{x}_{i,j}^{k,l}$ of a reading $x_{i,j}^{k,l}$ is redefined as:
@@ -342,4 +342,4 @@ It is hard to quantify what the impact of these two changes may have on the perf
 
 It is reasonable to expect the classifiers to do at least slightly worse, as data leakage usually leads to overly optimistic results. We shall see if reality agrees with this expectation or if it rudely subverts it.
 
-**TODO: Also talk about code stuff. How did we actually implement the new workflow? Mention [sklearn pipelines](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html) and all that good stuff.**
+<!-- **TODO: Also talk about code stuff. How did we actually implement the new workflow? Mention [sklearn pipelines](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html) and all that good stuff.** -->
