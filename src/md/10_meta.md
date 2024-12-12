@@ -18,6 +18,8 @@ header-includes: |
   \usepackage{arydshln}
   \usepackage{appendix}
   \usepackage{pdfpages}
+  \usepackage{makecell}
+  \usepackage{multirow}
 secnumdepth: 3
 lang: "en"
 titlepage: false
