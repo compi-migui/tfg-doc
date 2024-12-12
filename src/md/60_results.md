@@ -129,10 +129,11 @@ An observing reader may protest that the MCC is, in fact, a binary measure. Luck
 
 It is defined as:
 $$
-\text{MCC} = \cfrac{\sum\limits_{k,l,m=1}^{K} \left( C_{k,k}C_{l,m} - C_{k,l}C_{m,k} \right)}{\sqrt{\sum\limits_{k=1}^{K} \left( \sum\limits_{l=1}^{K} C_{k,l} \right) \left( \sum\limits_{\substack{l\prime =1\\k\prime\neq k}}^{K} C_{k\prime,l\prime} \right)}\sqrt{\sum\limits_{k=1}^{K} \left( \sum\limits_{l=1}^{K} C_{l,k} \right) \left( \sum\limits_{\substack{l\prime =1\\k\prime\neq k}}^{K} C_{l\prime,k\prime} \right)}}
+\text{MCC} = \cfrac{\sum\limits_{a,b,c} \left( C_{a,a}C_{b,c} - C_{a,b}C_{c,a} \right)}{\sqrt{\sum\limits_{a} \left[ \left( \sum\limits_{b} C_{a,b} \right)  \left( \sum\limits_{\substack{b\prime,a\prime}}^{a\prime\neq a} C_{a\prime,b\prime} \right) \right]}\sqrt{\sum\limits_{a} \left[ \left( \sum\limits_{b} C_{b,a} \right) \left( \sum\limits_{\substack{b\prime,a\prime}}^{a\prime\neq a} C_{b\prime,a\prime} \right) \right] }}
 $$ {#eq:definition-mcc}
 
-Where $C_{a,b}$ is the number of samples classified into class _a_ that actually belong to class _b_.
+Where $C_{x,y}$ is the number of samples classified into class _x_ that actually belong to class _y_.
+
 
 The last metric we will examine is the general performance score, proposed by @de_diego_general_2022 and generally defined as the harmonic mean of a set of arbitrary performance measures. We will use one specific instance of it, GPS~UPM~, wherein we parametrize it with the individual unified performance measures derived for each class in our multiclass problem:
 
