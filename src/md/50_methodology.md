@@ -37,11 +37,7 @@ The external libraries used directly, not accounting for dependencies of depende
    - Pandas, for manipulating the large data sets involved in a structured way [@pandas_development_team_pandas-devpandas_2024; @mckinney_data_2010].
    - NumPy, for easily operating on arrays of data [@numpy_development_team_numpy_2024; @harris_array_2020].
    - Matplotlib, for generating graphics [@matplotlib_development_team_matplotlib_2024; @hunter_matplotlib_2007].
-   - Joblib, for its robust memoization implementation ("transparent disk-caching of functions and lazy re-evaluation") [@joblib_development_team_joblib_2024].
-
-**TODO: explain a bit more what each of these does. joblib is particularly not obvious**
-
-**TODO: maybe mention the relevant code bits used in each part of the methodology. this funcion from this library for scaling, etc.**
+   - Joblib, for its robust memoization implementation ("transparent disk-caching of functions and lazy re-evaluation") [@joblib_development_team_joblib_2024]. Memoization is a pattern that allows easily storing return values of function calls, so we avoid having to repeat resource-intensive processing steps. It was particularly important as part of iterative development, where each attempted bug fix or tweak would have otherwise meant waiting for a full execution.
 
 ### Original paper's methodology
 Let us describe the original methodology we are trying to replicate.
