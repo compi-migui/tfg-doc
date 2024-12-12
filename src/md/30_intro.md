@@ -6,15 +6,26 @@ Due to their remote location, inspection and maintenance activities on offshore 
 
 Improved processing of remotely-sensed data can help minimize the number of interventions needed, and thus also the human and economic costs involved: if we can more accurately tell how a structure is doing we don't need people to put themselves at risk by checking in on it in person as often.
 
-**TODO: Maybe some words about how no engineering project, new technique or scientific advancement can be considered in isolation without examining the wider context of the world and the industry it is part of. Pure math/science advancement for the sake of knowledge vs. application of those from an engineering POV. That is why we talk so much about stuff that's unrelated to a strictly mathy data processing problem**
-
 In this section we will first very briefly examine the role of wind power generation and its future trends and the relevance of offshore wind turbines in that wider picture. This will serve to justify _why_ the goals we are setting out to achieve are worth reaching in the first place.
 
 We will then touch on structural health monitoring and how it is applied to offshore wind turbines to decrease their long term operational costs. This will serve to justify _how_ the work we are setting out to do is going to move us closer to that goal.
 
 Lastly we will discuss the role of machine learning algorithms, like the ones this work will examine, in structural health monitoring. This will lay the groundwork for _what_ precisely we intend to work on in later sections.
 
-**TODO: Maybe a subsection about renewables in general before wind power? might be a bit too grandiose**
+### Renewable energy
+The United Nations' 2030 Agenda for Sustainable Development [@united_nations_general_assembly_transforming_2015] sets out a plan of action made up of 17 sustainable development goals (SDGs) and 169 targets that define "the bold and transformative steps which are urgently needed to shift the world on to a sustainable and resilient path" and attempt to balance what they call "the three dimensions of sustainable development: the economic, social and environmental".
+
+One of those goals is SDG 7: "Ensure access to affordable, reliable, sustainable and modern energy for all". It is broken down into five targets, two of which are reproduced in full here:
+
+>   7.2 By 2030, increase substantially the share of renewable energy in the global energy mix
+>
+>   ...
+>
+>   7.a By 2030, enhance international cooperation to facilitate access to clean energy research and technology, including renewable energy, energy efficiency and advanced and cleaner fossil-fuel technology, and promote investment in energy infrastructure and clean energy technology
+
+Ambitious indeed. Knowing those goals as defined in 2015, let us put the current and expected future state of things into numbers.
+
+As of 2023, renewable sources made up 30% of global electricity generation or over 9000 TWh, with slightly over 4 TW of installed capacity [@international_energy_agency_renewables_2024]. The International Energy Agency expects that output to almost double to an output of 17000 TWh and a capacity of almost 10 TW. In their own words, "renewables will account for almost half of global electricity generation by 2030, with the share of wind and solar PV doubling to 30%".
 
 ### The role of wind power
 According to the Global Wind Energy Council's 2024 Global Wind Report, wind power generation surpassed 1 TW of total installed capacity in 2023, and it is estimated to reach 2 TW by year 2030 [@lee_global_2024].
@@ -23,18 +34,23 @@ According to the European Wind Power Action Plan published by the European Commi
 
 It cannot be made any more clear: there is plenty of wind power in the world, and we can rightly expect there to be a lot more in the near future.
 
-### Offshore wind turbines
-Some of that capacity is from offshore wind turbines. What portion? How is it expected to grow?
-
-Briefly discuss the challenges specific to offshore wind turbines. Remoteness, etc. --> it becomes even more important to have good remote sensing capabilities, and good processing techniques to actually use that data.
-
+### Offshore wind power
 Looking again at the Global Wind Energy Council's 2024 Global Wind Report, global offshore installations add up to 75 GW of installed capacity, a bit over 7% of total wind power generation capacity. Looking at new installations in 2023, offshore ones represent 9% of them — and this share is expected to grow, with offshore wind turbines making up 20% of the capacity of expected new wind power installations in 2028 [@lee_global_2024, p. 151].
 
 In the European Union, the offshore share of installed wind power capacity is 8%, with "ambitious commitments on offshore energy that amount to 111 GW across all EU sea basins by 2030" [@european_commission_european_2023] which, when accounting for the total wind power target for 2030, would work out to over 20% of capacity belonging to offshore installations.
 
 In other words: offshore wind turbines are already, today, a very significant part of wind power generation. According to industry estimates, its importance will become even larger in the near future. That is why it is not only useful, but _essential_, to closely examine the risks and costs involved in their daily operations and maintenance to mitigate human and economic costs as much as possible.
 
-**TODO: would be nice to talk more about OWT maintenance operations here, quantify that human/econ cost we're trying to minimize**
+### Offshore wind turbine structures
+Having set the context that serves as a figurative foundation to this work, we can move on to the actual object we will study: the literal, physical foundations that offshore wind turbines are supported on.
+
+Offshore wind turbines can be supported on fixed or floating foundations. The latter is still an emergent technology, so only fixed ones are fully commercialized. Of those, the most common ones are monopile foundations at 70% of total installations by the end of 2022 and jackets at 17% [@williams_global_2024].
+
+Monopile foundations are typically "composed of a single steel tube pile of diameter of 3 to 8 m"  driven directly into the seabed, and they are usually used at water depths "ranging between 20 to 40 m" [@wu_foundations_2019, p.6].
+
+A jacket foundation "comprises a space frame structure assembled from steel tubular members, which is usually fabricated in advance by welding on land. The jacket is then transported to site, and piled into the seabed" [@wu_foundations_2019, p.7].
+
+Jacket foundations are the ones studied in this work.
 
 ### Structural health monitoring in offshore wind turbines
 Structural health monitoring can be defined as a strategy that "aims to give, at every moment during the life of a structure, a diagnosis of the 'state' of the constituent materials, of the different parts, and of the full assembly of these parts constituting the structure as a whole" [@balageas_structural_2010].
