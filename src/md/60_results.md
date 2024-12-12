@@ -95,6 +95,8 @@ In order to go beyond mere replication of what @vidal_structural_2020 did, we wi
 
 One of them is the Matthews correlation coefficient (MCC). Before getting into what it is, we first ought to discuss _why_ one would want to use it — in other words, what problem it aims to solve.
 
+As summarized by @chicco_advantages_2020, the MCC was introduced by @matthews_comparison_1975, who was calculating the correlation between predicted and observed structures of proteins. It was @baldi_assessing_2000 who much later went on to apply it as a performance metric for machine learning classifiers.
+
 A difficult challenge when evaluating classification models is that it is very easy for some of the metrics discussed so far to tell us more about the shape of the data set being used, rather than about the classifier we are trying to evaluate [@akosa_predictive_2017]. This challenge is doubly difficult because it is very easy to not notice it at all unless one specifically look for it.
 
 For a few very illustrative examples of this problem involving both imbalanced and balanced data sets, see @chicco_advantages_2020 [p. 7-9]. For our purposes, it is enough to take their conclusion as a strong sign that it is a good idea to at least try using the MCC to better examine our models:
