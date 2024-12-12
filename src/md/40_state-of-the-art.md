@@ -7,7 +7,7 @@ Rather than attempting to cover the entire field and end up with a description a
 
 Structural health monitoring (SHM) is a strategy that "aims to give, at every moment during the life of a structure, a diagnosis of the 'state' of the constituent materials, of the different parts, and of the full assembly of these parts constituting the structure as a whole" [@balageas_structural_2010].
 
-It can be applied to different constitutent parts of offshore wind turbines. For example, @antoniadou_aspects_2015 discuss SHM techniques applied to detecting damage in turbine gearboxes and blades, "because it has been observed that these components have the most frequent failures and can cause the highest downtime in a wind turbine". However, as they rightly point out, "there is no limitation in the application of the methods to different components."
+It can be applied to different constituent parts of offshore wind turbines. For example, @antoniadou_aspects_2015 discuss SHM techniques applied to detecting damage in turbine gearboxes and blades, "because it has been observed that these components have the most frequent failures and can cause the highest downtime in a wind turbine". However, as they rightly point out, "there is no limitation in the application of the methods to different components."
 
 Our intention here is to cover one of those "different components": we aim to detect damage not in turbine gearboxes and blades, but instead in the structures that support the whole turbine on the seabed. While the monitoring of either falls under the SHM umbrella, each presents its own challenges — different failure modes, sensors best suited to the task, signal processing techniques and so on.
 

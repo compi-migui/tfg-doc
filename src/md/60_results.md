@@ -8,7 +8,7 @@ While we are replicating the _methodology_ of @vidal_structural_2020, we do not 
 
 @leon_medina_online_2023 deals with stream data classifiers and the data it collected is shaped accordingly: the duration of each of its trials is over 12 times longer than those of @vidal_structural_2020 in order to give its classifiers a chance to train online and start giving accurate results.
 
-Because the methodology we are replicating uses offline classifiers, which tend to work on the entire data set at once, using this data as-is imposes prohibitive resource requirements: 12 times as much data requires at 12 times as much working memory. While this is technically achievable using professional server hardware, it greatly increases running costs for very marginal or nonexistent benefit. That is why we will not use the data as-is. We will instead truncate the data sets, keeping all the complexity and varability (number of sensors, damage conditions, wind amplitude conditions and trials) while reducing memory requirements six-fold.
+Because the methodology we are replicating uses offline classifiers, which tend to work on the entire data set at once, using this data as-is imposes prohibitive resource requirements: 12 times as much data requires at 12 times as much working memory. While this is technically achievable using professional server hardware, it greatly increases running costs for very marginal or nonexistent benefit. That is why we will not use the data as-is. We will instead truncate the data sets, keeping all the complexity and variability (number of sensors, damage conditions, wind amplitude conditions and trials) while reducing memory requirements six-fold.
 
 |                                                         | @vidal_structural_2020 | @leon_medina_online_2023 | Truncated @leon_medina_online_2023 |
 |---------------------------------------------------------|------------------------|--------------------------|------------------------------------|
@@ -45,7 +45,7 @@ This gives us our first quantifiable results: out of actually positive samples, 
 
 From there we can compute the rest of the simple binary measures right away. They are:
 
--   Accuracy: "the degree to which the predictions of a model matches the reality being modeled. In \[the context of classificaton models\], accuracy $= P(\lambda (X) = Y)$ where $XY$ is a joint distribution and the classification model $\lambda$ is a function $X \rightarrow Y$" [@sammut_encyclopedia_2017, p. 8].
+-   Accuracy: "the degree to which the predictions of a model matches the reality being modeled. In \[the context of classification models\], accuracy $= P(\lambda (X) = Y)$ where $XY$ is a joint distribution and the classification model $\lambda$ is a function $X \rightarrow Y$" [@sammut_encyclopedia_2017, p. 8].
 $$ \text{acc} = \cfrac{\text{TP} + \text{TN}}{\text{TP} + \text{TN} + \text{FP} + \text{FN}} $$ {#eq:definition-acc}
 -   Precision: also known as positive predictive value, it is "the ratio of true positives (TP) and the total number of positives predicted by a model" [@sammut_encyclopedia_2017, p. 990].
 $$ \text{ppv} = \cfrac{\text{TP}}{\text{TP} + \text{FP}} $$ {#eq:definition-ppv}
@@ -91,7 +91,7 @@ One of them is the Matthews correlation coefficient (MCC). Before getting into w
 
 As summarized by @chicco_advantages_2020, the MCC was introduced by @matthews_comparison_1975, who was calculating the correlation between predicted and observed structures of proteins. It was @baldi_assessing_2000 who much later went on to apply it as a performance metric for machine learning classifiers.
 
-A difficult challenge when evaluating classification models is that it is very easy for some of the metrics discussed so far to tell us more about the shape of the data set being used, rather than about the classifier we are trying to evaluate [@akosa_predictive_2017]. This challenge is doubly difficult because it is very easy to not notice it at all unless one specifically look for it.
+A difficult challenge when evaluating classification models is that it is very easy for some of the metrics discussed so far to tell us more about the shape of the data set being used, rather than about the classifier we are trying to evaluate [@akosa_predictive_2017]. This challenge is doubly difficult because it is very easy to not notice it at all unless one specifically looks for it.
 
 For a few very illustrative examples of this problem involving both imbalanced and balanced data sets, see @chicco_advantages_2020 [p. 7-9]. For our purposes, it is enough to take their conclusion as a strong sign that it is a good idea to at least try using the MCC to better examine our models:
 
@@ -297,7 +297,7 @@ It seems having fewer but longer trials did not translate to an improvement or w
 \end{table}
 
 
-We can however see that the peak performance happens with a different value of $\rho$: for @vidal_structural_2020 the best results happened with values of 90 and 100, whereas we find our peak at a value of 40. This mirrors the different best _k_ we found for the _k_-NN classifier, and can similarly be attributed to the different shape of the data set — we have fewer samples but need more principal components, both of which will make the aglorithm behave optimally with different parameters.
+We can however see that the peak performance happens with a different value of $\rho$: for @vidal_structural_2020 the best results happened with values of 90 and 100, whereas we find our peak at a value of 40. This mirrors the different best _k_ we found for the _k_-NN classifier, and can similarly be attributed to the different shape of the data set — we have fewer samples but need more principal components, both of which will make the algorithm behave optimally with different parameters.
 
 This is exactly what one would expect to see when applying the same model to a different data set. The replication has also been successful for this classifier.
 
@@ -309,7 +309,7 @@ Looking back at the definition for precision in [@Eq:definition-ppv] we see the 
 
 The GPS~UPM~ is the harmonic mean of individual classes' UPM ([@Eq:definition-gps]), which in turn ends up with a division by zero when the number of true positives is zero (see [@Eq:definition-upm]).
 
-So the missing values are not due to a mistake when calculating them: they are simply not able to handle the case where a model does not assign even one sample to a given class.
+So the missing values are not due to a mistake when computing them: they are simply not able to handle the case where a model does not assign even one sample to a given class.
 
 This actually reveals a strength of the Matthews correlation coefficient: even when other measures collapse and become undefined it is still able to gauge the performance of the classifier in a useful way. Looking again at [@Tbl:reproduce-results-table-svm], specifically at the rows where $\rho$ is 200 and 300, since both the F~1~-measure and GPS~UPM~ are undefined so they cannot quantify which performs better. However we can see the MCC assigns a worse score to the $\rho = 300$ case (circa 28%) than to the $\rho = 200$ case (circa 47%).
 

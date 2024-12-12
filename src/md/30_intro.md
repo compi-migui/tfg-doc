@@ -2,7 +2,7 @@
 # Introduction and goals
 <!-- Plantejament del problema, alternatives considerades i objectius a assolir -->
 ## Introduction
-Due to their remote location, inspection and maintenance activities on offshore wind turbines are very costly both in terms of risk to workers' health and safety and in economic cost. As worlwide investment on renewable energy sources — including offshore wind turbines — grows, we can expect that toll to increase accordingly unless remedied.
+Due to their remote location, inspection and maintenance activities on offshore wind turbines are very costly both in terms of risk to workers' health and safety and in economic cost. As worldwide investment on renewable energy sources — including offshore wind turbines — grows, we can expect that toll to increase accordingly unless remedied.
 
 Improved processing of remotely-sensed data can help minimize the number of interventions needed, and thus also the human and economic costs involved: if we can more accurately tell how a structure is doing we don't need people to put themselves at risk by checking in on it in person as often.
 
