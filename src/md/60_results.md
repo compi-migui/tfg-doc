@@ -98,7 +98,7 @@ For a few very illustrative examples of this problem involving both imbalanced a
 >   These results show that, while accuracy and F~1~ score often generate high scores that do not inform the user about ongoing prediction issues, the MCC is a robust, useful, reliable, truthful statistical measure able to correctly reflect the deficiency of any prediction in any dataset.
 >   \ — @chicco_advantages_2020 [p. 9]
 
-**TODO: considered going into some of those examples here, but it would be a lot of text to reach that exact same conclusion. probably not worth it unless I end up with too much spare time and too little content**
+<!-- **TODO: considered going into some of those examples here, but it would be a lot of text to reach that exact same conclusion. probably not worth it unless I end up with too much spare time and too little content**-->
 
 The Matthews correlation coefficient is defined by @chicco_advantages_2020 as:
 $$ \text{MCC}_2 = \cfrac{\text{TP} \cdot \text{TN} - \text{FP} \cdot \text{FN}}{\sqrt{(\text{TP} + \text{FP}) \cdot (\text{TP} + \text{FN}) \cdot (\text{TN} + \text{FP}) \cdot (\text{TN} + \text{FN})}} $$ {#eq:definition-mcc-single}
