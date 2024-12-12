@@ -241,10 +241,6 @@ $$ {#eq:definition-svm-kernel}
 
 Leaving $\rho$, the kernel scale parameter, as the parameter to tweak to try and fit the behavior of the model to the needs of our data set.
 
-**TODO: mention OvO and OvA (One vs One/All)**
-
-**TODO: in the Results section, add similar PCA plots but coloring by predicted class instead of true class**
-
 #### Cross-validation
 The separation of our data set into training and test sets risks an obvious pitfall: what if, by random chance, we end up with a split that is unfairly favorable to the classifiers? What if the reverse is true and the split is unfairly unfavorable? Either is possible: either set could end up with a disproportionate amount of samples that are easier or harder to classify correctly in ways we cannot identify ahead of time, thus skewing the performance results.
 
@@ -347,5 +343,3 @@ It is hard to quantify what the impact of these two changes may have on the perf
 It is reasonable to expect the classifiers to do at least slightly worse, as data leakage usually leads to overly optimistic results. We shall see if reality agrees with this expectation or if it rudely subverts it.
 
 **TODO: Also talk about code stuff. How did we actually implement the new workflow? Mention [sklearn pipelines](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html) and all that good stuff.**
-
-**TODO: total number of tests isn't actually I times J because there's more of the healthy class. gotta go through and fix all the equations lol. maybe just call it N or some other letter**
