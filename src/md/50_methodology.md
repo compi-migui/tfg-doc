@@ -268,7 +268,7 @@ In building a taxonomy of data leakage errors, @kapoor_leakage_2023 list three t
 >
 >   **\[L3\] Test set is not drawn from the distribution of scientific interest.** The distribution of data on which the performance of an ML model is evaluated differs from the distribution of data about which the scientific claims are made.
 
-The original study is safe from category \[L2\]: the only features used by the model are readings from accelerometers attached to the turbine structure, present in both healthy and damaged states. These would also be present in both healthy and damaged turbines in a hypothetical real off-shore park that implemented a similar SHM strategy, so no data leakage there.
+The original study is safe from category \[L2\]: the only features used by the model are readings from accelerometers attached to the turbine structure, present in both healthy and damaged states. These would also be present in both healthy and damaged turbines in a hypothetical real offshore park that implemented a similar SHM strategy, so no data leakage there.
 
 It is also safe from category \[L3\], as the claims made it in its conclusions are appropriately narrow and limited to the context of the limited proof of concept:
 
