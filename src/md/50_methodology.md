@@ -18,16 +18,16 @@ In @Sec:goals-replicate we went over the often confusing usages of the words "re
 We set out to do the latter: we are not going to simply run already-written code on the original data. Instead, we are going to write new code from scratch that attempts to implement the methodology described by @vidal_structural_2020, and we will use it to process data gathered in a different experiment by @leon_medina_online_2023.
 
 ### Avoiding "contamination"
-We have already mentioned that this work will use all-new code, rather than reusing @vidal_structural_2020's. This is, at least in part, meant to make the replication more thorough by avoiding the possibility that an implementation detail or bug in the original code influenced the results.
+We have already mentioned that this final degree thesis will use all-new code, rather than reusing @vidal_structural_2020's. This is, at least in part, meant to make the replication more thorough by avoiding the possibility that an implementation detail or bug in the original code influenced the results.
 
 However, the code being new does not guarantee we avoid repeating potential implementation errors: if one were to study a piece of software to understand its inner workings before creating a new one to replace it, it would be altogether too easy to accidentally repeat any mistakes in the original. Seeing the solution to a problem necessarily conditions our understanding of it and the way we approach it.
 
 Therefore, in order to achieve a more thorough replication of the results (as opposed to a simple reproduction of the original, with both the good and the bad) the designer of the new process must avoid being "contaminated" by examining the original implementation, instead relying only on the description of the methodology as included in the original study. This way we eliminate an entire category of replication error.
 
-That is our approach here: the author of this work has not seen even a hint of the code used by the authors of the replicated paper, and has instead written a new implementation from scratch guided only by the methodology described in the paper.
+That is our approach here: the author of this final degree thesis has not seen even a hint of the code used by the authors of the replicated paper, and has instead written a new implementation from scratch guided only by the methodology described in the paper.
 
 ### Choice of software: free and open-source
-The code used in this work is freely available in the [shmowt repository](https://github.com/compi-migui/shmowt) on GitHub. It is written in the Python programming language, and uses all free and open-source software (FOSS) libraries, which means anyone can take it, run it, modify it and distribute it without having to pay for costly licenses. This makes it possible for anyone with the technical expertise and minimal time investment to reproduce its results and spot any errors in its implementation.
+The code used in this final degree thesis is freely available in the [shmowt repository](https://github.com/compi-migui/shmowt) on GitHub. It is written in the Python programming language, and uses all free and open-source software (FOSS) libraries, which means anyone can take it, run it, modify it and distribute it without having to pay for costly licenses. This makes it possible for anyone with the technical expertise and minimal time investment to reproduce its results and spot any errors in its implementation.
 
 The code itself and the libraries all being open-source also makes it possible to examine their inner workings, something that proprietary closed-source tools do not allow.
 
@@ -89,7 +89,7 @@ structural states;
 >
 > [@vidal_structural_2020, p.7-8]
 
-As an aid in visualizing how this relates to the data used in this work, [@Eq:data-matrix-substituted] shows the same matrix substituting values from [@Tbl:input-data-comparison].
+As an aid in visualizing how this relates to the data used in this final degree thesis, [@Eq:data-matrix-substituted] shows the same matrix substituting values from [@Tbl:input-data-comparison].
 
 $$
 \mathbf{X} = x_{i,j}^{k,l} =
@@ -117,7 +117,7 @@ $$ {#eq:data-matrix-substituted}
 
 The resulting matrix has a total of 5740 rows (one for each trial) and 9672 columns (one for each individual reading in a trial).
 
-An important note is that the data provided to the author of this work by @leon_medina_online_2023 was already shaped into this form. This made the truncation process described in @Sec:results-data somewhat more convoluted as it required careful slicing of the rows, but otherwise has no effect on our analysis.
+An important note is that the data provided to the author of this final degree thesis by @leon_medina_online_2023 was already shaped into this form. This made the truncation process described in @Sec:results-data somewhat more convoluted as it required careful slicing of the rows, but otherwise has no effect on our analysis.
 
 #### Scaling
 Next up in the processing pipeline is scaling the data, which @vidal_structural_2020 explain serves "two main reasons: first, to process data that come from different sensors and second, to simplify the computations of the data transformation using PCA".
@@ -215,7 +215,7 @@ The other classifier used by @vidal_structural_2020 is the support vector machin
 
 >   It is not the purpose of this paper to give a detailed explanation of the SVM classifier. For the interested reader, an excellent detailed review is given in reference \[@smola_tutorial_2004\]. However, to hand over the background and motivation for the proposed methodology, a summary of the method is given. This recap is based on reference \[@vidal_wind_2018\].
 
-The same applies to this work. Rather than patronize readers by parroting here the words of other authors about hyperplanes, convex geometry and topological vector spaces, please refer to the above references for the mathematical background. For our purposes, it is enough to consider the following:
+The same applies to this final degree thesis. Rather than patronize readers by parroting here the words of other authors about hyperplanes, convex geometry and topological vector spaces, please refer to the above references for the mathematical background. For our purposes, it is enough to consider the following:
 
 It is relatively feasible to compute in the linear case, meaning it can be applied directly and perform well when the data points are linearly separable or close to it. Naively extending it to nonlinear cases makes it "...computationally infeasible for both polynomial features of higher order and higher dimensionality" [@smola_tutorial_2004]. To avoid that pitfall, one can apply the "kernel trick", in which very computationally costly high-dimensional transformations are replaced with a so-called kernel function to be used as an inner product.
 

@@ -29,7 +29,7 @@ Because the methodology we are replicating uses offline classifiers, which tend 
 | Data set size ($n_{\text{total}} \cdot K \cdot L$)             | 5.55E+07               | 3.33E+08                 | 5.55E+07                           |
 | Size ratio                                              | 1.0                    | 6.0                      | 1.0                                |
 
-: Comparison between the shapes of the data used by @vidal_structural_2020, @leon_medina_online_2023 and the truncated version of the latter used in this work. {#tbl:input-data-comparison}
+: Comparison between the shapes of the data used by @vidal_structural_2020, @leon_medina_online_2023 and the truncated version of the latter used in this final degree thesis. {#tbl:input-data-comparison}
 
 ## Performance measures
 As we aim to replicate an existing methodology, in order to make it possible to actually compare our results to @vidal_structural_2020's side by side we will evaluate the models using the same metrics they did. We will also look at a few metrics not evaluated in the original paper, namely the Matthews correlation coefficient (MCC) as described by @chicco_advantages_2020 and the general performance score as described by @de_diego_general_2022.
@@ -117,7 +117,7 @@ $$ \text{MCC}_2 =
 
 Its value can be between -1 and +1. An MCC value of +1 indicates all samples are classified correctly, a value of -1 means they are _all_ classified incorrectly (quite a feat in itself) and a value of 0 denotes exactly half the samples (adjusted for class imbalance) are classified correctly.
 
-An observing reader may protest that the MCC is, in fact, a binary measure. Luckily @gorodkin_comparing_2004 extended it to the multiclass case, defining what he called the R~K~ correlation coefficient but which is referred to by later literature as just the Matthews correlation coefficient applied to multiclass classifiers [@jurman_comparison_2012; @grandini_metrics_2020]. For the sake of simplicity, this work will use just "MCC" to refer to the multiclass version and MCC~2~ for the original binary version.
+An observing reader may protest that the MCC is, in fact, a binary measure. Luckily @gorodkin_comparing_2004 extended it to the multiclass case, defining what he called the R~K~ correlation coefficient but which is referred to by later literature as just the Matthews correlation coefficient applied to multiclass classifiers [@jurman_comparison_2012; @grandini_metrics_2020]. For the sake of simplicity, this final degree thesis will use just "MCC" to refer to the multiclass version and MCC~2~ for the original binary version.
 
 It is defined as:
 $$

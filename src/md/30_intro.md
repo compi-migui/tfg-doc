@@ -10,7 +10,7 @@ In this section we will first very briefly examine the role of wind power genera
 
 We will then touch on structural health monitoring and how it is applied to offshore wind turbines to decrease their long term operational costs. This will serve to justify _how_ the work we are setting out to do is going to move us closer to that goal.
 
-Lastly, we will discuss the role of machine learning algorithms, like the ones this work will examine, in structural health monitoring. This will lay the groundwork for _what_ precisely we intend to work on in later sections.
+Lastly, we will discuss the role of machine learning algorithms, like the ones this final degree thesis will examine, in structural health monitoring. This will lay the groundwork for _what_ precisely we intend to work on in later sections.
 
 ### Renewable energy
 The United Nations' 2030 Agenda for Sustainable Development [@united_nations_general_assembly_transforming_2015] sets out a plan of action made up of 17 sustainable development goals (SDGs) and 169 targets that define "the bold and transformative steps which are urgently needed to shift the world on to a sustainable and resilient path" and attempt to balance what they call "the three dimensions of sustainable development: the economic, social and environmental".
@@ -50,7 +50,7 @@ Monopile foundations are typically "composed of a single steel tube pile of diam
 
 A jacket support "comprises a space frame structure assembled from steel tubular members, which is usually fabricated in advance by welding on land. The jacket is then transported to site, and piled into the seabed" [@wu_foundations_2019, p.7].
 
-Jacket foundations are the ones studied in this work.
+Jacket foundations are the ones studied in this final degree thesis.
 
 ### Structural health monitoring in offshore wind turbines
 Structural health monitoring can be defined as a strategy that "aims to give, at every moment during the life of a structure, a diagnosis of the 'state' of the constituent materials, of the different parts, and of the full assembly of these parts constituting the structure as a whole" [@balageas_structural_2010].
@@ -102,7 +102,7 @@ So, rather than starting with our term of choice, let us build up to it using th
 
 Our goal is to answer the third question above: "can the result reported be found again in the specific study context investigated?". We will not have access to the data and code used by @vidal_structural_2020 and instead we will do our best to apply their methodology as laid out in their paper. We will call this **replication**. If we can replicate their results, then their work is replicable. If we cannot, then either their work is not replicable or we failed in our efforts.
 
-Rather than stopping there, we will in turn provide all the code used in the replication such that anyone asking the first and second questions about this work will find that the answer is yes to both. This is what we will call **reproducibility**: anyone will be able to use the code to derive the same results from the data, so the work will be reproducible.
+Rather than stopping there, we will in turn provide all the code used in the replication such that anyone asking the first and second questions about this final degree thesis will find that the answer is yes to both. This is what we will call **reproducibility**: anyone will be able to use the code to derive the same results from the data, so the work will be reproducible.
 
 These definitions for replicability and reproducibility match the ones used by the @national_academies_of_sciences_engineering_and_medicine_reproducibility_2019 and identified as "broadly disseminated across disciplines" by @barba_terminologies_2018. Beware that, as mentioned earlier, the two are not used consistently across disciplines and even less so in popular discourse.
 
@@ -110,7 +110,7 @@ Having defined these terms and going back to the importance of replicability, pe
 
 >   ...the effort by the Open Science Collaboration to replicate 100 results that were systematically sampled from three top-tier journals in psychology: (_a_) Only 36% of the replication efforts yielded significant findings, (_b_) 32% of the original findings were no longer significant when combined with the new data, (_c_) effect sizes in the replication studies were about half the size of those in the original studies, and (_d_) failures to replicate were related to features of the original study (e.g., replication failures were more common in social than in cognitive psychological studies and in studies reporting surprising rather than intuitive findings) (p. 489)
 
-While the replication crisis first came up in the context of the field of psychology, it has brought to the foreground replicability and reproducibility issues in other social and natural sciences. Perhaps most relevant to this work, @kapoor_leakage_2023 discuss how the usage of machine learning adds fuel to this fire, surveying "22 papers that identify pitfalls in the adoption of ML methods across 17 fields, collectively affecting 294 papers". Which, together with the lack of "systemic solutions that have been deployed for these failures", they argue supports the view "that ML-based science is suffering from a reproducibility crisis".
+While the replication crisis first came up in the context of the field of psychology, it has brought to the foreground replicability and reproducibility issues in other social and natural sciences. Perhaps most relevant to this final degree thesis, @kapoor_leakage_2023 discuss how the usage of machine learning adds fuel to this fire, surveying "22 papers that identify pitfalls in the adoption of ML methods across 17 fields, collectively affecting 294 papers". Which, together with the lack of "systemic solutions that have been deployed for these failures", they argue supports the view "that ML-based science is suffering from a reproducibility crisis".
 
 To wrap up the topic, we simply cannot discuss the issues without at least briefly mentioning potential causes. In the context of the field of psychology, @lilienfeld_psychologys_2017 confronts the impact of what he calls "grant culture", wherein the methods of allocation of research funding and the pressures exerted by employing institutions on researchers to obtain that funding (both positive "e.g., tenure, promotion, awards, salary increases, resources" and negative "e.g., threats of being denied tenure and promotion, loss of laboratory space and graduate student access") leads to several negative consequences, among them:
 

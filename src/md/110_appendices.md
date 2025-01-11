@@ -7,7 +7,7 @@
 \appendixpage
 
 # Confusion matrices for all configurations {#sec:appendix-confusion-matrices}
-This appendix includes confusion matrices with raw results for classifier configurations used throughout this work. Note that, because we used 5-fold cross-validation, there are actually five different confusion matrices for each configuration which were then used to compute separate performance metrics to be averaged together.
+This appendix includes confusion matrices with raw results for classifier configurations used throughout this final degree thesis. Note that, because we used 5-fold cross-validation, there are actually five different confusion matrices for each configuration which were then used to compute separate performance metrics to be averaged together.
 
 Including all five matrices for all configurations would bloat the size of this document for very questionable value, so only the first one out of five is presented.
 
@@ -38,7 +38,7 @@ Including all five matrices for all configurations would bloat the size of this 
 ![Confusion matrices for the SVM classifier using principal components that explain 95% of variance, with data leakage avoidance.](noleak-conf_matrices-svm-var0.95-0.png){#fig:noleak-conf_matrices-svm-var0.95-0 width=85%}
 
 # Source code
-The code used in this work is freely available in the GitHub repository found at the following address: [https://github.com/compi-migui/shmowt](https://github.com/compi-migui/shmowt). It is written in the Python programming language, and uses all free and open-source software (FOSS) libraries, which means anyone can take it, run it, modify it and distribute it without having to pay for costly licenses or even ask for permission.
+The code used in this final degree thesis is freely available in the GitHub repository found at the following address: [https://github.com/compi-migui/shmowt](https://github.com/compi-migui/shmowt). It is written in the Python programming language, and uses all free and open-source software (FOSS) libraries, which means anyone can take it, run it, modify it and distribute it without having to pay for costly licenses or even ask for permission.
 
 That repository is by far the best way to view the source code. However, to guard against the obsolescence of a third party service, its contents are also included in this appendix with files grouped by their function.
 

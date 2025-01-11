@@ -3,7 +3,7 @@
 <!-- Estudi de l’estat actual sobre el problema plantejat, en funció de tècnica, processos, metodologies, alternatives, etc. -->
 The field of structural health monitoring is vast and varied. In an entire tome dedicated to cataloguing the state of the art, @balageas_structural_2010 [p. 32-36] lists a staggering amount of types of sensors, monitoring techniques and fields they are applied to. And that is before accounting for the developments in the decade and a half since.
 
-Rather than attempting to cover the entire field and end up with a description a mile wide and an inch deep, let us instead be brief and focus on areas of immediate relevance to this work.
+Rather than attempting to cover the entire field and end up with a description a mile wide and an inch deep, let us instead be brief and focus on areas of immediate relevance to this final degree thesis.
 
 Structural health monitoring (SHM) is a strategy that "aims to give, at every moment during the life of a structure, a diagnosis of the 'state' of the constituent materials, of the different parts, and of the full assembly of these parts constituting the structure as a whole" [@balageas_structural_2010].
 
@@ -21,7 +21,7 @@ We cannot hope to list all the techniques that have been applied to this problem
 
 @vidal_structural_2020 take a different approach: while the accelerometer data they use is gathered from a physical scale model of a structure, they do not attempt to measure or derive (at least not explicitly) its mechanical characteristics. Instead they gather data from both healthy and damaged states and rely on the capability of machine-learning algorithms to train on data with know correct labels to classify unlabeled (from the point of view of the algorithm) data sets as belonging to the healthy class or to one of four classes of different damage types. Theirs is the methodology that we intent to replicate.
 
-A similar approach is used by @leon_medina_online_2023, who instead of offline classification algorithms, which need to process closed data sets all at once, they use online ones, which can be trained incrementally sample by sample. The data set they generate is the one used in this work.
+A similar approach is used by @leon_medina_online_2023, who instead of offline classification algorithms, which need to process closed data sets all at once, they use online ones, which can be trained incrementally sample by sample. The data set they generate is the one used in this final degree thesis.
 
 On practical real-world applications, @weijtjens_vibration_2017 discuss the installation of vibration monitoring systems (using accelerometers) on a total of 5 offshore wind turbines and the ways that the data they collected provide insight into the state of the support structure (as well as the turbine blades). Two of the monitored turbines used jacket foundations, much like the experimental model we examine.
 
