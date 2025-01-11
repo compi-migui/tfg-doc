@@ -50,7 +50,7 @@ Monopile foundations are typically "composed of a single steel tube pile of diam
 
 A jacket support "comprises a space frame structure assembled from steel tubular members, which is usually fabricated in advance by welding on land. The jacket is then transported to site, and piled into the seabed" [@wu_foundations_2019, p.7].
 
-Jacket foundations are the ones studied in this final degree thesis.
+Jacket-supported offshore wind turbines are the ones studied in this final degree thesis.
 
 ### Structural health monitoring in offshore wind turbines
 Structural health monitoring can be defined as a strategy that "aims to give, at every moment during the life of a structure, a diagnosis of the 'state' of the constituent materials, of the different parts, and of the full assembly of these parts constituting the structure as a whole" [@balageas_structural_2010].
