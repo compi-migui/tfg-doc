@@ -25,7 +25,7 @@ One of those goals is SDG 7: "Ensure access to affordable, reliable, sustainable
 
 Ambitious indeed. Knowing those goals as defined in 2015, let us put the current and expected future state of things into numbers.
 
-As of 2023, renewable sources made up 30% of global electricity generation or over 9000 TWh, with slightly over 4 TW of installed capacity [@international_energy_agency_renewables_2024]. The International Energy Agency expects that output to almost double to an output of 17000 TWh and a capacity of almost 10 TW. In their own words, "renewables will account for almost half of global electricity generation by 2030, with the share of wind and solar \[photovoltaic\] doubling to 30%".
+As of 2023, renewable sources made up 30% of global electricity generation or over 9000 TWh, with slightly over 4 TW of installed capacity [@international_energy_agency_renewables_2024]. The International Energy Agency expects that output to almost double to an output of 17 000 TWh and a capacity of almost 10 TW. In their own words, "renewables will account for almost half of global electricity generation by 2030, with the share of wind and solar \[photovoltaic\] doubling to 30%".
 
 ### The role of wind power
 According to the Global Wind Energy Council's 2024 Global Wind Report, wind power generation surpassed 1 TW of total installed capacity in 2023, and it is estimated to reach 2 TW by year 2030 [@lee_global_2024].

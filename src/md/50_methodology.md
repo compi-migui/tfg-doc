@@ -47,7 +47,7 @@ We do not use the experimental data gathered by @vidal_structural_2020, but rath
 
 >   The data used in this study was obtained from a laboratory-scaled wind turbine. The wind turbine is 2.7 m high and consists of three parts: the jacket, the tower, and the nacelle. ... To simulate the effects of marine waves and wind that offshore structures are subjected to, a white noise signal was applied to a shaker. This signal was then amplified in a function generator by factors of 0.5, 1, 2, and 3. Subsequently, the structure was excited, and its vibration response was measured using eight triaxial accelerometers...
 
-Although the same turbine and sensor configuration is used in both studies, the latter uses longer trials: 9.789 seconds instead of the original's 0.7236 seconds, for over 13 times more readings per trial. It also has fewer total trials: 5740 to the original's 11620, or about half as many.
+Although the same turbine and sensor configuration is used in both studies, the latter uses longer trials: 9.789 seconds instead of the original's 0.7236 seconds, for over 13 times more readings per trial. It also has fewer total trials: 5740 to the original's 11 620, or about half as many.
 
 The larger overall size of the data set has implications for memory requirements and execution time for our entire process. Its different shape has implications for the behavior of the classifiers we will use. The precise impact of both of these is examined more closely in @Sec:results.
 

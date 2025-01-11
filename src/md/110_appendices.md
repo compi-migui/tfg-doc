@@ -128,7 +128,7 @@ build-backend = "poetry.core.masonry.api"
 ### poetry.lock
 _poetry.lock_ is a frozen snapshot of the exact version of all recursive dependencies (meaning, the project's direct dependencies, their dependencies and so on) to be installed. The use of this lockfile makes execution and reproduction possible even after years of version drift in dependencies of dependencies.
 
-It is 933 lines long and contains over 97000 characters, so its contents are not included here. Instead, [@Tbl:poetry-installed-packages] lists all the installed dependencies, their exact versions and a short description as obtained by running the _poetry show_ command.
+It is 933 lines long and contains over 97 000 characters, so its contents are not included here. Instead, [@Tbl:poetry-installed-packages] lists all the installed dependencies, their exact versions and a short description as obtained by running the _poetry show_ command.
 
 | Package         | Version     | Short description                                                             |
 |-----------------|-------------|-------------------------------------------------------------------------------|
