@@ -10,22 +10,22 @@ In this section we will first very briefly examine the role of wind power genera
 
 We will then touch on structural health monitoring and how it is applied to offshore wind turbines to decrease their long term operational costs. This will serve to justify _how_ the work we are setting out to do is going to move us closer to that goal.
 
-Lastly we will discuss the role of machine learning algorithms, like the ones this work will examine, in structural health monitoring. This will lay the groundwork for _what_ precisely we intend to work on in later sections.
+Lastly, we will discuss the role of machine learning algorithms, like the ones this work will examine, in structural health monitoring. This will lay the groundwork for _what_ precisely we intend to work on in later sections.
 
 ### Renewable energy
 The United Nations' 2030 Agenda for Sustainable Development [@united_nations_general_assembly_transforming_2015] sets out a plan of action made up of 17 sustainable development goals (SDGs) and 169 targets that define "the bold and transformative steps which are urgently needed to shift the world on to a sustainable and resilient path" and attempt to balance what they call "the three dimensions of sustainable development: the economic, social and environmental".
 
 One of those goals is SDG 7: "Ensure access to affordable, reliable, sustainable and modern energy for all". It is broken down into five targets, two of which are reproduced in full here:
 
->   7.2 By 2030, increase substantially the share of renewable energy in the global energy mix
+>   7.2 By 2030, increase substantially the share of renewable energy in the global energy mix.
 >
 >   ...
 >
->   7.a By 2030, enhance international cooperation to facilitate access to clean energy research and technology, including renewable energy, energy efficiency and advanced and cleaner fossil-fuel technology, and promote investment in energy infrastructure and clean energy technology
+>   7.a By 2030, enhance international cooperation to facilitate access to clean energy research and technology, including renewable energy, energy efficiency and advanced and cleaner fossil-fuel technology, and promote investment in energy infrastructure and clean energy technology.
 
 Ambitious indeed. Knowing those goals as defined in 2015, let us put the current and expected future state of things into numbers.
 
-As of 2023, renewable sources made up 30% of global electricity generation or over 9000 TWh, with slightly over 4 TW of installed capacity [@international_energy_agency_renewables_2024]. The International Energy Agency expects that output to almost double to an output of 17000 TWh and a capacity of almost 10 TW. In their own words, "renewables will account for almost half of global electricity generation by 2030, with the share of wind and solar PV doubling to 30%".
+As of 2023, renewable sources made up 30% of global electricity generation or over 9000 TWh, with slightly over 4 TW of installed capacity [@international_energy_agency_renewables_2024]. The International Energy Agency expects that output to almost double to an output of 17000 TWh and a capacity of almost 10 TW. In their own words, "renewables will account for almost half of global electricity generation by 2030, with the share of wind and solar \[photovoltaic\] doubling to 30%".
 
 ### The role of wind power
 According to the Global Wind Energy Council's 2024 Global Wind Report, wind power generation surpassed 1 TW of total installed capacity in 2023, and it is estimated to reach 2 TW by year 2030 [@lee_global_2024].
@@ -48,14 +48,14 @@ Offshore wind turbines can be supported on fixed or floating foundations. The la
 
 Monopile foundations are typically "composed of a single steel tube pile of diameter of 3 to 8 m"  driven directly into the seabed, and they are usually used at water depths "ranging between 20 to 40 m" [@wu_foundations_2019, p.6].
 
-A jacket foundation "comprises a space frame structure assembled from steel tubular members, which is usually fabricated in advance by welding on land. The jacket is then transported to site, and piled into the seabed" [@wu_foundations_2019, p.7].
+A jacket support "comprises a space frame structure assembled from steel tubular members, which is usually fabricated in advance by welding on land. The jacket is then transported to site, and piled into the seabed" [@wu_foundations_2019, p.7].
 
 Jacket foundations are the ones studied in this work.
 
 ### Structural health monitoring in offshore wind turbines
 Structural health monitoring can be defined as a strategy that "aims to give, at every moment during the life of a structure, a diagnosis of the 'state' of the constituent materials, of the different parts, and of the full assembly of these parts constituting the structure as a whole" [@balageas_structural_2010].
 
-Its prototypical form is a set of sensors that measure physical phenomena (such as acceleration or temperature) and a controller that takes all their signals and reduces them to a diagnosis — whether the structure healthy or damaged. One can design such a system to go beyond the healthy/damaged dichotomy, and instead report a more fine grained diagnosis: what is the nature of the detected damage? Is it bad enough to necessitate immediate intervention, or can repairs be postponed until regular maintenance operations?
+Its prototypical form is a set of sensors that measure physical phenomena (such as acceleration or temperature) and a controller that takes all their signals and reduces them to a diagnosis — whether the structure is healthy or damaged. One can design such a system to go beyond the healthy/damaged dichotomy, and instead report a more fine grained diagnosis: what is the nature of the detected damage? Is it bad enough to necessitate immediate intervention, or can repairs be postponed until regular maintenance operations?
 
 Such monitoring strategies can go from the very simple to the unimaginably complex. Let us imagine, for example, a trivially simple case: monitoring the state of a car's tires with four pressure sensors, one for each. If the sensed pressure for a wheel falls within an acceptable range as defined by the car's manufacturer, then it is in a healthy state. If it is above that range, the tire is overinflated. If it is below, it is underinflated. If the pressure reading is at zero (relative to atmospheric pressure) then the tire has blown out. Therefore we can diagnose each tire as being healthy or in one of three damaged states using a controller that simply compares one signal's to predetermined values. The computational complexity of this strategy is essentially null; a human technician could very easily apply it.
 
@@ -80,7 +80,11 @@ At its core, the scientific method involves coming up with falsifiable hypothese
 
 Since it is all about improving our collective understanding of the world, it is _crucial_ that such results be replicable by others in the scientific community. That is the only way to verify their correctness — not simply to spot actual mistakes made by the original researchers or flukes introduced by random chance, but to further refine our understanding through iteration and thus inch forwards toward progressively more accurate knowledge and better technique.
 
-This is where we must pull up our sleeves and define some terminology. What does it mean to be able to replicate or reproduce existing research? What's the difference between the three terms? Unfortunately, the answer is "it depends". Looking at publications across several fields, @barba_terminologies_2018 found that "they either, A—make no distinction between the words reproduce and replicate, or B—use them distinctly. If B, then they are commonly divided in two camps. In a spectrum of concerns that starts at a minimum standard of 'same data+same methods=same results,' to 'new data and/or new methods in an independent study=same findings,' group 1 calls the minimum standard reproduce, while group 2 calls it replicate. This direct swap of the two terms aggravates an already weighty issue". Indeed a sorry state of affairs.
+This is where we must pull up our sleeves and define some terminology. What does it mean to be able to replicate or reproduce existing research? What's the difference between the three terms? Unfortunately, the answer is "it depends". Looking at publications across several fields, @barba_terminologies_2018 found that:
+
+>   ...they either, A—make no distinction between the words reproduce and replicate, or B—use them distinctly. If B, then they are commonly divided in two camps. In a spectrum of concerns that starts at a minimum standard of 'same data+same methods=same results,' to 'new data and/or new methods in an independent study=same findings,' group 1 calls the minimum standard reproduce, while group 2 calls it replicate. This direct swap of the two terms aggravates an already weighty issue. (p. 1)
+
+Indeed a sorry state of affairs.
 
 So, rather than starting with our term of choice, let us build up to it using the following underlying concepts:
 
@@ -106,13 +110,13 @@ Having defined these terms and going back to the importance of replicability, pe
 
 >   ...the effort by the Open Science Collaboration to replicate 100 results that were systematically sampled from three top-tier journals in psychology: (_a_) Only 36% of the replication efforts yielded significant findings, (_b_) 32% of the original findings were no longer significant when combined with the new data, (_c_) effect sizes in the replication studies were about half the size of those in the original studies, and (_d_) failures to replicate were related to features of the original study (e.g., replication failures were more common in social than in cognitive psychological studies and in studies reporting surprising rather than intuitive findings) (p. 489)
 
-While the replication crisis first came up in the context of the field of psychology, it has brought to the foreground replicability and reproducibility issues in other social and natural sciences. Perhaps most relevant to this work, @kapoor_leakage_2023 discuss how the usage of machine learning adds fuel to this fire, surveying "22 papers that identify pitfalls in the adoption of ML methods across 17 fields, collectively affecting 294 papers" which together with the lack of "systemic solutions that have been deployed for these failures" they argue supports the view "that ML-based science is suffering from a reproducibility crisis".
+While the replication crisis first came up in the context of the field of psychology, it has brought to the foreground replicability and reproducibility issues in other social and natural sciences. Perhaps most relevant to this work, @kapoor_leakage_2023 discuss how the usage of machine learning adds fuel to this fire, surveying "22 papers that identify pitfalls in the adoption of ML methods across 17 fields, collectively affecting 294 papers". Which, together with the lack of "systemic solutions that have been deployed for these failures", they argue supports the view "that ML-based science is suffering from a reproducibility crisis".
 
 To wrap up the topic, we simply cannot discuss the issues without at least briefly mentioning potential causes. In the context of the field of psychology, @lilienfeld_psychologys_2017 confronts the impact of what he calls "grant culture", wherein the methods of allocation of research funding and the pressures exerted by employing institutions on researchers to obtain that funding (both positive "e.g., tenure, promotion, awards, salary increases, resources" and negative "e.g., threats of being denied tenure and promotion, loss of laboratory space and graduate student access") leads to several negative consequences, among them:
 
 >   Disincentives for conducting direct replications. Until recently, major federal agencies have allocated relatively little funding to supporting direct replications of previous work. Hence, there is scant incentive for investigators to replicate others’ work. In this respect, the grant culture often works against the accumulation of reproducible knowledge. (p. 662)
 
-As an outsider, the author of this work can hardly argue in favor or against that interpretation, but it rings valid as a systemic cause leading to systemic problems. Either way, and fortunately, those disincentives are not present in the context of a final degree thesis for an undergraduate degree. So let us take advantage of the opportunity and do some replication.
+It is not the intent of this final degree thesis to cast judgement on whether the analysis is correct, but it rings valid as a systemic cause leading to systemic problems. Either way, and fortunately, those disincentives are not present in the context of a thesis for an undergraduate degree.
 
 ### Proposed improvement: avoiding data leakage {#sec:goals-leakage}
 In discussing what they call a reproducibility crisis in machine-learning-based science, @kapoor_leakage_2023 define data leakage as "a spurious relationship between the independent variables and the target variable that arises as an artifact of the data collection, sampling, or pre-processing strategy" and they build a taxonomy of data leakage errors.
