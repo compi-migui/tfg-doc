@@ -14,7 +14,7 @@ Therefore the only impact to account for is that of the energy consumption of th
 
 Its processor, model AMD Ryzen 5 2600, has a thermal design power of 65W per the manufacturer's specifications [@amd_customer_care_team_amd_nodate]. While the processor accounts for the majority of the power usage of a computer, it is not the only component, so we double it to account for other components and peripherals, bringing us to 130W of power consumption. We then take into account the power supply's efficiency of 80%, resulting in a raw consumption of 162.5W.
 
-According to data aggregated by Electricity Maps [@electricity_maps_leading_nodate], the cabron intensity of electricity generated in Spain was 164g CO~2~eq/kWh on November, 123g CO~2~eq/kWh on October and 127g CO~2~eq/kWh on September for a mean carbon intensity of 138g CO~2~eq/kWh over the period. The working hours were spread unevenly during the day and week due to maintaining full-time employment alongside it, so we will not account for time-of-day differences.
+According to data aggregated by Electricity Maps [@electricity_maps_leading_nodate], the carbon intensity of electricity generated in Spain was 164g CO~2~eq/kWh on November, 123g CO~2~eq/kWh on October and 127g CO~2~eq/kWh on September for a mean carbon intensity of 138g CO~2~eq/kWh over the period. The working hours were spread unevenly during the day and week due to maintaining full-time employment alongside it, so we will not account for time-of-day differences.
 
 The environmental impact of the development of this final degree thesis development can be quantified thusly:
 
