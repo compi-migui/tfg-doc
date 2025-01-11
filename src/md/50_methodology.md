@@ -210,6 +210,8 @@ $$ {#eq:definition-knn-distance-min}
 
 If _k_ is larger than one, we then repeat the process to find the second-closest training sample and so on until we find all _k_ nearest neighbors to the test sample. The majority class for all those neighbors is then assigned to it.
 
+In the case of a tie, different strategies can be applied — we will keep the default behavior of Scikit-learn's implementation, which is to break ties by sorting candidate classes alphanumerically and taking the first one. This means structural state $n_1$ (healthy) will take priority over $n_2$, which will take priority over $n_3$ and so on for all five classes.
+
 The classifier will perform differently for different values of _k_. Much like the original paper, we will examine its behavior for several values.
 
 ##### Support vector machine (SVM)
