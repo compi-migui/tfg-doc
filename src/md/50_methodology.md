@@ -184,15 +184,15 @@ A concept first proposed by @fix_discriminatory_1951, the _k_-NN classifier is b
 Let $x$ be a sample from the test set, represented by a point in $N$-dimensional space where $N$ is the number of principal components preserved in the dimensionality reduction step:
 
 $$
-x = \left(x_1,\  x_2,\  \ldots,\  x_N \right)\text{.}
+x = \left(x_1, x_2, \ldots, x_N \right)\text{.}
 $$ {#eq:definition-knn-x}
 
 Let $y$ be one of the $M$ samples from the training set (recall that these are labeled with their known correct classes), each with the same shape:
 
 $$
 \begin{gathered}
-y_m = \left(y_{m,1},\  y_{m,2},\  \ldots,\  y_{m,N} \right)\\
-y_m \in \{y_1,\  y_2,\  \ldots,\  y_M\}\text{.}
+y_m = \left(y_{m,1}, y_{m,2}, \ldots, y_{m,N} \right)\\
+y_m \in \{y_1, y_2, \ldots, y_M\}\text{.}
 \end{gathered}
 $$ {#eq:definition-knn-y}
 
