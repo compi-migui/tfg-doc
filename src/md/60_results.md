@@ -51,9 +51,9 @@ $$ \text{acc} = \cfrac{\text{TP} + \text{TN}}{\text{TP} + \text{TN} + \text{FP} 
 $$ \text{ppv} = \cfrac{\text{TP}}{\text{TP} + \text{FP}}\ \text{.} $$ {#eq:definition-ppv}
 -   **Sensitivity**: also known as recall or true positive rate. It is "the fraction of positive examples predicted correctly by a model" [@sammut_encyclopedia_2017, p. 1152] and it is expressed as
 $$ \text{tpr} = \cfrac{\text{TP}}{\text{TP} + \text{FN}}\ \text{.} $$ {#eq:definition-tpr}
--   **F~1~-measure**: also known as F~1~ score. It is "the harmonic mean of precision ... and recall" [@sammut_encyclopedia_2017, p. 497]. The harmonic mean $H$ of $N$ quantities is defined by @abramowitz_handbook_1964 [p. 10] as
-$$\cfrac{1}{H} = \cfrac{\left(\sum\limits_{k=1}^{N} \cfrac{1}{a_n}\right)}{N}\text{,}$$ {#eq:definition-harmonic-mean}
-thus the F~1~-measure is given by
+-   **F~1~-measure**: also known as F~1~ score. It is "the harmonic mean of precision ... and recall" [@sammut_encyclopedia_2017, p. 497]. The harmonic mean $H$ of $N$ quantities ($a_1,\ldots,a_N$) is
+$$\cfrac{1}{H} = \cfrac{\left(\sum\limits_{k=1}^{N} \cfrac{1}{a_n}\right)}{N}$$ {#eq:definition-harmonic-mean}
+[@abramowitz_handbook_1964 p. 10], thus the F~1~-measure is given by
 $$ \text{F}_1 = \cfrac{2}{\left(\cfrac{1}{\text{ppv}} + \cfrac{1}{\text{tpr}}\right)} = \cfrac{2\cdot \text{ppv}\cdot \text{tpr}}{\text{ppv}+\text{tpr}}\ \text{.} $$ {#eq:definition-f1}
 
 <!-- Note that, even though it is not readily apparent in the final simplified form of [@Eq:definition-f1], the reprocicals of both accuracy and precision are used in the definition of the F~1~-measure. Because of that, if either of them is zero (e.g. because there are no true positive results) there can be no F~1~-measure. -->
