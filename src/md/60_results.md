@@ -45,19 +45,19 @@ This gives us our first quantifiable results: out of actually positive samples, 
 
 From there we can compute the rest of the simple binary measures right away. They are:
 
--   Accuracy: "the degree to which the predictions of a model matches the reality being modeled. In \[the context of classification models\], accuracy $= P(\lambda (X) = Y)$ where $XY$ is a joint distribution and the classification model $\lambda$ is a function $X \rightarrow Y$" [@sammut_encyclopedia_2017, p. 8]. It is given by
+-   **Accuracy**: "the degree to which the predictions of a model matches the reality being modeled. In \[the context of classification models\], accuracy $= P(\lambda (X) = Y)$ where $XY$ is a joint distribution and the classification model $\lambda$ is a function $X \rightarrow Y$" [@sammut_encyclopedia_2017, p. 8]. It is given by
 $$ \text{acc} = \cfrac{\text{TP} + \text{TN}}{\text{TP} + \text{TN} + \text{FP} + \text{FN}}\ \text{.} $$ {#eq:definition-acc}
--   Precision: also known as positive predictive value, it is "the ratio of true positives (TP) and the total number of positives predicted by a model" [@sammut_encyclopedia_2017, p. 990]. The ratio is expressed as
+-   **Precision**: also known as positive predictive value, it is "the ratio of true positives (TP) and the total number of positives predicted by a model" [@sammut_encyclopedia_2017, p. 990]. The ratio is expressed as
 $$ \text{ppv} = \cfrac{\text{TP}}{\text{TP} + \text{FP}}\ \text{.} $$ {#eq:definition-ppv}
--   Sensitivity: also known as recall or true positive rate. It is "the fraction of positive examples predicted correctly by a model" [@sammut_encyclopedia_2017, p. 1152] and it is expressed as
+-   **Sensitivity**: also known as recall or true positive rate. It is "the fraction of positive examples predicted correctly by a model" [@sammut_encyclopedia_2017, p. 1152] and it is expressed as
 $$ \text{tpr} = \cfrac{\text{TP}}{\text{TP} + \text{FN}}\ \text{.} $$ {#eq:definition-tpr}
--   F~1~-measure: also known as F~1~ score. It is "the harmonic mean of precision ... and recall" [@sammut_encyclopedia_2017, p. 497]. The harmonic mean $H$ of $N$ quantities is defined by @abramowitz_handbook_1964 [p. 10] as
+-   **F~1~-measure**: also known as F~1~ score. It is "the harmonic mean of precision ... and recall" [@sammut_encyclopedia_2017, p. 497]. The harmonic mean $H$ of $N$ quantities is defined by @abramowitz_handbook_1964 [p. 10] as
 $$\cfrac{1}{H} = \cfrac{\left(\sum\limits_{k=1}^{N} \cfrac{1}{a_n}\right)}{N}\text{,}$$ {#eq:definition-harmonic-mean}
 thus the F~1~-measure is given by
 $$ \text{F}_1 = \cfrac{2}{\left(\cfrac{1}{\text{ppv}} + \cfrac{1}{\text{tpr}}\right)} = \cfrac{2\cdot \text{ppv}\cdot \text{tpr}}{\text{ppv}+\text{tpr}}\ \text{.} $$ {#eq:definition-f1}
 
 <!-- Note that, even though it is not readily apparent in the final simplified form of [@Eq:definition-f1], the reprocicals of both accuracy and precision are used in the definition of the F~1~-measure. Because of that, if either of them is zero (e.g. because there are no true positive results) there can be no F~1~-measure. -->
--   Specificity: also known as the true negative rate. It is "the fraction of negative examples predicted correctly by a model" [@sammut_encyclopedia_2017, p. 1167] and it is given by
+-   **Specificity**: also known as the true negative rate. It is "the fraction of negative examples predicted correctly by a model" [@sammut_encyclopedia_2017, p. 1167] and it is given by
 $$ \text{tnr} = \cfrac{\text{TN}}{\text{TN} + \text{FP}}\ \text{.} $$ {#eq:definition-tnr}
 
 The metrics we have looked at so far are the ones used by @vidal_structural_2020. There is one more we must define before moving on to multiclass measures, as we will use it to compute the general performance score mentioned earlier in this section. It is the ambitiously-named unified performance measure (UPM), proposed by @redondo_unified_2020.
@@ -74,15 +74,15 @@ Let us first consider the metrics used by @vidal_structural_2020. They are obtai
 
 They are thus:
 
--   Average accuracy:
+-   **Average accuracy**:
 $$ \overline{\text{acc}} = \cfrac{\sum\limits_{j=1}^{J} \text{acc}_j}{J}\ \text{.} $$ {#eq:definition-avg-acc}
--   Average precision:
+-   **Average precision**:
 $$ \overline{\text{ppv}} = \cfrac{\sum\limits_{j=1}^{J} \text{ppv}_j}{J}\ \text{.} $$ {#eq:definition-avg-ppv}
--   Average sensitivity:
+-   **Average sensitivity**:
 $$ \overline{\text{tpr}} = \cfrac{\sum\limits_{j=1}^{J} \text{tpr}_j}{J}\ \text{.} $$ {#eq:definition-avg-tpr}
--   Average F~1~-measure:
+-   **Average F~1~-measure**:
 $$ \overline{\text{F}_1} = \cfrac{2\cdot \overline{\text{ppv}}\cdot \overline{\text{tpr}}}{\overline{\text{ppv}}+\overline{\text{tpr}}}\ \text{.} $$ {#eq:definition-avg-f1}
--   Average specificity:
+-   **Average specificity**:
 $$ \overline{\text{tnr}} = \cfrac{\sum\limits_{j=1}^{J} \text{tnr}_j}{J}\ \text{.} $$ {#eq:definition-avg-tnr}
 
 In order to go beyond mere replication of what @vidal_structural_2020 did, we will also compute and examine two other multiclass performance measures not present in that work.
