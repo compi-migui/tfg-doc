@@ -119,7 +119,7 @@ $$ \text{MCC}_2 =
 
 Its value can be between -1 and +1. An MCC value of +1 indicates all samples are classified correctly, a value of -1 means they are _all_ classified incorrectly (quite a feat in itself) and a value of 0 denotes exactly half the samples (adjusted for class imbalance) are classified correctly.
 
-An observing reader may protest that the MCC is, in fact, a binary measure. Luckily @gorodkin_comparing_2004 extended it to the multiclass case, defining what he called the R~K~ correlation coefficient but which is referred to by later literature as just the Matthews correlation coefficient applied to multiclass classifiers [@jurman_comparison_2012; @grandini_metrics_2020]. For the sake of simplicity, this final degree thesis will use just "MCC" to refer to the multiclass version and MCC~2~ for the original binary version.
+An observing reader may protest that the MCC is, in fact, a binary measure. Luckily @gorodkin_comparing_2004 extended it to the multiclass case, defining what he called the R~K~ correlation coefficient but which is referred to by later literature as just the Matthews correlation coefficient applied to multiclass classifiers [@jurman_comparison_2012; @grandini_metrics_2020]. For the sake of simplicity, this final degree thesis will use just MCC to refer to the multiclass version and MCC~2~ for the original binary version.
 
 It is defined as
 $$
