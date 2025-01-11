@@ -45,7 +45,7 @@ This gives us our first quantifiable results: out of actually positive samples, 
 
 From there we can compute the rest of the simple binary measures right away. They are:
 
--   **Accuracy**: "the degree to which the predictions of a model matches the reality being modeled. In \[the context of classification models\], accuracy $= P(\lambda (X) = Y)$ where $XY$ is a joint distribution and the classification model $\lambda$ is a function $X \rightarrow Y$" [@sammut_encyclopedia_2017, p. 8]. It is given by
+-   **Accuracy**: it is the ratio of the number of correctly classified objects and the total number of objects [@sammut_encyclopedia_2017, p. 8]. It is given by
 $$ \text{acc} = \cfrac{\text{TP} + \text{TN}}{\text{TP} + \text{TN} + \text{FP} + \text{FN}}\ \text{.} $$ {#eq:definition-acc}
 -   **Precision**: also known as positive predictive value, it is "the ratio of true positives (TP) and the total number of positives predicted by a model" [@sammut_encyclopedia_2017, p. 990]. The ratio is expressed as
 $$ \text{ppv} = \cfrac{\text{TP}}{\text{TP} + \text{FP}}\ \text{.} $$ {#eq:definition-ppv}
