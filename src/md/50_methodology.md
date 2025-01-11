@@ -129,13 +129,13 @@ Scaling, also known as data normalization, is a crucial pre-processing step in m
 The scaling is done column by column, and involves adjusting each data point such that the column as a whole has a mean value of zero and a variance of one. The scaled value $\breve{x}_{i,j}^{k,l}$ of a reading $x_{i,j}^{k,l}$ is thus
 
 $$
-\breve{x}_{i,j}^{k,l} = \cfrac{x_{i,j}^{k,l} - \mu_{k,l}}{\sigma_{k,l}}\text{,}
+\breve{x}_{i,j}^{k,l} = \cfrac{x_{i,j}^{k,l} - \mu_{k,l}}{\sigma_{k,l}}\ \text{,}
 $$ {#eq:column-scaling}
 
 where $\mu_{k,l}$ is the mean value of all readings in column "$k,l$" that $x$ belongs to, given by
 
 $$
-\mu_{k,l} = \cfrac{\sum\limits_{i,j} x_{i,j}^{k,l}}{\sum\limits_{j} n_j}\text{,}
+\mu_{k,l} = \cfrac{\sum\limits_{i,j} x_{i,j}^{k,l}}{\sum\limits_{j} n_j}\ \text{,}
 $$ {#eq:column-scaling-mean}
 
 and $\sigma_{k,l}$ is the standard deviation of all readings in that same column:
