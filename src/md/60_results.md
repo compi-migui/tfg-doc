@@ -26,7 +26,7 @@ Because the methodology we are replicating uses offline classifiers, which tend 
 | Sampling frequency, in Hz                               | 275                    | 275                      | 275                                |
 | Readings per trial ($K \cdot L$)                        | 4776                   | 58008                    | 9672                               |
 |                                                         |                        |                          |                                    |
-| Data set size ($n_{\text{total}} \cdot K \cdot L$)             | 5.55E+07               | 3.33E+08                 | 5.55E+07                           |
+| Data set size ($n_{\text{total}} \cdot K \cdot L$)             | 5.55 $\cdot$ 10^7^               | 3.33 $\cdot$ 10^8^                 | 5.55 $\cdot$ 10^7^                           |
 | Size ratio                                              | 1.0                    | 6.0                      | 1.0                                |
 
 : Comparison between the shapes of the data used by @vidal_structural_2020, @leon_medina_online_2023 and the truncated version of the latter used in this final degree thesis. {#tbl:input-data-comparison}
