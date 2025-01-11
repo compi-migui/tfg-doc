@@ -138,7 +138,7 @@ $$ {#eq:definition-gps}
 With all our measures finally defined, we can move on to examine the results reached by our classifiers.
 
 ## Replication
-For starters we are going to look at the results generated using the exact methodology reported by @vidal_structural_2020. The same scaling and dimensionality reduction techniques, the same classifiers with the same parameters. That is the point of replication: verifying whether a given methodology faced with new data yields similar results.
+For starters, we are going to look at the results generated using the exact methodology reported by @vidal_structural_2020. The same scaling and dimensionality reduction techniques, the same classifiers with the same parameters. That is the point of replication: verifying whether a given methodology faced with new data yields similar results.
 
 As mentioned earlier, we are additionally going to compute two new performance measures: the Matthews correlation coefficient and the general performance score (the latter parametrized with class-specific unified performance measures). These new metrics may shed some new light on the results or they may merely reinforce what was already apparent from the original results. We shall see.
 
