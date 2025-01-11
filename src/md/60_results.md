@@ -45,27 +45,27 @@ This gives us our first quantifiable results: out of actually positive samples, 
 
 From there we can compute the rest of the simple binary measures right away. They are:
 
--   Accuracy: "the degree to which the predictions of a model matches the reality being modeled. In \[the context of classification models\], accuracy $= P(\lambda (X) = Y)$ where $XY$ is a joint distribution and the classification model $\lambda$ is a function $X \rightarrow Y$" [@sammut_encyclopedia_2017, p. 8].
-$$ \text{acc} = \cfrac{\text{TP} + \text{TN}}{\text{TP} + \text{TN} + \text{FP} + \text{FN}} $$ {#eq:definition-acc}
--   Precision: also known as positive predictive value, it is "the ratio of true positives (TP) and the total number of positives predicted by a model" [@sammut_encyclopedia_2017, p. 990].
-$$ \text{ppv} = \cfrac{\text{TP}}{\text{TP} + \text{FP}} $$ {#eq:definition-ppv}
--   Sensitivity: also known as recall or true positive rate. It is "the fraction of positive examples predicted correctly by a model" [@sammut_encyclopedia_2017, p. 1152].
-$$ \text{tpr} = \cfrac{\text{TP}}{\text{TP} + \text{FN}} $$ {#eq:definition-tpr}
--   F~1~-measure: also known as F~1~ score. It is "the harmonic mean of precision ... and recall" [@sammut_encyclopedia_2017, p. 497]. The harmonic mean $H$ of $N$ quantities is defined by @abramowitz_handbook_1964 [p. 10] as:
-$$\cfrac{1}{H} = \cfrac{\left(\sum\limits_{k=1}^{N} \cfrac{1}{a_n}\right)}{N}$$ {#eq:definition-harmonic-mean}
-Thus the F~1~-measure is:
-$$ \text{F}_1 = \cfrac{2}{\left(\cfrac{1}{\text{ppv}} + \cfrac{1}{\text{tpr}}\right)} = \cfrac{2\cdot \text{ppv}\cdot \text{tpr}}{\text{ppv}+\text{tpr}} $$ {#eq:definition-f1}
+-   Accuracy: "the degree to which the predictions of a model matches the reality being modeled. In \[the context of classification models\], accuracy $= P(\lambda (X) = Y)$ where $XY$ is a joint distribution and the classification model $\lambda$ is a function $X \rightarrow Y$" [@sammut_encyclopedia_2017, p. 8]. It is given by
+$$ \text{acc} = \cfrac{\text{TP} + \text{TN}}{\text{TP} + \text{TN} + \text{FP} + \text{FN}}\ \text{.} $$ {#eq:definition-acc}
+-   Precision: also known as positive predictive value, it is "the ratio of true positives (TP) and the total number of positives predicted by a model" [@sammut_encyclopedia_2017, p. 990]. The ratio is expressed as
+$$ \text{ppv} = \cfrac{\text{TP}}{\text{TP} + \text{FP}}\ \text{.} $$ {#eq:definition-ppv}
+-   Sensitivity: also known as recall or true positive rate. It is "the fraction of positive examples predicted correctly by a model" [@sammut_encyclopedia_2017, p. 1152] and it is expressed as
+$$ \text{tpr} = \cfrac{\text{TP}}{\text{TP} + \text{FN}}\ \text{.} $$ {#eq:definition-tpr}
+-   F~1~-measure: also known as F~1~ score. It is "the harmonic mean of precision ... and recall" [@sammut_encyclopedia_2017, p. 497]. The harmonic mean $H$ of $N$ quantities is defined by @abramowitz_handbook_1964 [p. 10] as
+$$\cfrac{1}{H} = \cfrac{\left(\sum\limits_{k=1}^{N} \cfrac{1}{a_n}\right)}{N}\text{,}$$ {#eq:definition-harmonic-mean}
+thus the F~1~-measure is given by
+$$ \text{F}_1 = \cfrac{2}{\left(\cfrac{1}{\text{ppv}} + \cfrac{1}{\text{tpr}}\right)} = \cfrac{2\cdot \text{ppv}\cdot \text{tpr}}{\text{ppv}+\text{tpr}}\ \text{.} $$ {#eq:definition-f1}
 
 <!-- Note that, even though it is not readily apparent in the final simplified form of [@Eq:definition-f1], the reprocicals of both accuracy and precision are used in the definition of the F~1~-measure. Because of that, if either of them is zero (e.g. because there are no true positive results) there can be no F~1~-measure. -->
--   Specificity: also known as the true negative rate. It is "the fraction of negative examples predicted correctly by a model" [@sammut_encyclopedia_2017, p. 1167]
-$$ \text{tnr} = \cfrac{\text{TN}}{\text{TN} + \text{FP}} $$ {#eq:definition-tnr}
+-   Specificity: also known as the true negative rate. It is "the fraction of negative examples predicted correctly by a model" [@sammut_encyclopedia_2017, p. 1167] and it is given by
+$$ \text{tnr} = \cfrac{\text{TN}}{\text{TN} + \text{FP}}\ \text{.} $$ {#eq:definition-tnr}
 
 The metrics we have looked at so far are the ones used by @vidal_structural_2020. There is one more we must define before moving on to multiclass measures, as we will use it to compute the general performance score mentioned earlier in this section. It is the ambitiously-named unified performance measure (UPM), proposed by @redondo_unified_2020.
 
 In their proposal, @redondo_unified_2020 explain that the unified performance measure "in the imbalanced classification problems, improves the stability of MCC and veracity of Accuracy, F~1~^+ and F~1~^-" and that "the evidence from \[that\] study suggests the use of UPM for both imbalanced and balanced data". As we are dealing with a multiclass problem, the UPM is not directly useful to us, but the general performance score that builds on it will be.
 
 The UPM is defined as:
-$$ \text{UPM} = \cfrac{1}{1 + \cfrac{(\text{TP} + \text{TN}) \cdot (\text{FP} + \text{FN})}{4 \cdot \text{TP} \cdot \text{TN}}} $$ {#eq:definition-upm}
+$$ \text{UPM} = \cfrac{1}{1 + \cfrac{(\text{TP} + \text{TN}) \cdot (\text{FP} + \text{FN})}{4 \cdot \text{TP} \cdot \text{TN}}}\ \text{.} $$ {#eq:definition-upm}
 
 ### Multiclass measures
 Now that we have laid out a foundation of simple binary measures, it is time to build up to the ones that are actually equipped to describe the performance of multiclass classifiers such as the ones we are dealing with.
@@ -75,15 +75,15 @@ Let us first consider the metrics used by @vidal_structural_2020. They are obtai
 They are thus:
 
 -   Average accuracy:
-$$ \overline{\text{acc}} = \cfrac{\sum\limits_{j=1}^{J} \text{acc}_j}{J} $$ {#eq:definition-avg-acc}
+$$ \overline{\text{acc}} = \cfrac{\sum\limits_{j=1}^{J} \text{acc}_j}{J}\ \text{.} $$ {#eq:definition-avg-acc}
 -   Average precision:
-$$ \overline{\text{ppv}} = \cfrac{\sum\limits_{j=1}^{J} \text{ppv}_j}{J} $$ {#eq:definition-avg-ppv}
+$$ \overline{\text{ppv}} = \cfrac{\sum\limits_{j=1}^{J} \text{ppv}_j}{J}\ \text{.} $$ {#eq:definition-avg-ppv}
 -   Average sensitivity:
-$$ \overline{\text{tpr}} = \cfrac{\sum\limits_{j=1}^{J} \text{tpr}_j}{J} $$ {#eq:definition-avg-tpr}
+$$ \overline{\text{tpr}} = \cfrac{\sum\limits_{j=1}^{J} \text{tpr}_j}{J}\ \text{.} $$ {#eq:definition-avg-tpr}
 -   Average F~1~-measure:
-$$ \overline{\text{F}_1} = \cfrac{2\cdot \overline{\text{ppv}}\cdot \overline{\text{tpr}}}{\overline{\text{ppv}}+\overline{\text{tpr}}} $$ {#eq:definition-avg-f1}
+$$ \overline{\text{F}_1} = \cfrac{2\cdot \overline{\text{ppv}}\cdot \overline{\text{tpr}}}{\overline{\text{ppv}}+\overline{\text{tpr}}}\ \text{.} $$ {#eq:definition-avg-f1}
 -   Average specificity:
-$$ \overline{\text{tnr}} = \cfrac{\sum\limits_{j=1}^{J} \text{tnr}_j}{J} $$ {#eq:definition-avg-tnr}
+$$ \overline{\text{tnr}} = \cfrac{\sum\limits_{j=1}^{J} \text{tnr}_j}{J}\ \text{.} $$ {#eq:definition-avg-tnr}
 
 In order to go beyond mere replication of what @vidal_structural_2020 did, we will also compute and examine two other multiclass performance measures not present in that work.
 
@@ -101,36 +101,36 @@ For a few very illustrative examples of this problem involving both imbalanced a
 <!-- **TODO: considered going into some of those examples here, but it would be a lot of text to reach that exact same conclusion. probably not worth it unless I end up with too much spare time and too little content**-->
 
 The Matthews correlation coefficient is defined by @chicco_advantages_2020 as:
-$$ \text{MCC}_2 = \cfrac{\text{TP} \cdot \text{TN} - \text{FP} \cdot \text{FN}}{\sqrt{(\text{TP} + \text{FP}) \cdot (\text{TP} + \text{FN}) \cdot (\text{TN} + \text{FP}) \cdot (\text{TN} + \text{FN})}} $$ {#eq:definition-mcc-single}
+$$ \text{MCC}_2 = \cfrac{\text{TP} \cdot \text{TN} - \text{FP} \cdot \text{FN}}{\sqrt{(\text{TP} + \text{FP}) \cdot (\text{TP} + \text{FN}) \cdot (\text{TN} + \text{FP}) \cdot (\text{TN} + \text{FN})}}\ \text{.} $$ {#eq:definition-mcc-single}
 
 Some particularly imbalanced data sets and classifiers can lead to the denominator being zero, so we also define some special cases for a complete definition:
 
 $$ \text{MCC}_2 =
 \begin{cases}
-    1 & \text{if TP $\neq 0$ and FN $=$ FP $=$ TN $= 0$}\\
-    1 & \text{if TN $\neq 0$ and FN $=$ FP $=$ TP $= 0$}\\
-    -1 & \text{if FP $\neq 0$ and FN $=$ TP $=$ TN $= 0$}\\
-    -1 & \text{if FN $\neq 0$ and TP $=$ FP $=$ TN $= 0$}\\
-    0 & \text{if exactly two of (TP, FN, FP, TN) are $0$}\\
-    \cfrac{\text{TP} \cdot \text{TN} - \text{FP} \cdot \text{FN}}{\sqrt{(\text{TP} + \text{FP}) \cdot (\text{TP} + \text{FN}) \cdot (\text{TN} + \text{FP}) \cdot (\text{TN} + \text{FN})}} & \text{otherwise}
+    1 & \text{if TP $\neq 0$ and FN $=$ FP $=$ TN $= 0$}\text{,}\\
+    1 & \text{if TN $\neq 0$ and FN $=$ FP $=$ TP $= 0$}\text{,}\\
+    -1 & \text{if FP $\neq 0$ and FN $=$ TP $=$ TN $= 0$}\text{,}\\
+    -1 & \text{if FN $\neq 0$ and TP $=$ FP $=$ TN $= 0$}\text{,}\\
+    0 & \text{if exactly two of (TP, FN, FP, TN) are $0$}\text{,}\\
+    \cfrac{\text{TP} \cdot \text{TN} - \text{FP} \cdot \text{FN}}{\sqrt{(\text{TP} + \text{FP}) \cdot (\text{TP} + \text{FN}) \cdot (\text{TN} + \text{FP}) \cdot (\text{TN} + \text{FN})}} & \text{otherwise.}
 \end{cases} $$ {#eq:definition-mcc-single-special-cases}
 
 Its value can be between -1 and +1. An MCC value of +1 indicates all samples are classified correctly, a value of -1 means they are _all_ classified incorrectly (quite a feat in itself) and a value of 0 denotes exactly half the samples (adjusted for class imbalance) are classified correctly.
 
 An observing reader may protest that the MCC is, in fact, a binary measure. Luckily @gorodkin_comparing_2004 extended it to the multiclass case, defining what he called the R~K~ correlation coefficient but which is referred to by later literature as just the Matthews correlation coefficient applied to multiclass classifiers [@jurman_comparison_2012; @grandini_metrics_2020]. For the sake of simplicity, this final degree thesis will use just "MCC" to refer to the multiclass version and MCC~2~ for the original binary version.
 
-It is defined as:
+It is defined as
 $$
-\text{MCC} = \cfrac{\sum\limits_{a,b,c} \left( C_{a,a}C_{b,c} - C_{a,b}C_{c,a} \right)}{\sqrt{\sum\limits_{a} \left[ \left( \sum\limits_{b} C_{a,b} \right)  \left( \sum\limits_{\substack{b\prime,a\prime}}^{a\prime\neq a} C_{a\prime,b\prime} \right) \right]}\sqrt{\sum\limits_{a} \left[ \left( \sum\limits_{b} C_{b,a} \right) \left( \sum\limits_{\substack{b\prime,a\prime}}^{a\prime\neq a} C_{b\prime,a\prime} \right) \right] }}
+\text{MCC} = \cfrac{\sum\limits_{a,b,c} \left( C_{a,a}C_{b,c} - C_{a,b}C_{c,a} \right)}{\sqrt{\sum\limits_{a} \left[ \left( \sum\limits_{b} C_{a,b} \right)  \left( \sum\limits_{\substack{b\prime,a\prime}}^{a\prime\neq a} C_{a\prime,b\prime} \right) \right]}\sqrt{\sum\limits_{a} \left[ \left( \sum\limits_{b} C_{b,a} \right) \left( \sum\limits_{\substack{b\prime,a\prime}}^{a\prime\neq a} C_{b\prime,a\prime} \right) \right] }}\ \text{,}
 $$ {#eq:definition-mcc}
 
-Where $C_{x,y}$ is the number of samples classified into class $x$ that actually belong to class $y$.
+where $C_{x,y}$ is the number of samples classified into class $x$ that actually belong to class $y$.
 
 
 The last metric we will examine is the general performance score, proposed by @de_diego_general_2022 and generally defined as the harmonic mean of a set of arbitrary performance measures. We will use one specific instance of it, GPS~UPM~, wherein we parametrize it with the _J_ individual unified performance measures derived for each class _j_ in our multiclass problem:
 
 $$
-\text{GPS}_\text{UPM} = \cfrac{J \cdot \prod\limits_{j} \text{UPM}_j}{\sum\limits_{i=1}^{J} \prod\limits_{\substack{j}}^{j\neq i} \text{UPM}_j}
+\text{GPS}_\text{UPM} = \cfrac{J \cdot \prod\limits_{j} \text{UPM}_j}{\sum\limits_{i=1}^{J} \prod\limits_{\substack{j}}^{j\neq i} \text{UPM}_j}\ \text{.}
 $$ {#eq:definition-gps}
 
 With all our measures finally defined, we can move on to examine the results reached by our classifiers.

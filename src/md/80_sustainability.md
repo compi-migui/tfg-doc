@@ -19,7 +19,7 @@ According to data aggregated by Electricity Maps [@electricity_maps_leading_noda
 The environmental impact of the development of this final degree thesis development can be quantified thusly:
 
 $$
-\text{600 hours} \cdot \text{130W} \cdot \cfrac{\text{1kW}}{\text{1000W}} \cdot \cfrac{\text{127g CO\textsubscript{2}eq}}{\text{1kWh}} \cdot \cfrac{\text{1kg}}{\text{1000g}} = \text{9.9kg CO\textsubscript{2}eq emissions}
+\text{600 hours} \cdot \text{130W} \cdot \cfrac{\text{1kW}}{\text{1000W}} \cdot \cfrac{\text{127g CO\textsubscript{2}eq}}{\text{1kWh}} \cdot \cfrac{\text{1kg}}{\text{1000g}} = \text{9.9kg CO\textsubscript{2}eq emissions.}
 $$ {#eq:dev-power-usage}
 
 #### Execution and supply chain risks and limitations {#sec:env-impact-execution}
@@ -39,7 +39,7 @@ There are certainly administrative and personnel costs involved in the enrollmen
 The one cost we can quantify is that of the electricity consumed. According to the author's energy bill, the electricity cost was constant (both in the whole time period and across all times of day) at 0.1498728€/kWh tax included. We will not impute power capacity fees to the work because it did not require increasing the already-contracted power capacity. The cost was therefore:
 
 $$
-\text{600 hours} \cdot \text{130W} \cdot \cfrac{\text{1kW}}{\text{1000W}} \cdot \cfrac{\text{0.1498728€}}{\text{1kWh}} = \text{11.69€}
+\text{600 hours} \cdot \text{130W} \cdot \cfrac{\text{1kW}}{\text{1000W}} \cdot \cfrac{\text{0.1498728€}}{\text{1kWh}} = \text{11.69€.}
 $$ {#eq:econ-power-usage}
 
 One should also consider the approximately 600 hours of the author's labor that went into developing the work. We will not assign a monetary value to that.

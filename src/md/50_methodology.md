@@ -56,6 +56,8 @@ The first challenge encountered when trying to analyze the data is the fact that
 
 @vidal_structural_2020 propose reshaping the entire data set into a unified two-dimensional matrix where each row contains all the data for a specific trial and each column contains the reading from a specific sensor-axis and timestamp. This shape would be frankly incomprehensible to a human reader, but it suits our pre-processing and classification methods just fine. They attribute this unfolding procedure to @westerhuis_comparing_1999.
 
+More specifically, the matrix representation they propose is
+
 $$
 \mathbf{X} = x_{i,j}^{k,l} =
 \left[
@@ -72,10 +74,10 @@ x_{1,J}^{1,1} & \ldots & x_{1,J}^{1,L} & x_{1,J}^{2,1} & \ldots & x_{1,J}^{2,L} 
 \vdots & \ddots & \vdots & \vdots & \ddots & \vdots & \ddots & \vdots & \ddots & \vdots \\
 x_{n_J,J}^{1,1} & \ldots & x_{n_J,J}^{1,L} & x_{n_J,J}^{2,1} & \ldots & x_{n_J,J}^{2,L} & \ldots & x_{n_J,J}^{K,1} & \ldots & x_{n_J,J}^{K,L} \\
 \end{array}
-\right]
+\right]\text{,}
 $$ {#eq:data-matrix}
 
-More specifically, [@Eq:data-matrix] shows the matrix representation they propose, where
+where:
 
 >   - $i = 1, \ldots, n_j$ represents the $i$−th experimental trial, while $n_j$ is the number of observations or
 experimental trials per structural state;
@@ -89,7 +91,7 @@ structural states;
 >
 > [@vidal_structural_2020, p.7-8]
 
-As an aid in visualizing how this relates to the data used in this final degree thesis, [@Eq:data-matrix-substituted] shows the same matrix substituting values from [@Tbl:input-data-comparison] ([@Sec:results-data]).
+As an aid in visualizing how this relates to the data used in this final degree thesis, values from [@Tbl:input-data-comparison] ([@Sec:results-data]) can be substituted in that same matrix:
 
 $$
 \mathbf{X} = x_{i,j}^{k,l} =
@@ -112,7 +114,7 @@ x_{1,5}^{1,1} & \ldots & x_{1,5}^{1,403} & x_{1,5}^{2,1} & \ldots & x_{1,5}^{2,4
 \vdots & \ddots & \vdots & \vdots & \ddots & \vdots & \ddots & \vdots & \ddots & \vdots \\
 x_{820,5}^{1,1} & \ldots & x_{820,5}^{1,403} & x_{820,5}^{2,1} & \ldots & x_{820,5}^{2,403} & \ldots & x_{820,5}^{24,1} & \ldots & x_{820,5}^{24,403} \\
 \end{array}
-\right]
+\right]\text{.}
 $$ {#eq:data-matrix-substituted}
 
 The resulting matrix has a total of 5740 rows (one for each trial) and 9672 columns (one for each individual reading in a trial).
@@ -124,22 +126,22 @@ Next up in the processing pipeline is scaling the data, which @vidal_structural_
 
 Scaling, also known as data normalization, is a crucial pre-processing step in most machine-learning classification. To that effect, @singh_investigating_2020 investigate the impact of fourteen different approaches on the performance of the _k_-nearest neighbors classifier and conclude that "scaling methods \[z-score normalization\] and \[Pareto scaling\] and are best since these achieve good classification performance and handle the outliers more effectively than other scaling methods". Z-score normalization is the approach chosen in the original study and replicated here.
 
-The scaling is done column by column, and involves adjusting each data point such that the column as a whole has a mean value of zero and a variance of one. The scaled value $\breve{x}_{i,j}^{k,l}$ of a reading $x_{i,j}^{k,l}$ is thus:
+The scaling is done column by column, and involves adjusting each data point such that the column as a whole has a mean value of zero and a variance of one. The scaled value $\breve{x}_{i,j}^{k,l}$ of a reading $x_{i,j}^{k,l}$ is thus
 
 $$
-\breve{x}_{i,j}^{k,l} = \cfrac{x_{i,j}^{k,l} - \mu_{k,l}}{\sigma_{k,l}}
+\breve{x}_{i,j}^{k,l} = \cfrac{x_{i,j}^{k,l} - \mu_{k,l}}{\sigma_{k,l}}\text{,}
 $$ {#eq:column-scaling}
 
-Where $\mu_{k,l}$ is the mean value of all readings in column "$k,l$" that $x$ belongs to:
+where $\mu_{k,l}$ is the mean value of all readings in column "$k,l$" that $x$ belongs to, given by
 
 $$
-\mu_{k,l} = \cfrac{\sum\limits_{i,j} x_{i,j}^{k,l}}{\sum\limits_{j} n_j}
+\mu_{k,l} = \cfrac{\sum\limits_{i,j} x_{i,j}^{k,l}}{\sum\limits_{j} n_j}\text{,}
 $$ {#eq:column-scaling-mean}
 
-And $\sigma_{k,l}$ is the standard deviation of all readings in that same column:
+and $\sigma_{k,l}$ is the standard deviation of all readings in that same column:
 
 $$
-\sigma_{k,l} = \sqrt{\cfrac{1}{\sum\limits_{j} n_j}\sum\limits_{i,j} (x_{i,j}^{k,l} - \mu_{k,l})^2}
+\sigma_{k,l} = \sqrt{\cfrac{1}{\sum\limits_{j} n_j}\sum\limits_{i,j} (x_{i,j}^{k,l} - \mu_{k,l})^2}\text{.}
 $$ {#eq:column-scaling-stdev}
 
 Remember that, because of the way the data was structured, scaling along columns means each reading is being standardized among all the readings from that same sensor-axis and time instant across all trials in the data set.
@@ -156,18 +158,18 @@ The data set in front of us is a lot more gnarly than the car analogy, but the s
 @vidal_structural_2020 achieve this by way of multiway principal component analysis. Principal component analysis (PCA) is a technique that makes it possible "to extract the important information from the table, to represent it as a set of new orthogonal variables called principal components, and to display the pattern of similarity of the observations and of the variables as points in maps" [@abdi_principal_2010]. The "multiway" qualifier is earned by virtue of having reshaped the data in the fashion that we did, combining all readings in a trial into a single row; PCA is applied as usual after that.
 
 
-Note that PCA by itself does not _reduce_ the dimensions captured in the data (and thus its size): it merely transforms our original matrix into a matrix of the same size, which represents the original data projected onto the newly-found principal components. Visualizing a 9672-dimension rotation is a feat beyond the ability of most people, so this is a case where one can only trust the math. [@Eq:pca] shows the relationship between $\breve{\mathbf{X}}$ (the scaled matrix), $\mathbf{P}$ (its principal components) and $\mathbf{T}$ (the transformed matrix).
+Note that PCA by itself does not _reduce_ the dimensions captured in the data (and thus its size): it merely transforms our original matrix into a matrix of the same size, which represents the original data projected onto the newly-found principal components. Visualizing a 9672-dimension rotation is a feat beyond the ability of most people, so this is a case where one can only trust the math. [@Eq:pca] shows the relationship between $\breve{\mathbf{X}}$ (the scaled matrix), $\mathbf{P}$ (its principal components) and $\mathbf{T}$ (the transformed matrix):
 
 $$
-\mathbf{T} = \breve{\mathbf{X}}\mathbf{P}
+\mathbf{T} = \breve{\mathbf{X}}\mathbf{P}\text{.}
 $$ {#eq:pca}
 
 What actually makes PCA useful here is the fact that those principal components are sorted: the first one will have the largest possible variance, the second one will have the second largest and so on. This translates into the first principal component "explaining" or "extracting" (as phrased by @abdi_principal_2010) the largest possible variance from the original data, the second one "explaining" the second largest possible variance and so forth.
 
-We can therefore truncate the principal components, taking only an arbitrary number of them rather than all 9672 ($\mathbf{P}_{g}$), project the data onto that smaller set of components and end up with a significanly smaller data set ($\mathbf{T_{g}}$) that still describes a disproportionately large portion of the inter-trial variance of the original data. Explain as much with fewer dimensions. [@Eq:pca-reduced] shows this relationship.
+We can therefore truncate the principal components, taking only an arbitrary number of them rather than all 9672 ($\mathbf{P_{g}}$), project the data onto that smaller set of components and end up with a significanly smaller data set ($\mathbf{T_{g}}$) that still describes a disproportionately large portion of the inter-trial variance of the original data. Explain as much with fewer dimensions. This relationship can be expressed as
 
 $$
-\mathbf{T_{g}} = \breve{\mathbf{X}}\mathbf{P_{g}}
+\mathbf{T_{g}} = \breve{\mathbf{X}}\mathbf{P_{g}}\text{.}
 $$ {#eq:pca-reduced}
 
 #### Classification
@@ -182,7 +184,7 @@ A concept first proposed by @fix_discriminatory_1951, the _k_-NN classifier is b
 Let $x$ be a sample from the test set, represented by a point in $N$-dimensional space where $N$ is the number of principal components preserved in the dimensionality reduction step:
 
 $$
-x = \left(x_1,\  x_2,\  \ldots,\  x_N \right)
+x = \left(x_1,\  x_2,\  \ldots,\  x_N \right)\text{.}
 $$ {#eq:definition-knn-x}
 
 Let $y$ be one of the $M$ samples from the training set (recall that these are labeled with their known correct classes), each with the same shape:
@@ -190,20 +192,20 @@ Let $y$ be one of the $M$ samples from the training set (recall that these are l
 $$
 \begin{gathered}
 y_m = \left(y_{m,1},\  y_{m,2},\  \ldots,\  y_{m,N} \right)\\
-y_m \in \{y_1,\  y_2,\  \ldots,\  y_M\}
+y_m \in \{y_1,\  y_2,\  \ldots,\  y_M\}\text{.}
 \end{gathered}
 $$ {#eq:definition-knn-y}
 
 Then, let $d(x,y)$ represent the the Euclidean distance between the two points in $N$-dimensional space, namely:
 
 $$
-d(x,y) = \sqrt{\sum\limits_{n=1}^{N} (x_n - y_n)^2}
+d(x,y) = \sqrt{\sum\limits_{n=1}^{N} (x_n - y_n)^2}\text{.}
 $$ {#eq:definition-knn-distance}
 
 For each of the test samples $x$ we find the training sample that is closest to it, meaning the $y_p$ that has the minimum distance with respect to $x$:
 
 $$
-d(x,y_p) = \text{min } d(x,y_m) \quad m = 1, 2, \ldots, M
+d(x,y_p) = \text{min } d(x,y_m), \quad m = 1, 2, \ldots, M\text{.}
 $$ {#eq:definition-knn-distance-min}
 
 If _k_ is larger than one, we then repeat the process to find the second-closest training sample and so on until we find all _k_ nearest neighbors to the test sample. The majority class for all those neighbors is then assigned to it.
@@ -233,13 +235,13 @@ Scatter plots of a few principal component pairs. Blue dots are trials from the 
 
 Note how the results appear different due to using a different data set, but only superficially: not all pairs of principal components match exactly, but their quadratic relationship still shows through. Specifically, [@Fig:reproduce-pca-plot-1-vs-2] reveals the exact same shape of concentric circles.
 
-Their chosen quadratic kernel function is as follows:
+Their chosen quadratic kernel function is
 
 $$
-K(x_i,x_j) = \left(1 + \cfrac{1}{\rho^2}x_i^{\text{T}}x_j \right)^2
+K(x_i,x_j) = \left(1 + \cfrac{1}{\rho^2}x_i^{\text{T}}x_j \right)^2\text{;}
 $$ {#eq:definition-svm-kernel}
 
-Leaving $\rho$, the kernel scale parameter, as the parameter to tweak to try and fit the behavior of the model to the needs of our data set.
+leaving $\rho$, the kernel scale parameter, as the parameter to tweak to try and fit the behavior of the model to the needs of our data set.
 
 #### Cross-validation
 The separation of our data set into training and test sets risks an obvious pitfall: what if, by random chance, we end up with a split that is unfairly favorable to the classifiers? What if the reverse is true and the split is unfairly unfavorable? Either is possible: either set could end up with a disproportionate amount of samples that are easier or harder to classify correctly in ways we cannot identify ahead of time, thus skewing the performance results.
@@ -294,22 +296,22 @@ Resolving these issues can be achieved by shuffling the steps in our data proces
 <!-- **TODO: a diagram of before and after would go a long way here** -->
 
 #### Scaling
-In the scaling step, the scaled value $\breve{x}_{i,j}^{k,l}$ of a reading $x_{i,j}^{k,l}$ is redefined as:
+In the scaling step, the scaled value $\breve{x}_{i,j}^{k,l}$ of a reading $x_{i,j}^{k,l}$ is redefined as
 
 $$
-\breve{x}_{i,j}^{k,l} = \cfrac{x_{i,j}^{k,l} - \mu_{k,l}^{\prime}}{\sigma_{k,l}^{\prime}}
+\breve{x}_{i,j}^{k,l} = \cfrac{x_{i,j}^{k,l} - \mu_{k,l}^{\prime}}{\sigma_{k,l}^{\prime}}\text{,}
 $$ {#eq:column-scaling-noleak}
 
-Where $\mu_{k,l}^{\prime}$ is the mean value of all readings in column "$k,l$" that $x$ belongs to, excluding rows that belong to the test set $T$:
+where $\mu_{k,l}^{\prime}$ is the mean value of all readings in column "$k,l$" that $x$ belongs to, excluding rows that belong to the test set $T$:
 
 $$
-\mu_{k,l}^{\prime} = \cfrac{\sum\limits_{i,j}^{(i,j)\notin T} x_{i,j}^{k,l}}{\sum\limits_{j} n_j - |T|}
+\mu_{k,l}^{\prime} = \cfrac{\sum\limits_{i,j}^{(i,j)\notin T} x_{i,j}^{k,l}}{\sum\limits_{j} n_j - |T|}\ \text{.}
 $$ {#eq:column-scaling-noleak-mean}
 
 Likewise, $\sigma_{k,l}^{\prime}$ is the standard deviation of all readings in that same column, excluding rows that belong to the test set $T$:
 
 $$
-\sigma_{k,l}^{\prime} = \sqrt{\cfrac{1}{\sum\limits_{j} n_j - |T|}\sum\limits_{i,j}^{(i,j)\notin T} (x_{i,j}^{k,l} - \mu_{k,l})^2}
+\sigma_{k,l}^{\prime} = \sqrt{\cfrac{1}{\sum\limits_{j} n_j - |T|}\sum\limits_{i,j}^{(i,j)\notin T} (x_{i,j}^{k,l} - \mu_{k,l})^2}\text{.}
 $$ {#eq:column-scaling-noleak-stdev}
 
 Note than in [@Eq:column-scaling-noleak-mean; @Eq:column-scaling-noleak-stdev] the expression $|T|$ represents the size of the test set.
@@ -323,16 +325,16 @@ With this slight modification, there is no longer data leakage in the scaling st
 #### Dimensionality reduction
 The same principle we followed in the scaling step also applies in the dimensionality reduction step: the principal components are chosen using only the training set, and then they are used to transform both the training and test set. Once again, the reduced test data is dependent on the training data but not the other way around.
 
-Let $\breve{\mathbf{X}}$ be the scaled data matrix with only training samples, and $\breve{\mathbf{Y}}$ the scaled data matrix with only test samples. The principal components are selected using only $\breve{\mathbf{X}}$ and satisfy the following relationship:
+Let $\breve{\mathbf{X}}$ be the scaled data matrix with only training samples, and $\breve{\mathbf{Y}}$ the scaled data matrix with only test samples. The principal components are selected using only $\breve{\mathbf{X}}$ and satisfy
 
 $$
-\mathbf{T}_{\breve{\mathbf{X}},g} = \breve{\mathbf{X}}\mathbf{P}_{\breve{\mathbf{X}},g}
+\mathbf{T}_{\breve{\mathbf{X}},g} = \breve{\mathbf{X}}\mathbf{P}_{\breve{\mathbf{X}},g}\text{.}
 $$ {#eq:pca-reduced-noleak}
 
-Those same principal components, $\mathbf{P}_{g}$, will be used to transform the test data:
+Those same principal components, $\mathbf{P}_{\breve{\mathbf{X}},g}$, will be used to transform the test data:
 
 $$
-\mathbf{T}_{\breve{\mathbf{Y}},g} = \breve{\mathbf{Y}}\mathbf{P}_{\breve{\mathbf{X}},g}
+\mathbf{T}_{\breve{\mathbf{Y}},g} = \breve{\mathbf{Y}}\mathbf{P}_{\breve{\mathbf{X}},g}\text{.}
 $$ {#eq:pca-reduced-y-noleak}
 
 The revised dimensionality reduction will, too, run once for each training/test split for a total of five times.
