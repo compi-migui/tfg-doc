@@ -121,7 +121,7 @@ An observing reader may protest that the MCC is, in fact, a binary measure. Luck
 
 It is defined as
 $$
-\text{MCC} = \cfrac{\sum\limits_{a,b,c} \left( C_{a,a}C_{b,c} - C_{a,b}C_{c,a} \right)}{\sqrt{\sum\limits_{a} \left[ \left( \sum\limits_{b} C_{a,b} \right)  \left( \sum\limits_{\substack{b\prime,a\prime \\ a\prime\neq a}} C_{a\prime,b\prime} \right) \right]}\sqrt{\sum\limits_{a} \left[ \left( \sum\limits_{b} C_{b,a} \right) \left( \sum\limits_{\substack{b\prime,a\prime \\ a\prime\neq a}} C_{b\prime,a\prime} \right) \right] }}\ \text{,}
+\text{MCC} = \cfrac{\sum\limits_{a,b,c} \left( C_{a,a}C_{b,c} - C_{a,b}C_{c,a} \right)}{\sqrt{\sum\limits_{a} \left[ \left( \sum\limits_{b} C_{a,b} \right)  \left( \sum\limits_{\substack{b,a\prime \\ a\prime\neq a}} C_{a\prime,b} \right) \right]}\sqrt{\sum\limits_{a} \left[ \left( \sum\limits_{b} C_{b,a} \right) \left( \sum\limits_{\substack{b,a\prime \\ a\prime\neq a}} C_{b,a\prime} \right) \right] }}\ \text{,}
 $$ {#eq:definition-mcc}
 
 where $C_{x,y}$ is the number of samples classified into class $x$ that actually belong to class $y$.
