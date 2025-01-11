@@ -316,7 +316,7 @@ $$
 \sigma_{k,l}^{\prime} = \sqrt{\cfrac{1}{\sum\limits_{j} n_j - |T|}\sum\limits_{i,j}^{(i,j)\notin T} (x_{i,j}^{k,l} - \mu_{k,l})^2}\text{.}
 $$ {#eq:column-scaling-noleak-stdev}
 
-Note than in [@Eq:column-scaling-noleak-mean; @Eq:column-scaling-noleak-stdev] the expression $|T|$ represents the size of the test set.
+Note than in [@Eq:column-scaling-noleak-mean; @Eq:column-scaling-noleak-stdev] the expression $|T|$ represents the cardinality of the test set.
 
 Note also that the definition in [@Eq:column-scaling-noleak] applies to values in both the training and test set: we obtain the mean and standard deviation using only the training set but apply them to both sets. Therefore the scaled test data is dependent on the training data, but not the other way around.
 
