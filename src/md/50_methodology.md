@@ -89,7 +89,7 @@ structural states;
 >
 > [@vidal_structural_2020, p.7-8]
 
-As an aid in visualizing how this relates to the data used in this final degree thesis, [@Eq:data-matrix-substituted] shows the same matrix substituting values from [@Tbl:input-data-comparison].
+As an aid in visualizing how this relates to the data used in this final degree thesis, [@Eq:data-matrix-substituted] shows the same matrix substituting values from [@Tbl:input-data-comparison] ([@Sec:results-data]).
 
 $$
 \mathbf{X} = x_{i,j}^{k,l} =
