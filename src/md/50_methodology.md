@@ -219,7 +219,7 @@ The other classifier used by @vidal_structural_2020 is the support vector machin
 
 >   It is not the purpose of this paper to give a detailed explanation of the SVM classifier. For the interested reader, an excellent detailed review is given in reference \[@smola_tutorial_2004\]. However, to hand over the background and motivation for the proposed methodology, a summary of the method is given. This recap is based on reference \[@vidal_wind_2018\].
 
-The same applies to this final degree thesis. Rather than patronize readers by parroting here the words of other authors about hyperplanes, convex geometry and topological vector spaces, please refer to the above references for the mathematical background. For our purposes, it is enough to consider the following:
+The same applies to this final degree thesis, so please refer to the above references for the mathematical background. For our purposes, it is enough to consider the following:
 
 It is relatively feasible to compute in the linear case, meaning it can be applied directly and perform well when the data points are linearly separable or close to it. Naively extending it to nonlinear cases makes it "...computationally infeasible for both polynomial features of higher order and higher dimensionality" [@smola_tutorial_2004]. To avoid that pitfall, one can apply the "kernel trick", in which very computationally costly high-dimensional transformations are replaced with a so-called kernel function to be used as an inner product.
 
