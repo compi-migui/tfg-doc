@@ -62,7 +62,7 @@ $$ \text{tnr} = \cfrac{\text{TN}}{\text{TN} + \text{FP}}\ \text{.} $$ {#eq:defin
 
 The metrics we have looked at so far are the ones used by @vidal_structural_2020. There is one more we must define before moving on to multiclass measures, as we will use it to compute the general performance score mentioned earlier in this section. It is the ambitiously-named unified performance measure (UPM), proposed by @redondo_unified_2020.
 
-In their proposal, @redondo_unified_2020 explain that the unified performance measure "in the imbalanced classification problems, improves the stability of MCC and veracity of Accuracy, F~1~^+ and F~1~^-" and that "the evidence from \[that\] study suggests the use of UPM for both imbalanced and balanced data". As we are dealing with a multiclass problem, the UPM is not directly useful to us, but the general performance score that builds on it will be.
+In their proposal, @redondo_unified_2020 explain that the unified performance measure "in the imbalanced classification problems, improves the stability of MCC and veracity of Accuracy \[and the F~1~-measure\]" and that "the evidence from \[that\] study suggests the use of UPM for both imbalanced and balanced data". As we are dealing with a multiclass problem, the UPM is not directly useful to us, but the general performance score that builds on it will be.
 
 The UPM is defined as:
 $$ \text{UPM} = \cfrac{1}{1 + \cfrac{(\text{TP} + \text{TN}) \cdot (\text{FP} + \text{FN})}{4 \cdot \text{TP} \cdot \text{TN}}}\ \text{.} $$ {#eq:definition-upm}
@@ -72,7 +72,9 @@ Now that we have laid out a foundation of simple binary measures, it is time to 
 
 Let us first consider the metrics used by @vidal_structural_2020. They are obtained by simply taking, for each of the binary measures described earlier, the average value across all classes (in our case, those are the different structural states) and using that to evaluate the performance of the classifier as a whole.
 
-They are thus:
+The one exception is the multiclass version of the F~1~-measure, which could be approached in two different ways: averaging class-specific F~1~-measures together results in the so-called macro-averaged F~1~-measure; whereas first finding the average precision and recall and then taking their harmonic mean results in the micro-averaged F~1~-measure. For a discussion on their respective merits, see @hinojosa_lee_performance_2024. The micro-averaged F~1~-measure is the one used by @vidal_structural_2020.
+
+The metrics are thus:
 
 -   **Average accuracy**:
 $$ \overline{\text{acc}} = \cfrac{\sum\limits_{j=1}^{J} \text{acc}_j}{J}\ \text{.} $$ {#eq:definition-avg-acc}
@@ -80,7 +82,7 @@ $$ \overline{\text{acc}} = \cfrac{\sum\limits_{j=1}^{J} \text{acc}_j}{J}\ \text{
 $$ \overline{\text{ppv}} = \cfrac{\sum\limits_{j=1}^{J} \text{ppv}_j}{J}\ \text{.} $$ {#eq:definition-avg-ppv}
 -   **Average sensitivity**:
 $$ \overline{\text{tpr}} = \cfrac{\sum\limits_{j=1}^{J} \text{tpr}_j}{J}\ \text{.} $$ {#eq:definition-avg-tpr}
--   **Average F~1~-measure**:
+-   **Micro-averaged F~1~-measure**:
 $$ \overline{\text{F}_1} = \cfrac{2\cdot \overline{\text{ppv}}\cdot \overline{\text{tpr}}}{\overline{\text{ppv}}+\overline{\text{tpr}}}\ \text{.} $$ {#eq:definition-avg-f1}
 -   **Average specificity**:
 $$ \overline{\text{tnr}} = \cfrac{\sum\limits_{j=1}^{J} \text{tnr}_j}{J}\ \text{.} $$ {#eq:definition-avg-tnr}
