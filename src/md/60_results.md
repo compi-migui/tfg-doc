@@ -121,7 +121,7 @@ An observing reader may protest that the MCC is, in fact, a binary measure. Luck
 
 It is defined as
 $$
-\text{MCC} = \cfrac{\sum\limits_{a,b,c} \left( C_{a,a}C_{b,c} - C_{a,b}C_{c,a} \right)}{\sqrt{\sum\limits_{a} \left[ \left( \sum\limits_{b} C_{a,b} \right)  \left( \sum\limits_{\substack{b\prime,a\prime}}^{a\prime\neq a} C_{a\prime,b\prime} \right) \right]}\sqrt{\sum\limits_{a} \left[ \left( \sum\limits_{b} C_{b,a} \right) \left( \sum\limits_{\substack{b\prime,a\prime}}^{a\prime\neq a} C_{b\prime,a\prime} \right) \right] }}\ \text{,}
+\text{MCC} = \cfrac{\sum\limits_{a,b,c} \left( C_{a,a}C_{b,c} - C_{a,b}C_{c,a} \right)}{\sqrt{\sum\limits_{a} \left[ \left( \sum\limits_{b} C_{a,b} \right)  \left( \sum\limits_{\substack{b\prime,a\prime \\ a\prime\neq a}} C_{a\prime,b\prime} \right) \right]}\sqrt{\sum\limits_{a} \left[ \left( \sum\limits_{b} C_{b,a} \right) \left( \sum\limits_{\substack{b\prime,a\prime \\ a\prime\neq a}} C_{b\prime,a\prime} \right) \right] }}\ \text{,}
 $$ {#eq:definition-mcc}
 
 where $C_{x,y}$ is the number of samples classified into class $x$ that actually belong to class $y$.
@@ -130,7 +130,7 @@ where $C_{x,y}$ is the number of samples classified into class $x$ that actually
 The last metric we will examine is the general performance score, proposed by @de_diego_general_2022 and generally defined as the harmonic mean of a set of arbitrary performance measures. We will use one specific instance of it, GPS~UPM~, wherein we parametrize it with the _J_ individual unified performance measures derived for each class _j_ in our multiclass problem:
 
 $$
-\text{GPS}_\text{UPM} = \cfrac{J \cdot \prod\limits_{j} \text{UPM}_j}{\sum\limits_{i=1}^{J} \prod\limits_{\substack{j}}^{j\neq i} \text{UPM}_j}\ \text{.}
+\text{GPS}_\text{UPM} = \cfrac{J \cdot \prod\limits_{j} \text{UPM}_j}{\sum\limits_{i=1}^{J} \prod\limits_{\substack{j \\ j\neq i}} \text{UPM}_j}\ \text{.}
 $$ {#eq:definition-gps}
 
 With all our measures finally defined, we can move on to examine the results reached by our classifiers.

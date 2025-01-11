@@ -307,13 +307,13 @@ $$ {#eq:column-scaling-noleak}
 where $\mu_{k,l}^{\prime}$ is the mean value of all readings in column "$k,l$" that $x$ belongs to, excluding rows that belong to the test set $T$:
 
 $$
-\mu_{k,l}^{\prime} = \cfrac{\sum\limits_{i,j}^{(i,j)\notin T} x_{i,j}^{k,l}}{\sum\limits_{j} n_j - |T|}\ \text{.}
+\mu_{k,l}^{\prime} = \cfrac{\sum\limits_{(i,j)\notin T} x_{i,j}^{k,l}}{\sum\limits_{j} n_j - |T|}\ \text{.}
 $$ {#eq:column-scaling-noleak-mean}
 
 Likewise, $\sigma_{k,l}^{\prime}$ is the standard deviation of all readings in that same column, excluding rows that belong to the test set $T$:
 
 $$
-\sigma_{k,l}^{\prime} = \sqrt{\cfrac{1}{\sum\limits_{j} n_j - |T|}\sum\limits_{i,j}^{(i,j)\notin T} (x_{i,j}^{k,l} - \mu_{k,l})^2}\text{.}
+\sigma_{k,l}^{\prime} = \sqrt{\cfrac{1}{\sum\limits_{j} n_j - |T|}\sum\limits_{(i,j)\notin T} (x_{i,j}^{k,l} - \mu_{k,l})^2}\text{.}
 $$ {#eq:column-scaling-noleak-stdev}
 
 Note than in [@Eq:column-scaling-noleak-mean; @Eq:column-scaling-noleak-stdev] the expression $|T|$ represents the cardinality of the test set.
