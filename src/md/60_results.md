@@ -64,12 +64,14 @@ $$ \text{tnr} = \cfrac{\text{TN}}{\text{TN} + \text{FP}}\ \text{.} $$ {#eq:defin
 
 The metrics we have looked at so far are the ones used by @vidal_structural_2020. There is one more we must define before moving on to multiclass measures, as we will use it to compute the general performance score mentioned earlier in this section. It is the ambitiously-named unified performance measure (UPM), proposed by @redondo_unified_2020.
 
-In their proposal, @redondo_unified_2020 explain that the unified performance measure "in the imbalanced classification problems, improves the stability of MCC and veracity of Accuracy \[and the F~1~-measure\]" and that "the evidence from \[that\] study suggests the use of UPM for both imbalanced and balanced data". As we are dealing with a multiclass problem, the UPM is not directly useful to us, but the general performance score that builds on it will be.
+In their proposal, @redondo_unified_2020 explain that the unified performance measure "in the imbalanced classification problems, improves the stability of MCC and veracity of Accuracy \[and the F~1~-measure\]" and that "the evidence from \[that\] study suggests the use of UPM for both imbalanced and balanced data". The matter of imbalanced data is covered in [@Sec:results-multiclass-measures].
+
+As we are dealing with a multiclass problem, the UPM is not directly useful to us, but the general performance score that builds on it will be.
 
 The UPM is defined as:
 $$ \text{UPM} = \cfrac{1}{1 + \cfrac{(\text{TP} + \text{TN}) \cdot (\text{FP} + \text{FN})}{4 \cdot \text{TP} \cdot \text{TN}}}\ \text{.} $$ {#eq:definition-upm}
 
-### Multiclass measures
+### Multiclass measures {#sec:results-multiclass-measures}
 Now that we have laid out a foundation of simple binary measures, it is time to build up to the ones that are actually equipped to describe the performance of multiclass classifiers such as the ones we are dealing with.
 
 Let us first consider the metrics used by @vidal_structural_2020. They are obtained by simply taking, for each of the binary measures described earlier, the average value across all classes (in our case, those are the different structural states) and using that to evaluate the performance of the classifier as a whole.
@@ -97,12 +99,14 @@ As summarized by @chicco_advantages_2020, the MCC was introduced by @matthews_co
 
 A difficult challenge when evaluating classification models is that it is very easy for some of the metrics discussed so far to tell us more about the shape of the data set being used, rather than about the classifier we are trying to evaluate [@akosa_predictive_2017]. This challenge is doubly difficult because it is very easy to not notice it at all unless one specifically looks for it.
 
-For a few very illustrative examples of this problem involving both imbalanced and balanced data sets, see @chicco_advantages_2020 [p. 7-9]. For our purposes, it is enough to take their conclusion as a strong sign that it is a good idea to at least try using the MCC to better examine our models:
+In essence, when the samples in a data set are not spread evenly between classes, even classifiers that perform very poorly can obtain misleadingly high values for many of the performance measures discussed so far. These are called imbalanced data sets. @chicco_advantages_2020 [p. 7-9] provide detailed accounts of how different measures behave in those cases.
+
+An example they cover is a hypothetical clinical data set with 9 healthy individuals (negatives) and 91 sick ones (positives), and a classifier that labels all of them as being sick, with the sole exception of one of the sick patients being mislabeled as healthy. With 90 true positives, a single false negative, 9 false positives and not even one true negative they obtain an accuracy value of 90% and an F~1~-measure of 95%: both misleadingly high. The MCC value is 48%, which better conveys the poor performance of the classifier.
+
+This example and their overall conclusion as a strong sign that it is a good idea to at least try using the MCC to better examine our models:
 
 >   These results show that, while accuracy and F~1~ score often generate high scores that do not inform the user about ongoing prediction issues, the MCC is a robust, useful, reliable, truthful statistical measure able to correctly reflect the deficiency of any prediction in any dataset.
 >   \ — @chicco_advantages_2020 [p. 9]
-
-<!-- **TODO: considered going into some of those examples here, but it would be a lot of text to reach that exact same conclusion. probably not worth it unless I end up with too much spare time and too little content**-->
 
 The Matthews correlation coefficient is defined by @chicco_advantages_2020 as:
 $$ \text{MCC}_2 = \cfrac{\text{TP} \cdot \text{TN} - \text{FP} \cdot \text{FN}}{\sqrt{(\text{TP} + \text{FP}) \cdot (\text{TP} + \text{FN}) \cdot (\text{TN} + \text{FP}) \cdot (\text{TN} + \text{FN})}}\ \text{.} $$ {#eq:definition-mcc-single}
