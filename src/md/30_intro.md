@@ -10,7 +10,7 @@ In this section we will first very briefly examine the role of wind power genera
 
 We will then touch on structural health monitoring and how it is applied to offshore wind turbines to decrease their long term operational costs. This will serve to justify _how_ the work we are setting out to do is going to move us closer to that goal.
 
-Lastly, we will discuss the role of machine learning algorithms, like the ones this final degree thesis will examine, in structural health monitoring. This will lay the groundwork for _what_ precisely we intend to work on in later sections.
+Lastly, we will discuss the role of machine-learning algorithms, like the ones this final degree thesis will examine, in structural health monitoring. This will lay the groundwork for _what_ precisely we intend to work on in later sections.
 
 ### Renewable energy
 The United Nations' 2030 Agenda for Sustainable Development [@united_nations_general_assembly_transforming_2015] sets out a plan of action made up of 17 sustainable development goals (SDGs) and 169 targets that define "the bold and transformative steps which are urgently needed to shift the world on to a sustainable and resilient path" and attempt to balance what they call "the three dimensions of sustainable development: the economic, social and environmental".
@@ -65,7 +65,7 @@ Turning up the difficulty even higher we reach the matter at hand: structural he
 
 To the human eye, such readings are impossible to decipher — too much data with entirely too much noise mixed in. With tried and true mathematical methods for dimensionality reduction it is possible to condense the data down to a more workable form, but even that does not open an easy path to diagnosis: the forces applied to the structure and its response to them is extremely specific to a particular wind turbine in a particular park in a particular place in the world at a particular time and date. There is no simple model or physical law that can answer the question "is this structure healthy?" from the accelerometer data.
 
-Enter machine learning algorithms, which enable precisely the kind of pattern recognition needed for this problem. They provide the "mathematical means of associating measured data with given class labels" [@farrar_structural_2012, p. 8] without the need to actually model the system that is generating the measured data: it is enough to provide training data along with known correct class labels (e.g. this is data from a healthy structure, this is data from a damaged structure) and the algorithms are able to find the relevant features and apply them to classify data it has never encountered before.
+Enter machine-learning algorithms, which enable precisely the kind of pattern recognition needed for this problem. They provide the "mathematical means of associating measured data with given class labels" [@farrar_structural_2012, p. 8] without the need to actually model the system that is generating the measured data: it is enough to provide training data along with known correct class labels (e.g. this is data from a healthy structure, this is data from a damaged structure) and the algorithms are able to find the relevant features and apply them to classify data it has never encountered before.
 
 ## Goals {#sec:goals}
 
