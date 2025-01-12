@@ -1,7 +1,9 @@
 \newpage
 # Results {#sec:results}
 <!--  Descripció i anàlisis dels resultats obtinguts amb la metodologia proposada -->
-Describe results and analyze them. Make sure to include pretty graphs whenever possible. Everybody loves pretty pictures.
+With the methodology laid out, it is time to discuss the results of applying. We will first cover the source and characteristics of the experimental data used (which, due to this being a replication, is distinct from the original study by @vidal_structural_2020) and the measures used to evaluate the performance of the classifiers.
+
+We will then discuss the results obtained by replication, which we will compare with those shown in the original study. Lastly, we will examine the results obtained by applying the improvement proposed in [@Sec:methodology-proposed-improvement] and examine how they change, if they do at all.
 
 ## Experimental data used {#sec:results-data}
 While we are replicating the _methodology_ of @vidal_structural_2020, we do not aim to simply put the same experimental data through the same process. We will instead use the data that was generated for @leon_medina_online_2023, which used the same laboratory setup to run additional trials.
