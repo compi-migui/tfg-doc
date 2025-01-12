@@ -6,11 +6,11 @@ During that time I have been extremely lucky to be surrounded by the most amazin
 
 To Jersson Xavier Leon Medina, Núria Parés and Francesc Pozo, thank you for readily providing the experimental data used in this study.
 
-To my thesis supervisor Francesc Pozo (a second time!), thank you for taking a chance on a dropout you had not heard from in years, and for being flexible enough that I was able to do this this while working full time. You were there my first day at University and it is oh so fitting that you are the one to help me finally wrap the whole thing up.
+To my thesis supervisor Francesc Pozo (a second time!), thank you for taking a chance on a dropout you had not heard from in years, and for being flexible enough that I was able to do this while working full time. You were there my first day at University and it is oh so fitting that you are the one to help me finally wrap the whole thing up.
 
 To my family, thank you for doing your best. To my grandfather Diego, who passed away while I was working on this, I am sorry you never got to see a grandchild graduate from University.
 
-To Paula, Míriam, Blanca and Ivan, who were also there my first day at University, thank you for still being at my side today. To África, thank you for patiently guiding the old me towards the new me for longer than I have known myself. To Valeria, thank you for being there for me for as long as you were able. To Eva, Sandra and Aixa, thank you for perceiving and understanding me. To Sara, thank you for never backing down against injustice. To Alice, thank your for always calling a spade a spade. Thank you all for supporting me and believing in me even when I did not, for filling my life to the brim with joy and for inspiring me with your perseverance.
+To Paula, Míriam, Blanca and Ivan, who were also there my first day at University, thank you for still being at my side today. To África, thank you for patiently guiding the old me towards the new me for longer than I have known myself. To Valeria, thank you for being there for me for as long as you were able. To Eva, Sandra and Aixa, thank you for perceiving and understanding me. To Sara, thank you for never backing down against injustice. To Alice, thank you for always calling a spade a spade. Thank you all for supporting me and believing in me even when I did not, for filling my life to the brim with joy and for inspiring me with your perseverance.
 
 To David McGillicuddy, Russell and Lenard, thank you for selflessly reaching out to strangers, for explaining it is not my fault and for showing me that many great problems have great workarounds.
 
