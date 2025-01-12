@@ -173,7 +173,7 @@ $$
 $$ {#eq:pca-reduced}
 
 #### Classification
-With the data scaled and reduced to a more manageable size it is time for the machine-learning classifiers to shine. In general terms, the way they work is we first fit them to our problem space using a _training_ data set where each sample is labeled with its known correct class — the gold standard that lets each algorithm be adapted to our goals. Then, with the now trained model, we provide it an unlabeled _test_ data set and have it predict what class each of the samples belongs to. This training/test split is called the holdout method.
+With the data scaled and reduced to a more manageable size it is time for the machine-learning classifiers to shine. In general terms, the way they work is we first fit them to our problem space using a _training_ data set where each sample is labeled with its known correct class — the gold standard that lets each algorithm be adapted to our goals. Then, with the now trained model, we provide it with an unlabeled _test_ data set and have it predict what class each of the samples belongs to. This training/test split is called the holdout method.
 
 Since our goal is to replicate the results of the original paper, we will use the same classifiers it does: the _k_-nearest neighbors classifier and the support vector machine.
 
