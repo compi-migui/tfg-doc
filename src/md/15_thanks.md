@@ -16,4 +16,4 @@ To David McGillicuddy, Russell and Lenard, thank you for selflessly reaching out
 
 To all those who have touched my life and whose life I have touched; to those I love whether I have already named them or not; to those best not named in the public record, because you never know; to those so enchanting and magical that it would be a disservice to name them in a document so lacking in whimsy; you are my everything and I am more thankful than I know how to express in English or in any other language, but that will not stop me from trying every day.
 
-To you, the reader, thank you for taking the time to hear about all these people who mean the world to me.
+To you, the reader, thank you for taking the time to hear about these people who mean the world to me.
