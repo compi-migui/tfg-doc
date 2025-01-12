@@ -4,7 +4,7 @@
 ## Introduction
 Due to their remote location, inspection and maintenance activities on offshore wind turbines are very costly both in terms of risk to workers' health and safety and in economic cost. As worldwide investment on renewable energy sources — including offshore wind turbines — grows, we can expect that toll to increase accordingly unless remedied.
 
-Improved processing of remotely-sensed data can help minimize the number of interventions needed, and thus also the human and economic costs involved: if we can more accurately tell how a structure is doing we don't need people to put themselves at risk by checking in on it in person as often.
+Improved processing of remotely-sensed data can help minimize the number of interventions needed, and thus also the human and economic costs involved: if we can more accurately tell how a structure is doing we do not need people to put themselves at risk by checking in on it in person as often.
 
 In this section we will first very briefly examine the role of wind power generation and its future trends and the relevance of offshore wind turbines in that wider picture. This will serve to justify _why_ the goals we are setting out to achieve are worth reaching in the first place.
 
@@ -80,7 +80,7 @@ At its core, the scientific method involves coming up with falsifiable hypothese
 
 Since it is all about improving our collective understanding of the world, it is _crucial_ that such results be replicable by others in the scientific community. That is the only way to verify their correctness — not simply to spot actual mistakes made by the original researchers or flukes introduced by random chance, but to further refine our understanding through iteration and thus inch forwards toward progressively more accurate knowledge and better technique.
 
-This is where we must pull up our sleeves and define some terminology. What does it mean to be able to replicate or reproduce existing research? What's the difference between the three terms? Unfortunately, the answer is "it depends". Looking at publications across several fields, @barba_terminologies_2018 found that:
+This is where we must pull up our sleeves and define some terminology. What does it mean to be able to replicate or reproduce existing research? What is the difference between the three terms? Unfortunately, the answer is "it depends". Looking at publications across several fields, @barba_terminologies_2018 found that:
 
 >   ...they either, A—make no distinction between the words reproduce and replicate, or B—use them distinctly. If B, then they are commonly divided in two camps. In a spectrum of concerns that starts at a minimum standard of 'same data+same methods=same results,' to 'new data and/or new methods in an independent study=same findings,' group 1 calls the minimum standard reproduce, while group 2 calls it replicate. This direct swap of the two terms aggravates an already weighty issue. (p. 1)
 
