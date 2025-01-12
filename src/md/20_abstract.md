@@ -1,11 +1,11 @@
 \newpage
 # Abstract
 ## Abstract
-Due to their remote location, inspection and maintenance activities on offshore wind turbines are very costly both in terms of risk to workers' health and safety and in economic cost. As worldwide investment on renewable energy sources — including offshore wind turbines — grows, we can expect that toll to increase accordingly unless remedied.
+Wind power is already a substantial part of global electricity generation capacity and will be even more important as the world answers the United Nations' urgent call to shift toward sustainability. Structural health monitoring in offshore wind turbines can facilitate this shift by reducing the human and economic costs of their operation. Machine-learning algorithms can be applied to this problem but their adoption is fraught with pitfalls that can prevent replication of results, crucial in all scientific inquiry.
 
-Improved processing of remotely-sensed data can help minimize the number of interventions needed, and thus also the human and economic costs involved: if we can more accurately tell how a structure is doing we don't need people to put themselves at risk by checking in on it in person as often.
+In this thesis we attempt to replicate the results of an existing study which applies the _k_-nearest neighbors and support vector machine classifiers to structural health monitoring of offshore wind turbines. We also evaluate two potential improvements to the original methodology: using the Matthews correlation coefficient and the general performance score as performance measures and enforcing training and test data separation during pre-processing to avoid data leakage.
 
-In this project we take an existing proof of concept for an approach to structural health monitoring via machine learning algorithms, attempt to replicate its results using a different experimental dataset and evaluate some potential improvements.
+We find that the results of the original study can be replicated, that the Matthews correlation coefficient proves useful in scenarios with bad classifier performance and that data leakage avoidance corrects a small yet consistent bias towards overoptimistic results in the original's usage of the support vector machine classifier. This highlights the need for avoiding data leakage, especially in future works that attempt direct application in the industry.
 
 \newpage
 ## Resum
